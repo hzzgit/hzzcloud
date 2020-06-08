@@ -35,6 +35,15 @@ public class FreeMarkExcuter {
     }
 
     //读取表进行模板生成
+
+    /**
+     *
+     * @param table_schema 表所在数据库
+     * @param table_name 表名
+     * @param veanddepquanxian 车辆机构权限
+     * @param depquanxian 机构权限,车辆机构权限为true的时候,这个不生效
+     * @param iscommon 使用继承模板还是原始模板,一个是继承common,一个是没有
+     */
     public void readTable(String table_schema, String table_name, boolean veanddepquanxian, boolean depquanxian,boolean iscommon) {
         if(iscommon){//这边是依赖common的版本
             TEMPLATE_PATH=TEMPLATE_PATH1;
