@@ -16,14 +16,16 @@ import java.util.Properties;
 
 public class JdkDataSource {
 
-     public static MysqlDao mysqldb;
+     public static MysqlDao mysqldb=null;
 
     private static final String ORACLE = "oracleDataSource.properties";
     private static final String MYSQL = "DataSource.properties";
 
 
     public static  void jdkmysql(){
-        new JdkDataSource().createdateSource();
+        if(mysqldb==null) {
+            new JdkDataSource().createdateSource();
+        }
     }
 
     // 创建连接池

@@ -1,5 +1,10 @@
 package com.hzz.hzzcloud.test;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 public class 点到线段的距离 {
 
     public static void main(String[] args) {
@@ -28,7 +33,11 @@ public class 点到线段的距离 {
             System.out.println("t1="+t1);
             System.out.println("t2="+t2);
         }
+        double v = RandomUtils.nextDouble(122.22, 1111.2);
+        System.out.println(SystemUtils.JAVA_RUNTIME_VERSION );
+
     }
+
 
 
 
