@@ -1,6 +1,5 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.annotation.DbColNUll;
 import com.hzz.hzzcloud.jdbcutil.annotation.DbTableId;
 import com.hzz.hzzcloud.jdbcutil.annotation.DbTableName;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class Student  extends TenCla{
     private String name;
 
     private long age;
-    private boolean sex;
+    private Boolean sex;
 
     private Date birthday;
 
@@ -25,6 +24,7 @@ public class Student  extends TenCla{
     private String test;
 
     private Date testtime;
+
 
     @Override
     public String toString() {

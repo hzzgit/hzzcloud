@@ -20,7 +20,8 @@ import java.util.*;
 import ${packageVo.entity}.*;
 import ${packageVo.service}.*;
 import ${packageVo.exlvo}.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
 /**
 * ${tableconment}接口层
 */
@@ -76,10 +77,13 @@ public PaginateResult selectlist(
 @RequestParam(required = true) Long[] depIds,
 <#list tableColumnList as tablecolumn>
     <#if  tablecolumn.datatype=="varchar">
+        //${tablecolumn.columncomment}
         @RequestParam(required = false) String  ${tablecolumn.columnname},
     <#elseif  tablecolumn.datatype=="int">
+        //${tablecolumn.columncomment}
         @RequestParam(required = false) Long  ${tablecolumn.columnname},
     <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
+        //${tablecolumn.columncomment}
         @RequestParam(required = false) Date  start${tablecolumn.columnname},
         @RequestParam(required = false) Date  end${tablecolumn.columnname},
     </#if>
@@ -109,10 +113,13 @@ public void exportlist(
 @RequestParam(required = false) Long[] depIds,
 <#list tableColumnList as tablecolumn>
     <#if  tablecolumn.datatype=="varchar">
+        //${tablecolumn.columncomment}
         @RequestParam(value = "${tablecolumn.columnname}",required = false) String  ${tablecolumn.columnname},
     <#elseif  tablecolumn.datatype=="int">
+        //${tablecolumn.columncomment}
         @RequestParam(value = "${tablecolumn.columnname}",required = false) Long  ${tablecolumn.columnname},
     <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
+        //${tablecolumn.columncomment}
         @RequestParam(value = "${tablecolumn.columnname}",required = false) Date  start${tablecolumn.columnname},
         @RequestParam(value = "${tablecolumn.columnname}",required = false) Date  end${tablecolumn.columnname},
     </#if>
@@ -139,25 +146,49 @@ log.error("${tableconment}导出列表失败", e);
 
 
 private  Map getParams(HttpServletRequest request) {
-Map parameters = request.getParameterMap();
-Map paraMap = new HashMap();
-for (Object key : parameters.keySet()) {
-String strKey = "" + key;
-int index = strKey.indexOf("[]");
-if (index > 0) {
-strKey = strKey.replaceAll("\\[\\]", "");
-}
-String[] values = (String[]) parameters.get(key);
-if (values.length == 1) {
-String strValue = values[0];
-if (strValue != null && strValue.isEmpty() == false)
-paraMap.put(strKey, strValue);
-} else
-paraMap.put(strKey, values);
-}
-return paraMap;
-}
+    Map parameters = request.getParameterMap();
+    Map paraMap = new HashMap();
+    String rowdata = "";
+    if (parameters.size() > 0) {
+    for (Object key : parameters.keySet()) {
+    String strKey = "" + key;
+    int index = strKey.indexOf("[]");
+    if (index > 0) {
+    strKey = strKey.replaceAll("\\[\\]", "");
+    }
+    String[] values = (String[]) parameters.get(key);
+    if (values.length == 1) {
+    String strValue = values[0];
+    if (strValue != null && strValue.isEmpty() == false)
+    paraMap.put(strKey, strValue);
+    } else
+    paraMap.put(strKey, values);
+    }
+    } else {
+    BufferedReader br = null;
 
+    try {
+    br = request.getReader();
+    String line = br.readLine();
+    if (line == null) {
+
+    } else {
+    StringBuilder ret = new StringBuilder();
+    ret.append(line);
+
+    while ((line = br.readLine()) != null) {
+    ret.append('\n').append(line);
+    }
+
+    rowdata = ret.toString();
+    }
+    paraMap = (Map) JSON.parse(rowdata);
+    } catch (IOException var4) {
+    throw new RuntimeException(var4);
+    }
+    }
+    return paraMap;
+}
 
 //获取权限的Map
 private Map getquanxian(Uservehicleauthority uservehicleauthority, Map param){

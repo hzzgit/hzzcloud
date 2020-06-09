@@ -9,8 +9,10 @@
         select
         <#list tableColumnList as tablecolumn>
             <#if  tablecolumn_index= tableColumnList?size-1>
+                <!--  ${tablecolumn.columncomment}   -->
                 a.${tablecolumn.columnname}
             <#else >
+                <!--  ${tablecolumn.columncomment}   -->
                 a.${tablecolumn.columnname},
             </#if>
         </#list>
