@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--${tableconment}mapper -->
 <mapper namespace="${tablename}mapper">
 
+    <!--查询${tableconment}列表 -->s
     <select id="selectlist" parameterType="java.util.HashMap"
             resultType="java.util.HashMap">
         select
