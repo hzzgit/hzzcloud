@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Properties;
 
 public class JdkDataSource {

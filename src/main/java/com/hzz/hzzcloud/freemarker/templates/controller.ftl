@@ -97,6 +97,11 @@ return new JsonMessage(true, "操作成功");
         PaginateResult paginateResult = new PaginateResult(500, "服务器错误");
         try {
             Map params = getParams(request);
+            TokenUser tokenUser = TokenUser.getFromRequest(request);
+            if (!tokenUser.isSuperAdmin()) {
+            params.put("owner", tokenUser.getUserId());
+            params.put("userid", tokenUser.getUserId());
+            }
             UserVehicleAuthority uservehicleauthority=userVehicleRefCacheService.getUserVehicleAuthorityByWeb(depIds,request);
             getquanxian(uservehicleauthority, params);
             return ${tablename}service.selectlist(params, page, rows);
@@ -133,13 +138,20 @@ return new JsonMessage(true, "操作成功");
     ) {
           try {
             Map params = getParams(request);
+            TokenUser tokenUser = TokenUser.getFromRequest(request);
+            if (!tokenUser.isSuperAdmin()) {
+            params.put("owner", tokenUser.getUserId());
+            params.put("userid", tokenUser.getUserId());
+            }
             UserVehicleAuthority uservehicleauthority=userVehicleRefCacheService.getUserVehicleAuthorityByWeb(depIds,request);
             getquanxian(uservehicleauthority, params);
             PaginateResult selectmemberlist =${tablename}service.selectlist(params, 0, 0);
-            List rows = selectmemberlist.getRows();
+            List lists = selectmemberlist.getRows();
             List exldate = new ArrayList<>();
-            for (Object row : rows) {
+           for (int i = 0; i < lists.size(); i++) {
+             Object row=lists.get(i);
             ${entityName}ExlVo ${tablename} = MaptoBeanUtil.mapToBean((Map <String, Object>) row, ${entityName}ExlVo.class);
+            ${tablename}.setId(i+1);
             exldate.add(${tablename});
             }
             exceClasslUtil.exlport("${tableconment}", request, response, exldate, ${entityName}ExlVo.class);//调用easyexl模版进行导出exl特定标题的数据

@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@HeadRowHeight(25)
+@HeadRowHeight(35)
 public class ${entityName}ExlVo  extends BaseRowModel  {
 
 @ExcelProperty(value = {"序号"} )
