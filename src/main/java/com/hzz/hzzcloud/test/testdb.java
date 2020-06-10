@@ -6,15 +6,8 @@ import com.hzz.hzzcloud.jdbcutil.util.ConverMap;
 import com.hzz.hzzcloud.jdbcutil.vo.PaginateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class testdb {
@@ -22,7 +15,7 @@ public class testdb {
     @Autowired
     private MysqlDao hzzdao;
 
-    @PostConstruct
+    //@PostConstruct
     private void init(){
 
         List<Student> students=new ArrayList<>();

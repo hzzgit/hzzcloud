@@ -43,7 +43,7 @@
         * 保存${tableconment}
         */
         public void save(${entityName} ${tablename}) throws Exception {
-            if (${tablename}.getId() == 0) {//新增
+            if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
             jdbcUtil.insert(${tablename}).execute();
             } else {//修改
             jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all()).execute();

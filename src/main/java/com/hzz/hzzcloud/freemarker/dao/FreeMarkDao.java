@@ -28,6 +28,9 @@ public class FreeMarkDao {
         String  pricolname =null;//主键名称
         String ordervbyname=null;
         for (TableColumn tableColumn : query) {
+            tableColumn.setColumnname(tableColumn.getColumnname().toLowerCase());
+        }
+        for (TableColumn tableColumn : query) {
             if("PRI".equalsIgnoreCase(tableColumn.getColumnkey())){
                 pricolname=tableColumn.getColumnname();
                 break;
@@ -56,6 +59,13 @@ public class FreeMarkDao {
                 "AND table_name =?";
         TableNameVo tableNameVo = mysqlDao.queryFirst(sql, TableNameVo.class, table_schema, table_name);
         return tableNameVo;
+    }
+
+    public static void main(String[] args) {
+        String sql = "select table_schema tableschema,table_name tablename,\n" +
+                "column_name columnname,column_key columnkey,data_type datatype,column_comment columncomment  from\n" +
+                "information_schema.COLUMNS where table_schema =? and table_name=? ";
+        System.out.println(sql);
     }
 
 }

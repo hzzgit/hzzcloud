@@ -11,10 +11,10 @@
         <#list tableColumnList as tablecolumn>
             <#if  tablecolumn_index= tableColumnList?size-1>
                 <!--  ${tablecolumn.columncomment}   -->
-                a.${tablecolumn.columnname}
+                a.${tablecolumn.columnname?lower_case}
             <#else >
                 <!--  ${tablecolumn.columncomment}   -->
-                a.${tablecolumn.columnname},
+                a.${tablecolumn.columnname?lower_case},
             </#if>
         </#list>
         from
@@ -28,25 +28,26 @@
         </#if>
         where 1=1
         <#list tableColumnList as tablecolumn>
-            <#if tablecolumn.datatype=="int" && tablecolumn.columnname !="deleted">
-                <if test="${tablecolumn.columnname} != null ">
-                    and a.${tablecolumn.columnname}=${r"#"}{${tablecolumn.columnname}}
+            <#if tablecolumn.datatype=="int" && tablecolumn.columnname?lower_case !="deleted">
+                <if test="${tablecolumn.columnname?lower_case} != null ">
+                    and a.${tablecolumn.columnname?lower_case}=${r"#"}{${tablecolumn.columnname?lower_case}}
                 </if>
             </#if>
-            <#if  tablecolumn.columnname =="deleted">
+            <#if  tablecolumn.columnname?lower_case =="deleted">
                 and a.deleted=false
             </#if>
             <#if tablecolumn.datatype=="varchar">
-                <if test="${tablecolumn.columnname} != null ">
-                    and a.${tablecolumn.columnname} like '%${r"$"}{${tablecolumn.columnname}}%'
+                <if test="${tablecolumn.columnname?lower_case} != null ">
+                    and a.${tablecolumn.columnname?lower_case}=${r"#"}{${tablecolumn.columnname?lower_case}}
+                    <!-- and a.${tablecolumn.columnname?lower_case} like '%${r"$"}{${tablecolumn.columnname?lower_case}}%'-->
                 </if>
             </#if>
             <#if tablecolumn.datatype=="datetime">
-                <if test="start${tablecolumn.columnname} != null ">
-                    and a.${tablecolumn.columnname} >= ${r"#"}{start${tablecolumn.columnname} }
+                <if test="start${tablecolumn.columnname?lower_case} != null ">
+                    and a.${tablecolumn.columnname?lower_case} >= ${r"#"}{start${tablecolumn.columnname?lower_case} }
                 </if>
-                <if test="end${tablecolumn.columnname} != null ">
-                    and <![CDATA[ a.${tablecolumn.columnname} < ${r"#"}{end${tablecolumn.columnname} }]]>
+                <if test="end${tablecolumn.columnname?lower_case} != null ">
+                    and <![CDATA[ a.${tablecolumn.columnname?lower_case} < ${r"#"}{end${tablecolumn.columnname?lower_case} }]]>
                 </if>
             </#if>
         </#list>

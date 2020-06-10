@@ -15,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 @Configuration
 @ConditionalOnClass({DataSource.class, EmbeddedDatabaseType.class})
@@ -34,6 +32,7 @@ public class DaoAutoConfiguration {
     public MysqlDao createhzzSpringJdbcUtil(@Qualifier("dataSource") DataSource dataSource) {
         String jdbcUrl = ((HikariDataSource) dataSource).getJdbcUrl();
         MysqlDao ju = new Mysqldb(dataSource,new SpringConnectionSource(dataSource,true),jdbcUrl);
+        log.info("连接数据库成功");
         return  ju;
     }
 

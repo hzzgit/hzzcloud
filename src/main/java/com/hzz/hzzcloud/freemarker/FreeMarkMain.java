@@ -12,7 +12,8 @@ public class FreeMarkMain {
     public static void main(String[] args) {
         FreeMarkExcuter freeMarkExcuter=new FreeMarkExcuter();
 
-        freeMarkExcuter.readTable("subiaodb", "exlreadrecord",false,false,true);
+       // freeMarkExcuter.readTable("subiaodb", "exlreadrecord",false,false,true);
+        freeMarkExcuter.readTable("subiaodb", "maparea",false,false,true);
     }
 
 }

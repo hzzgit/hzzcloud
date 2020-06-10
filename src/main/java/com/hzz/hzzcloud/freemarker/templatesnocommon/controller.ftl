@@ -9,11 +9,13 @@ import net.fxft.ascswebcommon.vo.PaginateResult;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.hzz.hzzcloud.freemarker.util.RequestUtil;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
+import com.hzz.hzzcloud.freemarker.util.quanxianUtil;s
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -74,7 +76,7 @@ return new JsonMessage(true, "操作成功");
     public PaginateResult selectlist(
     @RequestParam(value = "page", defaultValue = "1") int page,
     @RequestParam(value = "rows", defaultValue = "10") int rows,
-    @RequestParam(required = true) Long[] depIds,
+    @RequestParam(required = false) Long[] depIds,
     <#list tableColumnList as tablecolumn>
         <#if  tablecolumn.datatype=="varchar">
             //${tablecolumn.columncomment}
@@ -99,7 +101,7 @@ return new JsonMessage(true, "操作成功");
         params.put("userid", onlineUser.getEntityId());
         }
         Uservehicleauthority uservehicleauthority=getUservehicleauthorityByWeb(depIds);
-        getquanxian(uservehicleauthority, params);
+        quanxianUtil.getquanxian(uservehicleauthority, params);
         return ${tablename}service.selectlist(params, page, rows);
         } catch (Exception e) {
         log.error("${tableconment}查询列表失败", e);
@@ -135,7 +137,7 @@ return new JsonMessage(true, "操作成功");
             try {
             Map params = getParams(request);
             Uservehicleauthority uservehicleauthority=getUservehicleauthorityByWeb(depIds);
-            getquanxian(uservehicleauthority, params);
+            quanxianUtil.getquanxian(uservehicleauthority, params);
             PaginateResult selectmemberlist =${tablename}service.selectlist(params, 0, 0);
             List rows = selectmemberlist.getRows();
             List exldate = new ArrayList<>();
@@ -197,18 +199,7 @@ return new JsonMessage(true, "操作成功");
                 return paraMap;
         }
 
-        //获取权限的Map
-        private Map getquanxian(Uservehicleauthority uservehicleauthority, Map param){
-                if(uservehicleauthority!=null) {
-                if (ConverterUtils.isList(uservehicleauthority.getDepIdList())) {
-                param.put("depIdList", uservehicleauthority.getDepIdList());
-                }
-                if (ConverterUtils.isList(uservehicleauthority.getVehicleIdList())) {
-                param.put("vehicleIdList", uservehicleauthority.getVehicleIdList());
-                }
-                }
-                return param;
-        }
+
 
 
 }
