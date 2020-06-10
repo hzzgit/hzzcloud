@@ -1,10 +1,13 @@
 package com.hzz.hzzcloud.freemarker.util;
 
+import com.hzz.hzzcloud.jdbcutil.util.ConverterUtils;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,7 +126,6 @@ public class MaptoBeanUtil {
         }
         return null;
     }
-
     /**
      * 将map的value值转为实体类中字段类型匹配的方法
      * @param value
@@ -135,22 +137,24 @@ public class MaptoBeanUtil {
 
         if (Long.class.getName().equals(fieldTypeClass.getName())
                 || long.class.getName().equals(fieldTypeClass.getName())) {
-            retVal = Long.parseLong(value.toString());
+            retVal = ConverterUtils.toLong(value.toString());
         } else if (Integer.class.getName().equals(fieldTypeClass.getName())
                 || int.class.getName().equals(fieldTypeClass.getName())) {
-            retVal = Integer.parseInt(value.toString());
+            retVal = ConverterUtils.toInt(value.toString());
         } else if (Float.class.getName().equals(fieldTypeClass.getName())
                 || float.class.getName().equals(fieldTypeClass.getName())) {
-            retVal = Float.parseFloat(value.toString());
-        } else if (Double.class.getName().equals(fieldTypeClass.getName())
+            retVal =ConverterUtils.toFloat(value.toString());
+        } else if (Date.class.getName().equals(fieldTypeClass.getName())
+                || Date.class.getName().equals(fieldTypeClass.getName())) {
+            retVal = ConverterUtils.toDate(value);
+        }else if (Double.class.getName().equals(fieldTypeClass.getName())
                 || double.class.getName().equals(fieldTypeClass.getName())) {
-            retVal = Double.parseDouble(value.toString());
+            retVal = ConverterUtils.toDouble(value);
         } else {
-            retVal = value;
+            retVal = ConverterUtils.toString(value);
         }
         return retVal;
     }
-
 
 
 }

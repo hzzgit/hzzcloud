@@ -177,6 +177,10 @@ public class ConverterUtils {
         }
     }
 
+    public static Date toDate(Object object){
+        return   toDate( object,  null);
+    }
+
     public static Date toDate(Object object, Date defaultVal) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
