@@ -9,6 +9,7 @@ public class TableVo {
     private String tableschema;//所在数据库
     private String tablename;//表名
     private String packpath;//class所在package位置
+    private String classname;//自定义的class名称
 
     private PackageVo packageVo;//各个类所在的package位置
     private  Boolean veanddepquanxian;//是否生成车辆机构权限
@@ -20,6 +21,13 @@ public class TableVo {
 
     private List<TableColumn> tableColumnList;//字段内容
 
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
 
     public String getOrdercol() {
         return ordercol;

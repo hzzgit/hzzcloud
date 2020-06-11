@@ -14,6 +14,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.*;
+import java.util.List;
 
 public class FreeMarkExcuter {
 
@@ -22,6 +23,7 @@ public class FreeMarkExcuter {
 
     private static final String TEMPLATE_PATH1 = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templates";
     private static final String TEMPLATE_PATHNOCOMMON = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesnocommon";
+    private static  final  String TEMPLATE_OTHER="D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesother";
 
 
     private static final String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\main";
@@ -65,11 +67,12 @@ public class FreeMarkExcuter {
         tableVo.setVeanddepquanxian(veanddepquanxian);//如果需要权限,那么就加入这个
         tableVo.setDepquanxian(depquanxian);
         PathVo pathVo = CreateDir(table_name);//各文件所在路径
-        PackageVo packageVo = new PackageVo(packpath + "." + table_name + "." + WebEnum.entity.getValue(),
-                packpath + "." + table_name + "." + WebEnum.controller,
-                packpath + "." + table_name + "." + WebEnum.service.getValue(),
-                packpath + "." + table_name + "." + WebEnum.vo.getValue(),
-                packpath + "." + table_name + "." + WebEnum.exlvo.getValue());
+        String packagetablename=packpath + "." + table_name;//这个是生成的文件夹的package名称
+        PackageVo packageVo = new PackageVo(packagetablename+ "." + WebEnum.entity.getValue(),
+                packagetablename + "." + WebEnum.controller,
+                packagetablename + "." + WebEnum.service.getValue(),
+                packagetablename + "." + WebEnum.vo.getValue(),
+                packagetablename+ "." + WebEnum.exlvo.getValue());
         String EntityName = firstcolUp(table_name);//首字符大写的名称
 
         tableVo.setEntityName(EntityName);//生成的实体类的类名,首字母大写
@@ -96,9 +99,42 @@ public class FreeMarkExcuter {
                 pathVo.getAllpath() + File.separator + tableVo.getTablename() + WebEnum.mapper.getValue() + ".xml",
                 tableVo);//创建mapper
 
+
+        System.out.println("开始读取自定义模板");
+
+        try {
+            configuration.setDirectoryForTemplateLoading(new File(TEMPLATE_OTHER));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //自定义模板引擎,命名规则,文件名-文件类型,例如test-java.ftl
+        List<String> otherfilenames = FileUtil.scanFilesWithRecursion(TEMPLATE_OTHER);
+        if(otherfilenames!=null&&otherfilenames.size()>0){
+            for (String otherfilename : otherfilenames) {
+                try {
+                    String realpath=otherfilename.substring(0,otherfilename.indexOf("."));
+                    String[] split = realpath.split("-");
+                    String filetype= split[1];
+                    String filename=split[0];
+                    String classname=firstcolUp(tableVo.getTablename()) +filename;
+                    tableVo.setClassname(classname);
+                    tableVo.getPackageVo().setOtherpackname(packagetablename);
+                    writetem(otherfilename,
+                            pathVo.getAllpath() + File.separator + classname + "."+filetype,
+                            tableVo);
+                    System.out.println("生成自定义模板"+otherfilename+",生成文件:"+pathVo.getAllpath() + File.separator + tableVo.getTablename() +filename + "."+filetype);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
+
         System.out.println(table_name + " 文件创建成功 !");
 
     }
+
+
 
     //写入模板
     private void writetem(String ftlpath, String classpath, TableVo tableVo) {
