@@ -32,7 +32,11 @@ public class FileUtil {
                     }
                     /**非文件夹**/
                     else {
-                        scanFiles.add(filelist[i].getName());
+                        String filename=filelist[i].getName();
+                        String filetype = filename.substring(filename.lastIndexOf("."));
+                        if(".ftl".equalsIgnoreCase(filetype)){
+                            scanFiles.add(filelist[i].getName());
+                        }
                     }
                 }
             }

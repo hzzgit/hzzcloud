@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper -->
+<mapper namespace="mapareamapper">
+
+    <!--查询列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.areaid,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  删除标志   -->
+                a.deleted,
+                <!--  持有者   -->
+                a.owner,
+                <!--     -->
+                a.remark,
+                <!--   报警类型，每个报警使用逗号隔开   -->
+                a.alarmtype,
+                <!--  围栏类型   -->
+                a.areatype,
+                <!--   是否根据时间   -->
+                a.bytime,
+                <!--  围栏的中心经度   -->
+                a.centerlat,
+                <!--  围栏的中心纬度   -->
+                a.centerlng,
+                <!--  超速持续时间   -->
+                a.delay,
+                <!--  机构id   -->
+                a.depid,
+                <!--  结束时间   -->
+                a.enddate,
+                <!--  地图标记时所用的图标   -->
+                a.icon,
+                <!--  关键点监控   -->
+                a.keypoint,
+                <!--  是否限速   -->
+                a.limitspeed,
+                <!--   统一线宽   -->
+                a.linewidth,
+                <!--  地图类型   -->
+                a.maptype,
+                <!--  最大速度限制   -->
+                a.maxspeed,
+                <!--  围栏名称   -->
+                a.name,
+                <!--  偏移报警延迟时间   -->
+                a.offsetdelay,
+                <!--  车牌号   -->
+                a.plateno,
+                <!--  围栏坐标点,字符串格式是x1,y1;x2,y2,分别代表左上角和右下角的坐标点值   -->
+                a.points,
+                <!--  半径，以地图的米为单位   -->
+                a.radius,
+                <!--  围栏号   -->
+                a.sn,
+                <!--  围栏有效期   -->
+                a.startdate,
+                <!--  状态   -->
+                a.status,
+                <!--     -->
+                a.businesstype,
+                <!--     -->
+                a.companyid
+        from
+        subiaodb.maparea as a
+
+        where 1=1
+                <if test="areaid != null ">
+                    and a.areaid=#{areaid}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                and a.deleted=false
+                <if test="owner != null ">
+                    and a.owner=#{owner}
+                    <!-- and a.owner like '%${owner}%'-->
+                </if>
+                <if test="remark != null ">
+                    and a.remark=#{remark}
+                    <!-- and a.remark like '%${remark}%'-->
+                </if>
+                <if test="alarmtype != null ">
+                    and a.alarmtype=#{alarmtype}
+                    <!-- and a.alarmtype like '%${alarmtype}%'-->
+                </if>
+                <if test="areatype != null ">
+                    and a.areatype=#{areatype}
+                    <!-- and a.areatype like '%${areatype}%'-->
+                </if>
+                <if test="delay != null ">
+                    and a.delay=#{delay}
+                </if>
+                <if test="depid != null ">
+                    and a.depid=#{depid}
+                </if>
+                <if test="startenddate != null ">
+                    and a.enddate >= #{startenddate }
+                </if>
+                <if test="endenddate != null ">
+                    and <![CDATA[ a.enddate < #{endenddate }]]>
+                </if>
+                <if test="icon != null ">
+                    and a.icon=#{icon}
+                    <!-- and a.icon like '%${icon}%'-->
+                </if>
+                <if test="keypoint != null ">
+                    and a.keypoint=#{keypoint}
+                </if>
+                <if test="maptype != null ">
+                    and a.maptype=#{maptype}
+                    <!-- and a.maptype like '%${maptype}%'-->
+                </if>
+                <if test="name != null ">
+                    and a.name=#{name}
+                    <!-- and a.name like '%${name}%'-->
+                </if>
+                <if test="offsetdelay != null ">
+                    and a.offsetdelay=#{offsetdelay}
+                </if>
+                <if test="plateno != null ">
+                    and a.plateno=#{plateno}
+                    <!-- and a.plateno like '%${plateno}%'-->
+                </if>
+                <if test="points != null ">
+                    and a.points=#{points}
+                    <!-- and a.points like '%${points}%'-->
+                </if>
+                <if test="sn != null ">
+                    and a.sn=#{sn}
+                </if>
+                <if test="startstartdate != null ">
+                    and a.startdate >= #{startstartdate }
+                </if>
+                <if test="endstartdate != null ">
+                    and <![CDATA[ a.startdate < #{endstartdate }]]>
+                </if>
+                <if test="status != null ">
+                    and a.status=#{status}
+                    <!-- and a.status like '%${status}%'-->
+                </if>
+                <if test="businesstype != null ">
+                    and a.businesstype=#{businesstype}
+                    <!-- and a.businesstype like '%${businesstype}%'-->
+                </if>
+                <if test="companyid != null ">
+                    and a.companyid=#{companyid}
+                </if>
+
+
+
+            order by a.createdate desc
+
+    </select>
+
+
+</mapper>
