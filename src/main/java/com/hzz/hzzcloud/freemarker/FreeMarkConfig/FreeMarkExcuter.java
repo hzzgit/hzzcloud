@@ -136,7 +136,14 @@ public class FreeMarkExcuter {
 
 
 
-    //写入模板
+
+
+    /**
+     * //写入模板
+     * @param ftlpath 模板路径
+     * @param classpath 要写入的文件路径
+     * @param tableVo 查出来的表的内容,字段名,表名注释等
+     */
     private void writetem(String ftlpath, String classpath, TableVo tableVo) {
         Writer out = null;
         // step4 加载模版文件
