@@ -13,7 +13,7 @@ public class FreeMarkMain {
         FreeMarkExcuter freeMarkExcuter=new FreeMarkExcuter();
 
        // freeMarkExcuter.readTable("subiaodb", "exlreadrecord",false,false,true);
-        freeMarkExcuter.readTable("subiaodb", "maparea",false,false,true);
+        freeMarkExcuter.readTable("subiaodb", "temperaturealarm",false,false,true);
     }
 
 }

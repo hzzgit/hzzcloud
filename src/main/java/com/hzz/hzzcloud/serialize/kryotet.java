@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
-
 @Service
 public class kryotet {
 
@@ -20,7 +18,7 @@ public class kryotet {
     @Autowired
     private RestTemplate restTemplate;
 
-    @PostConstruct
+    //@PostConstruct
     private void test() {
         AlarmConfig alarmConfig = new AlarmConfig();
         alarmConfig.setDepid(122);

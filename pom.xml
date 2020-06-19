@@ -37,11 +37,11 @@
             <version>2.1.3.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>${spring-cloud.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-dependencies</artifactId>-->
+<!--            <version>${spring-cloud.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>net.fxft</groupId>
             <artifactId>ascs-web-common</artifactId>
@@ -114,9 +114,17 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.hzz</groupId>
+                <artifactId>hzz-plugins</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+
         </plugins>
     </build>
 
