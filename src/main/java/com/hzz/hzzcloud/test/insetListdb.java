@@ -2,33 +2,34 @@ package com.hzz.hzzcloud.test;
 
 import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
-import com.hzz.hzzcloud.jdbcutil.util.ConverMap;
-import com.hzz.hzzcloud.jdbcutil.vo.FieldVo;
-import com.hzz.hzzcloud.jdbcutil.vo.PaginateResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class insetListdb {
 
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws  Exception {
       JdkDataSource.jdkmysql();
         MysqlDao mysqlDao= JdkDataSource.mysqldb;
 
-      Student student2121=new Student();
-        student2121.setId(0);
-        student2121.setName("ce");
-        FieldVo getinsertsql = mysqlDao.getinsertsql(student2121);
-        student2121.setAge(new Long(1121212112));
-        FieldVo getinsertsql2 = mysqlDao.getinsertsql(student2121);
-        List<FieldVo> fieldVos = Arrays.asList(getinsertsql, getinsertsql2);
+      System.out.println(1);
+      Double a=new Double(1.2);
+      Double a1=new Double(2.2);
+      long address = Addresser.addressOf(a);
+      System.out.println("Addess: " + address);
 
-        mysqlDao.excutesqlList(fieldVos);
+      long address1 = Addresser.addressOf(a1);
+      System.out.println("Addess: " + address1);
+      Console console = System.console();
+      Properties properties = System.getProperties();
+      List<String> stringList=new ArrayList<>();
+
+      System.out.println(1);
     }
 
 }

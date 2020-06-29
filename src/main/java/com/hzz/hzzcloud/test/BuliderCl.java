@@ -12,6 +12,7 @@ public class BuliderCl {
     private String name;
     private Long age;
 
+
     public static void main(String[] args) {
         BuliderCl test = BuliderCl.builder().age(new Long(1)).co(21).name("TEST").build();
         BuliderCl te1=BuliderCl.builder().build();

@@ -3,6 +3,7 @@ package com.hzz.hzzcloud.test;
 
 import com.ltmonitor.jt808.protocol.IMessageBody;
 import com.ltmonitor.jt808.protocol.MyBuffer;
+import net.fxft.common.util.ByteUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -68,6 +69,7 @@ public class JT_8607 implements IMessageBody {
 
         return bytes.array();
     }
+    @Override
     public final void ReadFromBytes(int version, byte[] bytes) {
         this.setRoutesCount(bytes[0]);
         this.setRouteIDs(new ArrayList(this.getRoutesCount()));
@@ -95,5 +97,14 @@ public class JT_8607 implements IMessageBody {
         MyBuffer bytes22= new MyBuffer();
         bytes22.put(a);
         System.out.println(bytes22.array());
+
+        byte[] bytes3 = ByteUtil.hexStrToBytes("7E0200004A013302799653F8F900000000000C00C301D7B57E073D6320000D0000004D20042802300601040000B49B02020000030200002504000000002B040000000030011D31010DEB0C000A000300000705FF00FF00CE7E");
+        MyBuffer bu= new MyBuffer(bytes3);
+
+
+        byte[] sourbyte=ByteUtil.hexStrToBytes("00000000000C00C301D7B57E073D6320000D0000004D20042802300601040000B49B02020000030200002504000000002B040000000030011D31010DEB0C000A000300000705FF00FF00");
+
+
+
     }
 }

@@ -57,6 +57,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
 
 
     //查询处理之后一条一条进行处理
+    @Override
     public <T> void ConsumeQuery(String sql, Class<T> object2, Consumer<T> consumer, Object... wdata) {
         SearchExecuter searchExecuter = new SearchExecuter(connSource, sql, object2, wdata);
         searchExecuter.ConsumeQuery(consumer);
@@ -71,6 +72,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
+    @Override
     public <T> T queryFirst(String sql, Class<T> object2, Object... wdata) {
         List<T> searchnopagesqlclass = searchnopagesqlclass(sql, object2, wdata);
         if (searchnopagesqlclass != null && searchnopagesqlclass.size() > 0) {
@@ -87,6 +89,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
+    @Override
     public ConverMap queryFirst(String sql, Object... wdata) {
         List<ConverMap> searchnopagesqlclass = searchnopagesqlobject(sql, wdata);
         if (searchnopagesqlclass != null && searchnopagesqlclass.size() > 0) {
@@ -104,6 +107,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
+    @Override
     public <T> List<T> query(String sql, Class<T> object2, Object... wdata) {
         return searchnopagesqlclass(sql, object2, wdata);
     }
@@ -119,6 +123,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param <T>
      * @return
      */
+    @Override
     public <T> PaginateResult queryPage(String sql, Class<T> object2, int page, int pagesize,
                                         Object... wdata) {
         List<T> pages = queryByPage(sql, object2, page, pagesize, wdata);
@@ -135,6 +140,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
+    @Override
     public List<ConverMap> query(String sql, Object... wdata) {
         return searchnopagesqlobject(sql, wdata);
     }
@@ -146,7 +152,8 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
-    public <T>List<T> queryFirstOne(String sql,  Object... wdata){
+    @Override
+    public <T>List<T> queryFirstOne(String sql, Object... wdata){
         return searchfirstcol(sql,wdata);
     }
 
@@ -164,6 +171,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param wdata
      * @return
      */
+    @Override
     public PaginateResult queryPage(String sql, int page, int pagesize,
                                     Object... wdata) {
         List<ConverMap> pages = queryByPage(sql, page, pagesize, wdata);
@@ -179,6 +187,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param objects
      * @param <T>
      */
+    @Override
     public <T> void insertList(List<T> objects) throws Exception {
         SearchExecuter searchExecuter = new SearchExecuter(connSource, null, null);
         searchExecuter.begintransaction();
@@ -194,6 +203,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * 批量执行,带事务
      * @param vos
      */
+    @Override
     public void excutesqlList(List<FieldVo> vos){
         SearchExecuter searchExecuter = new SearchExecuter(connSource, null, null);
         searchExecuter.begintransaction();
@@ -209,6 +219,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      * @param object            插入的实体类
      * @param setAutoIdToTarget 是否获取插入的主键
      */
+    @Override
     public void insert(Object object, boolean setAutoIdToTarget) {
         FieldVo getinsertsql = getinsertsql(object);
         if (!StringUtils.isNullOrEmpty(getinsertsql.getSql())) {
@@ -228,6 +239,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      *
      * @param object 实体类,不获取到自增的主键
      */
+    @Override
     public void insert(Object object) {
         FieldVo getinsertsql = getinsertsql(object);
         if (!StringUtils.isNullOrEmpty(getinsertsql.getSql())) {
@@ -240,6 +252,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
     /**
      * 修改,这边是根据主键修改所有字段
      */
+    @Override
     public void update(Object object) {
         FieldVo getupdatesql = getupdatesql(object);
         if (!StringUtils.isNullOrEmpty(getupdatesql.getSql())) {
@@ -250,6 +263,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
     }
 
     //直接执行一个sql,增删改都可以
+    @Override
     public void excutesql(String sql, Object... wdata) {
         executesql(sql, null, wdata);
     }
@@ -259,6 +273,7 @@ public class Mysqldb extends SqlExecuter implements MysqlDao {
      *
      * @return
      */
+    @Override
     public String arrtoStr(Collection list) {
         String str = "";
         if (list != null && list.size() > 0) {

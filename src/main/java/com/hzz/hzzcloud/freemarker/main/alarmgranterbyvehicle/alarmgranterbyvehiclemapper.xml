@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--报警转发规则和车辆权限表mapper -->
+<mapper namespace="alarmgranterbyvehiclemapper">
+
+    <!--查询报警转发规则和车辆权限表列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  配置id   -->
+                a.configid,
+                <!--  车辆主键   -->
+                a.vehicleid,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  删除标志,0代表未删除,1代表删除   -->
+                a.deleted
+        from
+        subiaodb.alarmgranterbyvehicle as a
+
+        where 1=1
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="configid != null ">
+                    and a.configid=#{configid}
+                </if>
+                <if test="vehicleid != null ">
+                    and a.vehicleid=#{vehicleid}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                and a.deleted=false
+
+
+
+            order by a.createdate desc
+
+    </select>
+
+
+</mapper>

@@ -1,12 +1,8 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
 import com.hzz.hzzcloud.jdbcutil.util.ConverMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,6 +31,8 @@ public class Lambda表达式 {
         Map<String, List<Student>> collect = query.stream().
                 sorted(Comparator.comparing(Student::getAge)).
                 collect(Collectors.groupingBy(Student::getName));
+        Map<Long,List<Student>> ageMapStudent=query.stream().sorted(Comparator.comparing(Student::getAge))
+                .collect(Collectors.groupingBy(Student::getAge));
         Double collect1 = query.stream().collect(Collectors.averagingLong(Student::getAge));
         List<Double> doubles= Arrays.asList(1.2,4.5,212.33,131.44,2131.22,1.2);
         Double collect2 = doubles.stream().collect(Collectors.averagingDouble(Double::doubleValue));
