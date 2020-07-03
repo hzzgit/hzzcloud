@@ -14,11 +14,7 @@ public class FreeMarkMain {
         FreeMarkExcuter freeMarkExcuter=new FreeMarkExcuter();
 
        // freeMarkExcuter.readTable("subiaodb", "exlreadrecord",false,false,true);
-        freeMarkExcuter.readTable("subiaodb", "alarmgranter",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "alarmgranteruserlim",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "alarmgranterbyvehicle",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "alarmgranterbydep",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "alarmgrantertopic",false,false, TemplateEnum.TEMPLATE_PATH1,false);
+        freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200701",false,false, TemplateEnum.TEMPLATE_PATH1,false);
     }
 
 }

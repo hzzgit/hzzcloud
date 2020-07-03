@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper -->
+<mapper namespace="gpsinfo_20200701mapper">
+
+    <!--查询列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--     -->
+                a.gpsid,
+                <!--     -->
+                a.uuid,
+                <!--     -->
+                a.simnohash,
+                <!--     -->
+                a.simno,
+                <!--     -->
+                a.vehicleid,
+                <!--     -->
+                a.createdate,
+                <!--     -->
+                a.sendtime,
+                <!--     -->
+                a.alarmstate,
+                <!--     -->
+                a.altitude,
+                <!--     -->
+                a.direction,
+                <!--     -->
+                a.gas,
+                <!--     -->
+                a.latitude,
+                <!--     -->
+                a.longitude,
+                <!--     -->
+                a.mileage,
+                <!--     -->
+                a.recordvelocity,
+                <!--     -->
+                a.status,
+                <!--     -->
+                a.valid,
+                <!--     -->
+                a.velocity,
+                <!--     -->
+                a.signalstate,
+                <!--     -->
+                a.abnormaltype,
+                <!--     -->
+                a.fromflag,
+                <!--     -->
+                a.extendversion,
+                <!--     -->
+                a.extendjson
+        from
+        gps_hisdata.gpsinfo_20200701 as a
+
+        where 1=1
+                <if test="simnohash != null ">
+                    and a.simnohash=#{simnohash}
+                </if>
+                <if test="simno != null ">
+                    and a.simno=#{simno}
+                    <!-- and a.simno like '%${simno}%'-->
+                </if>
+                <if test="vehicleid != null ">
+                    and a.vehicleid=#{vehicleid}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                <if test="startsendtime != null ">
+                    and a.sendtime >= #{startsendtime }
+                </if>
+                <if test="endsendtime != null ">
+                    and <![CDATA[ a.sendtime < #{endsendtime }]]>
+                </if>
+                <if test="alarmstate != null ">
+                    and a.alarmstate=#{alarmstate}
+                </if>
+                <if test="direction != null ">
+                    and a.direction=#{direction}
+                </if>
+                <if test="status != null ">
+                    and a.status=#{status}
+                </if>
+                <if test="signalstate != null ">
+                    and a.signalstate=#{signalstate}
+                </if>
+                <if test="abnormaltype != null ">
+                    and a.abnormaltype=#{abnormaltype}
+                </if>
+                <if test="fromflag != null ">
+                    and a.fromflag=#{fromflag}
+                </if>
+                <if test="extendversion != null ">
+                    and a.extendversion=#{extendversion}
+                </if>
+
+
+
+            order by a.createdate desc
+
+    </select>
+
+
+</mapper>

@@ -23,6 +23,7 @@ public class SpringConnectionSource implements ConnectionhzzSource {
     }
 
 
+    @Override
     public Connection getConnection() throws SQLException {
         if(isspringarg) {
             return DataSourceUtils.getConnection(this.dataSource);
@@ -31,19 +32,24 @@ public class SpringConnectionSource implements ConnectionhzzSource {
         }
     }
 
+    @Override
     public void setAutoCommit(Connection conn, boolean autoCommit) {
     }
 
+    @Override
     public void rollback(Connection conn) {
     }
 
+    @Override
     public void commit(Connection conn) {
     }
 
+    @Override
     public void close(Connection conn) {
         DataSourceUtils.releaseConnection(conn, this.dataSource);
     }
 
+    @Override
     public void close(Statement stmt) {
         try {
             if (stmt != null) {
@@ -55,6 +61,7 @@ public class SpringConnectionSource implements ConnectionhzzSource {
 
     }
 
+    @Override
     public void close(Statement stmt, Connection conn) {
         this.close(stmt);
         this.close(conn);

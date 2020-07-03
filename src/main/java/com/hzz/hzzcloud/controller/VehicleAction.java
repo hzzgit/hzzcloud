@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,5 +24,15 @@ public class VehicleAction {
     public JsonMessage abc() {
         String userName = request.getHeader("userName");
         return  new JsonMessage(true,userName);
+    }
+
+    @ResponseBody
+    @RequestMapping("/alarm.action")
+    public ResultVo alarm(@RequestBody AlarmGranterEvent alarmGranterEvent) {
+        System.out.println(alarmGranterEvent);
+        ResultVo resultVo = new ResultVo();
+        resultVo.setMsg("请求成");
+        resultVo.setStatus(1);
+        return  resultVo;
     }
 }
