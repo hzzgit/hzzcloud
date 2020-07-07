@@ -223,4 +223,37 @@ public class ByteUtil {
             return false;
         }
     }
+    public static String intTobinary2sys(long n){
+        String str = "";
+        while(n!=0){
+            str = n%2+str;
+            n = n/2;
+        }
+        return  str;
+    }
+
+    public static String tobinary2sys(Object n){
+        String name="";
+        if(n.getClass()==(Integer.class)){
+            name=Integer.toBinaryString((Integer) n);
+        }
+       else if(n.getClass()==(Short.class)){
+            name=Short.toString((Short) n);
+        }
+        else  if(n.getClass()==(Long.class)){
+            name=Long.toBinaryString((Long) n);
+        }
+        return name;
+    }
+
+    public static void main(String[] args) {
+        byte[] bytes = ByteUtil.intTo3Byte(789632);
+
+        String e16="EEFFEEFFEEFF";
+        Long i = Long.parseLong(e16,16);
+         String s1 = ByteUtil.tobinary2sys(i);
+        String string = Long.toBinaryString(i);
+        String s = ByteUtil.intTobinary2sys(i);
+        System.out.println(1);
+    }
 }
