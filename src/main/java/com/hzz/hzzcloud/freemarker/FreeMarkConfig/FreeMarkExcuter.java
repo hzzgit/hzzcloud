@@ -183,6 +183,9 @@ public class FreeMarkExcuter {
 
         String[] paths = new String[]{allpath, entitypath, Controllerpath, Servicepath, Vopath, exlVopath};
         for (String path : paths) {
+            deleteDir(path);
+        }
+        for (String path : paths) {
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdir();
@@ -190,6 +193,34 @@ public class FreeMarkExcuter {
         }
         return new PathVo(allpath, entitypath, Controllerpath, Servicepath, Vopath, exlVopath);
     }
+
+    /**
+     * 迭代删除文件夹
+     * @param dirPath 文件夹路径
+     */
+    private  void deleteDir(String dirPath)
+    {
+        File file = new File(dirPath);
+        if(file.isFile())
+        {
+            file.delete();
+        }else
+        {
+            File[] files = file.listFiles();
+            if(files == null)
+            {
+                file.delete();
+            }else
+            {
+                for (int i = 0; i < files.length; i++)
+                {
+                    deleteDir(files[i].getAbsolutePath());
+                }
+                file.delete();
+            }
+        }
+    }
+
 
     /**
      * 首字符大写

@@ -1,4 +1,5 @@
 package com.hzz.hzzcloud.freemarker;
+
 import com.hzz.hzzcloud.freemarker.FreeMarkConfig.FreeMarkExcuter;
 import com.hzz.hzzcloud.freemarker.emun.TemplateEnum;
 
@@ -13,8 +14,9 @@ public class FreeMarkMain {
     public static void main(String[] args) {
         FreeMarkExcuter freeMarkExcuter=new FreeMarkExcuter();
 
-       // freeMarkExcuter.readTable("subiaodb", "exlreadrecord",false,false,true);
-        freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200701",false,false, TemplateEnum.TEMPLATE_PATH1,false);
+       // freeMarkExcuter.readTable("subiaodb", "talkchannel",false,false,true);
+      //  freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200701",false,false, TemplateEnum.TEMPLATE_PATH1,false);
+        freeMarkExcuter.readTable("subiaodb", "alarmgranter",true,false, TemplateEnum.TEMPLATE_PATH1,false);
     }
 
 }
