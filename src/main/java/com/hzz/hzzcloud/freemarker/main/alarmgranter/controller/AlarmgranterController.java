@@ -1,31 +1,31 @@
 package com.hzz.hzzcloud.freemarker.main.alarmgranter.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.hzz.hzzcloud.jdbcutil.util.ConverterUtils;
+import com.hzz.hzzcloud.freemarker.main.alarmgranter.entity.Alarmgranter;
+import com.hzz.hzzcloud.freemarker.main.alarmgranter.exlvo.AlarmgranterExlVo;
+import com.hzz.hzzcloud.freemarker.main.alarmgranter.service.AlarmgranterService;
+import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
+import com.hzz.hzzcloud.freemarker.util.RequestUtil;
+import com.hzz.hzzcloud.freemarker.util.quanxianUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.online.TokenUser;
+import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
 import net.fxft.ascswebcommon.util.easyexcel.EasyExceClasslUtil;
 import net.fxft.ascswebcommon.vo.PaginateResult;
+import net.fxft.ascswebcommon.vo.UserVehicleAuthority;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.hzz.hzzcloud.freemarker.util.quanxianUtil;
-import com.hzz.hzzcloud.freemarker.util.RequestUtil;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
-import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
-import net.fxft.ascswebcommon.vo.UserVehicleAuthority;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
-import com.hzz.hzzcloud.freemarker.main.alarmgranter.entity.*;
-import com.hzz.hzzcloud.freemarker.main.alarmgranter.service.*;
-import com.hzz.hzzcloud.freemarker.main.alarmgranter.exlvo.*;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 /**
 * 报警转发规则配置接口层
 */
@@ -60,7 +60,7 @@ return new JsonMessage(true, "操作成功");
 
     /**
     * 删除报警转发规则配置
-    *
+    * @param id 主键
     * @return
     */
     @ResponseBody
@@ -72,7 +72,15 @@ return new JsonMessage(true, "操作成功");
 
     /**
     * 查询列表
-    *
+    *   @param  id 主键
+    *   @param  name 规则名称
+    *   @param  startcreatedate 创建时间开始时间
+    *   @param  endcreatedate 创建时间结束时间
+    *   @param  startupdatedate 修改时间开始时间
+    *   @param  endupdatedate 修改时间结束时间
+    *   @param  userid 用户id
+    *   @param  deleted 删除标志,1代表删除,0代表正常
+    *   @param  url 访问接口
     * @return
     */
     @ResponseBody
@@ -119,7 +127,16 @@ return new JsonMessage(true, "操作成功");
 
     /**
     * 导出列表文件
-    *
+    *   @param  id 主键
+    *   @param  name 规则名称
+    *   @param  startcreatedate 创建时间开始时间
+    *   @param  endcreatedate 创建时间结束时间
+    *   @param  startupdatedate 修改时间开始时间
+    *   @param  endupdatedate 修改时间结束时间
+    *   @param  userid 用户id
+    *   @param  deleted 删除标志,1代表删除,0代表正常
+    *   @param  url 访问接口
+    * @return
     */
     @ResponseBody
     @RequestMapping("/exportlist.action")

@@ -55,7 +55,7 @@ return new JsonMessage(true, "操作成功");
 
 /**
 * 删除${tableconment}
-*
+* @param id 主键
 * @return
 */
 @ResponseBody
@@ -68,7 +68,16 @@ return new JsonMessage(true, "操作成功");
 
     /**
     * 查询列表
-    *
+<#list tableColumnList as tablecolumn>
+    <#if  tablecolumn.datatype=="varchar">
+    *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+    <#elseif  tablecolumn.datatype=="int">
+    *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+    <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
+    *   @param  start${tablecolumn.columnname} ${tablecolumn.columncomment}开始时间
+    *   @param  end${tablecolumn.columnname} ${tablecolumn.columncomment}结束时间
+    </#if>
+</#list>
     * @return
     */
     @ResponseBody
@@ -112,7 +121,17 @@ return new JsonMessage(true, "操作成功");
 
         /**
         * 导出列表文件
-        *
+<#list tableColumnList as tablecolumn>
+    <#if  tablecolumn.datatype=="varchar">
+        *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+    <#elseif  tablecolumn.datatype=="int">
+        *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+    <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
+        *   @param  start${tablecolumn.columnname} ${tablecolumn.columncomment}开始时间
+        *   @param  end${tablecolumn.columnname} ${tablecolumn.columncomment}结束时间
+    </#if>
+</#list>
+        * @return
         */
         @ResponseBody
         @RequestMapping("/exportlist.action")
