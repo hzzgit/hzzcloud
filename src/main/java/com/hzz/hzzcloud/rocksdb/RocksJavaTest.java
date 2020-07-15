@@ -1,5 +1,7 @@
 package com.hzz.hzzcloud.rocksdb;
 
+import com.hzz.hzzcloud.test.Student;
+import net.fxft.gateway.util.KryoUtil;
 import org.rocksdb.*;
 
 import java.io.IOException;
@@ -19,17 +21,21 @@ class RocksJavaTest {
 
     RocksDB rocksDB;
 
-    //  RocksDB.DEFAULT_COLUMN_FAMILY
-    public void testDefaultColumnFamily() throws RocksDBException, IOException {
+
+    public void connect() throws IOException, RocksDBException {
         Options options = new Options();
         options.setCreateIfMissing(true);
-
         // 文件不存在，则先创建文件
         if (!Files.isSymbolicLink(Paths.get(dbPath))) {
             Files.createDirectories(Paths.get(dbPath));
         }
         rocksDB = RocksDB.open(options, dbPath);
 
+    }
+
+    //  RocksDB.DEFAULT_COLUMN_FAMILY
+    public void testDefaultColumnFamily() throws RocksDBException, IOException {
+        connect();
         /**
          * 简单key-value
          */
@@ -134,8 +140,15 @@ class RocksJavaTest {
 
     public static void main(String[] args) throws Exception {
         RocksJavaTest test = new RocksJavaTest();
-        test.testDefaultColumnFamily();
+    //    test.testDefaultColumnFamily();
 //        test.testCertainColumnFamily();
+        test.connect();
+        Student student=new Student();
+        student.setName("测试");
+        test.rocksDB.put("test".getBytes(), KryoUtil.object2clsbyte(student));
+        byte[] bytes = test.rocksDB.get("test".getBytes());
+        Student o = KryoUtil.clsbyte2object(bytes);
+        System.out.println(1);
     }
 
 }

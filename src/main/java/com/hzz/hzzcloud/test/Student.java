@@ -4,11 +4,12 @@ import com.hzz.hzzcloud.jdbcutil.annotation.DbTableId;
 import com.hzz.hzzcloud.jdbcutil.annotation.DbTableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @DbTableName(value = "Student")
 @Data
-public class Student  extends TenCla{
+public class Student  extends TenCla implements Serializable {
 
     @DbTableId
     private Integer id;
