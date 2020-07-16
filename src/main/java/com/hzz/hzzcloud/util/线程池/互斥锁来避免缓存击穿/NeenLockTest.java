@@ -1,4 +1,4 @@
-package com.hzz.hzzcloud.线程池.互斥锁来避免缓存击穿;
+package com.hzz.hzzcloud.util.线程池.互斥锁来避免缓存击穿;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -230,6 +230,7 @@ public class MyBuffer {
 
 
     public static void main(String[] args) {
+
         MyBuffer myBuffer=new MyBuffer();
         myBuffer.put(1);
         myBuffer.put(12);
@@ -237,14 +238,17 @@ public class MyBuffer {
         myBuffer.put(4);
         myBuffer.put(3);
         myBuffer.put(2);
+        myBuffer.put(new Long(1222));
         byte[] array = myBuffer.array();
-
-
+        byte[] longarra=new byte[8];
+       System.arraycopy(array,24,longarra,0,8);
         MyBuffer myBuffer2=new MyBuffer(array);
-
+        long l = ByteUtil.byteToLong(longarra);
         while (myBuffer2.hasRemain()){
             int anInt = myBuffer2.getInt();
             int remain = myBuffer2.remain();
+            System.out.println(anInt);
+            System.out.println(remain);
         }
 
 

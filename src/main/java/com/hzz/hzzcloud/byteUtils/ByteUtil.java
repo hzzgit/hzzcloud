@@ -193,6 +193,12 @@ public class ByteUtil {
         return b;
     }
 
+    //字节转2进制
+    public static String byteto2hex(byte tByte){
+        String tString = Integer.toBinaryString((tByte & 0xFF) + 0x100).substring(1);
+        return  tString;
+    }
+
     private static int parse(char c) {
         if (c >= 'a') {
             return c - 97 + 10 & 15;
@@ -255,5 +261,8 @@ public class ByteUtil {
         String string = Long.toBinaryString(i);
         String s = ByteUtil.intTobinary2sys(i);
         System.out.println(1);
+
+
+        System.out.println(byteto2hex((byte) 22));
     }
 }
