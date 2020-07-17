@@ -30,6 +30,8 @@ public class insetListdb {
       List<String> stringList=new ArrayList<>();
 
       System.out.println(1);
+      byte sa=1;
+
     }
 
 }

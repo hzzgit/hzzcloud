@@ -28,6 +28,7 @@ public class 内部类调用里面的参数 {
     }
 
     public static void main(String[] args) {
+
         内部类调用里面的参数 s=new 内部类调用里面的参数();
 
 
