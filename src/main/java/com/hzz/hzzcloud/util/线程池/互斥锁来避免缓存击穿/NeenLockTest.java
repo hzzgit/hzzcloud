@@ -74,7 +74,7 @@ public class NeenLockTest {
     }
 
     public static void main(String[] args) {
-        NeenLockTest neenLockTest = new NeenLockTest();
+        NeenLockTest neenLockTest =  new NeenLockTest();
         AtomicInteger all=new AtomicInteger(0);
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {

@@ -13,11 +13,12 @@ public class Test {
         Node node2 = new Node(2, 2, 3, null);
         Node node3 = new Node(2, 3, 3, null);
         node2.next = node3;
-        Node node4 = new Node(2, 4, 3, node3);
+        Node node4 = new Node(2, 4, 3, null);
         node3.next = node4;
+        node1.next=node2;
 
         list[0] = node1;
-        list[1] = node4;
+        list[1] = node1;
 
         new Thread(() -> {
             Node node = list[0];
