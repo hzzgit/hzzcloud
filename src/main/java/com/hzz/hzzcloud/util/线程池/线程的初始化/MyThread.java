@@ -13,6 +13,12 @@ public class MyThread implements  Runnable{
     @Override
     public void run() {
         System.out.println(idd++);
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
