@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--人员表（唯一从业资格证和姓名，保存司机信息和押运员信息）mapper -->
+<mapper namespace="personmanagemapper">
+
+    <!--查询人员表（唯一从业资格证和姓名，保存司机信息和押运员信息）列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  从业资格证号   -->
+                a.certificate,
+                <!--     -->
+                a.id,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  从业资格证类型   -->
+                a.certificatetype,
+                <!--  详细住址   -->
+                a.address,
+                <!--  准驾车型   -->
+                a.drivingtype,
+                <!--  驾驶员姓名   -->
+                a.drivername,
+                <!--  司机图片路径   -->
+                a.driverimgurl,
+                <!--  更新时间   -->
+                a.updatedate,
+                <!--  性别   -->
+                a.sex,
+                <!--  发证机构名称   -->
+                a.licenseagency,
+                <!--  身份证号   -->
+                a.sfzh,
+                <!--  证件有效期   -->
+                a.invaliddate,
+                <!--  联系电话   -->
+                a.phone,
+                <!--  发证时间   -->
+                a.isusedate,
+                <!--  年审日期   -->
+                a.carefuldate,
+                <!--  监督机构   -->
+                a.monitororg,
+                <!--  监督电话   -->
+                a.monitorphone,
+                <!--  人员类型，暂时是0代表司机，1代表押运员，后续可能会添加   -->
+                a.persontype,
+                <!--  福路通卡号   -->
+                a.fullertoncard,
+                <!--  组织机构id   -->
+                a.region,
+                <!--  其他司机照片   -->
+                a.otherimg,
+                <!--  驾驶证正面照片   -->
+                a.driverlicencefrontimg,
+                <!--  驾驶证副本照片   -->
+                a.driverlicencebackimg,
+                <!--  从业资格证照片   -->
+                a.certificateimg
+        from
+        subiaodb.personmanage as a
+            left join vehicle v on a.vehicleId =v.vehicleId and v.deleted=false
+
+        where 1=1
+                <if test="certificate != null ">
+                    and a.certificate=#{certificate}
+                    <!-- and a.certificate like '%${certificate}%'-->
+                </if>
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                <if test="certificatetype != null ">
+                    and a.certificatetype=#{certificatetype}
+                    <!-- and a.certificatetype like '%${certificatetype}%'-->
+                </if>
+                <if test="address != null ">
+                    and a.address=#{address}
+                    <!-- and a.address like '%${address}%'-->
+                </if>
+                <if test="drivingtype != null ">
+                    and a.drivingtype=#{drivingtype}
+                    <!-- and a.drivingtype like '%${drivingtype}%'-->
+                </if>
+                <if test="drivername != null ">
+                    and a.drivername=#{drivername}
+                    <!-- and a.drivername like '%${drivername}%'-->
+                </if>
+                <if test="driverimgurl != null ">
+                    and a.driverimgurl=#{driverimgurl}
+                    <!-- and a.driverimgurl like '%${driverimgurl}%'-->
+                </if>
+                <if test="startupdatedate != null ">
+                    and a.updatedate >= #{startupdatedate }
+                </if>
+                <if test="endupdatedate != null ">
+                    and <![CDATA[ a.updatedate < #{endupdatedate }]]>
+                </if>
+                <if test="sex != null ">
+                    and a.sex=#{sex}
+                    <!-- and a.sex like '%${sex}%'-->
+                </if>
+                <if test="licenseagency != null ">
+                    and a.licenseagency=#{licenseagency}
+                    <!-- and a.licenseagency like '%${licenseagency}%'-->
+                </if>
+                <if test="sfzh != null ">
+                    and a.sfzh=#{sfzh}
+                    <!-- and a.sfzh like '%${sfzh}%'-->
+                </if>
+                <if test="startinvaliddate != null ">
+                    and a.invaliddate >= #{startinvaliddate }
+                </if>
+                <if test="endinvaliddate != null ">
+                    and <![CDATA[ a.invaliddate < #{endinvaliddate }]]>
+                </if>
+                <if test="phone != null ">
+                    and a.phone=#{phone}
+                    <!-- and a.phone like '%${phone}%'-->
+                </if>
+                <if test="startisusedate != null ">
+                    and a.isusedate >= #{startisusedate }
+                </if>
+                <if test="endisusedate != null ">
+                    and <![CDATA[ a.isusedate < #{endisusedate }]]>
+                </if>
+                <if test="startcarefuldate != null ">
+                    and a.carefuldate >= #{startcarefuldate }
+                </if>
+                <if test="endcarefuldate != null ">
+                    and <![CDATA[ a.carefuldate < #{endcarefuldate }]]>
+                </if>
+                <if test="monitororg != null ">
+                    and a.monitororg=#{monitororg}
+                    <!-- and a.monitororg like '%${monitororg}%'-->
+                </if>
+                <if test="monitorphone != null ">
+                    and a.monitorphone=#{monitorphone}
+                    <!-- and a.monitorphone like '%${monitorphone}%'-->
+                </if>
+                <if test="persontype != null ">
+                    and a.persontype=#{persontype}
+                </if>
+                <if test="fullertoncard != null ">
+                    and a.fullertoncard=#{fullertoncard}
+                    <!-- and a.fullertoncard like '%${fullertoncard}%'-->
+                </if>
+                <if test="region != null ">
+                    and a.region=#{region}
+                    <!-- and a.region like '%${region}%'-->
+                </if>
+                <if test="otherimg != null ">
+                    and a.otherimg=#{otherimg}
+                    <!-- and a.otherimg like '%${otherimg}%'-->
+                </if>
+                <if test="driverlicencefrontimg != null ">
+                    and a.driverlicencefrontimg=#{driverlicencefrontimg}
+                    <!-- and a.driverlicencefrontimg like '%${driverlicencefrontimg}%'-->
+                </if>
+                <if test="driverlicencebackimg != null ">
+                    and a.driverlicencebackimg=#{driverlicencebackimg}
+                    <!-- and a.driverlicencebackimg like '%${driverlicencebackimg}%'-->
+                </if>
+                <if test="certificateimg != null ">
+                    and a.certificateimg=#{certificateimg}
+                    <!-- and a.certificateimg like '%${certificateimg}%'-->
+                </if>
+
+
+
+                <if test="depIdList != null and vehicleIdList == null">
+                    and v.depId in
+                    <foreach
+                            collection="depIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="vehicleIdList != null and depIdList == null">
+                    and v.vehicleId in
+                    <foreach
+                            collection="vehicleIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+
+                <if test="vehicleIdList != null and depIdList != null">
+                    and (v.depId in
+                    <foreach
+                            collection="depIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                    or v.vehicleId in
+                    <foreach
+                            collection="vehicleIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                    )
+                </if>
+            order by a.updatedate desc
+
+    </select>
+
+
+</mapper>
