@@ -15,20 +15,29 @@ import java.util.Properties;
 
 public class JdkDataSource {
 
-     public static MysqlDao mysqldb=null;
+    public static MysqlDao mysqldb = null;
 
     private static final String ORACLE = "oracleDataSource.properties";
     private static final String MYSQL = "DataSource.properties";
 
 
-    public static  void jdkmysql(){
-        if(mysqldb==null) {
+    public static MysqlDao jdkmysql() {
+        if (mysqldb == null) {
+            creasource();
+        }
+        return mysqldb;
+    }
+
+
+    private static synchronized void creasource() {
+        if (mysqldb == null) {
             new JdkDataSource().createdateSource();
         }
     }
 
+
     // 创建连接池
-    private  void createdateSource() {
+    private void createdateSource() {
 
         Properties properties = new Properties();
         try {
@@ -43,7 +52,7 @@ public class JdkDataSource {
             }
             DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
             String rawJdbcUrl = ((DruidDataSource) dataSource).getRawJdbcUrl();
-            mysqldb= new Mysqldb(dataSource,new SpringConnectionSource(dataSource,false),rawJdbcUrl);
+            mysqldb = new Mysqldb(dataSource, new SpringConnectionSource(dataSource, false), rawJdbcUrl);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block

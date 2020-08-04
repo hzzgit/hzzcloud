@@ -1,9 +1,6 @@
 package com.hzz.hzzcloud.util.线程池;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author ：hzz
@@ -18,24 +15,40 @@ public class 多种线程池 {
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
 
-        //这种线程池，是有限制队列数量，对于线程的把控要求非常严格，超过10的部分会创建额外线程来进行处理
-        ThreadPoolExecutor threadPoolExecutor1 = new ThreadPoolExecutor(1, 3,
+        //这种线程池，是无界队列线程池，多出的部分会添加到队列中等待，后面慢慢执行
+        ThreadPoolExecutor threadPoolExecutor1 = new ThreadPoolExecutor(1, 1,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>());
+
+        //这种线程池，永远都只执行一个，按顺序
+        ThreadPoolExecutor threadPoolExecutor2= new ThreadPoolExecutor(1, 1,
                 0L, TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<Runnable>(10));
 
-        for (int i = 0; i <14 ; i++) {
-            threadPoolExecutor.submit(new Runnable() {
+
+        // LinkedBlockingQueue 其实也是有界但是默认值是int的最大值 这种是阻塞的队列，核心线程用完之后就进行阻塞队列中等待，如果阻塞队列有限制大小，那么达到长度之后，就会新建线程
+        //SynchronousQueue 这种应该是完全同步锁的队列，容量是无限的，存完就会立刻被拿出来使用，所以这个和最大线程数直接挂钩
+        //ArrayBlockingQueue 有界队列，必须定义队列大小
+        //四种拒绝策略
+        //1、直接丢弃，并抛出异常
+        //2、直接丢弃，静默丢弃
+        //3、喜新厌旧，舍弃最后的线程，并执行最新的
+        //4、直接执行，但是会阻塞主线程
+        for (int i = 0; i <13 ; i++) {
+            threadPoolExecutor1.submit(new Runnable() {
                 @Override
                 public void run() {
                     System.out.println(1);
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
+
+        System.out.println("结束");
 
 
 

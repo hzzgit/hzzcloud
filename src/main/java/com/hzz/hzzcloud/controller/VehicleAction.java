@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,12 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequestMapping("/test")
+@RefreshScope
 public class VehicleAction extends GeneAction{
 
+
+    @Value("${config.jwtSecret:}")
+    private String jwtSecret;
 
     @Autowired
     protected HttpServletRequest request;
@@ -24,7 +30,7 @@ public class VehicleAction extends GeneAction{
     @ResponseBody
     @RequestMapping("/abc.action")
     public JsonMessage abc() {
-        String userName = request.getHeader("userName");
+        String userName = request.getHeader("userName")+"5"+jwtSecret;
         return  new JsonMessage(true,userName);
     }
 

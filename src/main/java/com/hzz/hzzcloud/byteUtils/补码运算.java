@@ -9,12 +9,23 @@ import java.util.ArrayList;
  */
 public class 补码运算 {
     public static void main(String[] args) {
-        int data=254;
+        int data=252;
         byte d= (byte) data;
         String string = Integer.toBinaryString(data);
         if(string.length()==8){
             if (string.indexOf("1")==0) {
                 String hex=string.substring(1,string.length());
+                String fanhex="";
+                for (int i = 0; i <hex.length() ; i++) {
+                       if(hex.charAt(i)=='1'){
+                           fanhex+="0";
+                       }else{
+                           fanhex+="1";
+                       }
+                }
+
+                int fanb=Integer.parseInt(fanhex,2);
+                byte b= (byte) -(fanb+1);
                 int a=Integer.parseInt(hex,2);
                 data=-a;
             }
