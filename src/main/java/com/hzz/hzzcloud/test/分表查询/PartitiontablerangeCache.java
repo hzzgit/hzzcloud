@@ -65,7 +65,8 @@ public class PartitiontablerangeCache {
                     Date dataBeginDate = TimeUtils.date(partitiontableVo.getDatabegindate());
                     Date dataEndDate = TimeUtils.date(partitiontableVo.getDataenddate());
                     String tableName = partitiontableVo.getTablename();
-                    if (dataEndDate.getTime() > startTime.getTime() && dataBeginDate.getTime() < endTime.getTime() && dataEndDate.getTime() < endTime.getTime()) {
+                    if (dataEndDate.getTime() > startTime.getTime() && dataBeginDate.getTime() < endTime.getTime()
+                            && dataEndDate.getTime() < endTime.getTime()) {
                         tablenames.add(tableName);
                     }
                 }

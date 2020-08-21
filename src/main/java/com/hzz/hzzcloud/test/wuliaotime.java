@@ -10,8 +10,12 @@ public class wuliaotime {
         List<Double> highvalList=new ArrayList<>();
         List<Double> lowvalList=new ArrayList<>();
         List<Boolean> disabledList=new ArrayList<>();
-        System.out.println(1);
-
+        double lat=26.078501;
+        double lon=119.274447;
+        int a=(lat+"").length()-(lat+"").indexOf(".")-1;
+        int b=(lon+"").length()-(lon+"").indexOf(".")-1;
+        System.out.println(a);
+        System.out.println(b);
 
          
     }

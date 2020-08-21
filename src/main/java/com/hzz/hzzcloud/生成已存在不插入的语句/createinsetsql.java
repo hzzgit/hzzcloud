@@ -31,12 +31,16 @@ public class createinsetsql {
         ConverMap converMap = mysqldb.queryFirst(sql2);
         String[] filenamessplit = query.toArray(new String[query.size()]);
         String[] valuessplit = new String[converMap.size()];
-        for (int i = 0; i < filenamessplit.length; i++) {
-            if (!converMap.getString(filenamessplit[i]).equalsIgnoreCase("null")) {
-                valuessplit[i] = "'" + converMap.getString(filenamessplit[i]) + "'";
+        for (int i = 1; i < filenamessplit.length; i++) {
+            String string = converMap.getString(filenamessplit[i])  ;
+            if("true".equalsIgnoreCase(string)||"false".equalsIgnoreCase(string)){
+                valuessplit[i] = string;
+            }
+            else if (!string.equalsIgnoreCase("null")) {
+                valuessplit[i] = "'" + string + "'";
 
             } else {
-                valuessplit[i] = converMap.getString(filenamessplit[i]);
+                valuessplit[i] = string;
 
             }
         }
@@ -44,18 +48,14 @@ public class createinsetsql {
         String filenamesql = " INSERT INTO " + table_schema + "." + table_name + "(";
         String valsql = "select ";
 
-        String selecttablesql = " ( select 1 from  " + table_schema + "." + table_name + " where ";
+        String selecttablesql = " ( select 1 from  " + table_schema + "." + table_name + " where 1=1  ";
 
         boolean isfirst=false;
-        for (int i = 0; i < filenamessplit.length; i++) {
+        for (int i = 1; i < filenamessplit.length; i++) {
 
             String filename = filenamessplit[i].replaceAll("`", "").trim();
             String fileval = valuessplit[i];
-            if (filename.equalsIgnoreCase("id") ||
 
-                    fileval.trim().equalsIgnoreCase("null")) {
-                continue;
-            }
 
             boolean arg = true;
             if (filename.equalsIgnoreCase("createdate") ||
@@ -68,9 +68,6 @@ public class createinsetsql {
             }
 
             if (i > 0&&isfirst) {
-                if (arg) {
-                    selecttablesql += " and ";
-                }
                 filenamesql += ",";
                 valsql += ",";
             }
@@ -79,7 +76,8 @@ public class createinsetsql {
             filenamesql += filename;
             valsql += fileval;
 
-            if (arg) {
+            if (arg&&i>0&&!"null".equalsIgnoreCase(fileval)) {
+                selecttablesql += " and ";
                 selecttablesql += " " + filename + "=" + fileval;
             }
             isfirst=true;
@@ -95,11 +93,26 @@ public class createinsetsql {
     }
 
     public static void main(String[] args) {
-
-
-        String createinsert = new createinsetsql().createinsert("subiaodb", "vehicle", "where vehicleid=12019");
-        System.out.println(createinsert);
-
-
+        String allsql="";
+        String createinsert = new createinsetsql().createinsert("subiaodb", "basicdata", "where code='adas_intenseal_alarm' and parent='AlarmSource'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "basicdata", "where code='adas_intenseal_alarm' and parent='AdasAlarmCategory'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_1'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_2'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_3'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_4'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_5'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_6'");
+        allsql+=createinsert+"\n";
+        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_7'");
+        allsql+=createinsert+"\n";
+        System.out.println(allsql);
     }
+
 }
