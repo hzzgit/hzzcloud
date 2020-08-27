@@ -11,6 +11,7 @@ public class 多种线程池 {
 
     public static void main(String[] args) {
         //这种线程池，无限队列，最大值即最大处理线程数，一般设置成int的最大值，也就是32位字节 2的31次方
+        //其实并不是无限队列，应该是说可以最大执行5个线程，否则会抛异常，异常也是可以定义的
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0, 5,
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());

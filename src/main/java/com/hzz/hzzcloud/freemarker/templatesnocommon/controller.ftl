@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
-import com.hzz.hzzcloud.freemarker.util.quanxianUtil;s
+import com.hzz.hzzcloud.freemarker.util.quanxianUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;

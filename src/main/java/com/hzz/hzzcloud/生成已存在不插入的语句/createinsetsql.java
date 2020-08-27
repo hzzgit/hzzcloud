@@ -94,25 +94,11 @@ public class createinsetsql {
 
     public static void main(String[] args) {
         String allsql="";
-        String createinsert = new createinsetsql().createinsert("subiaodb", "basicdata", "where code='adas_intenseal_alarm' and parent='AlarmSource'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "basicdata", "where code='adas_intenseal_alarm' and parent='AdasAlarmCategory'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_1'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_2'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_3'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_4'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_5'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_6'");
-        allsql+=createinsert+"\n";
-        createinsert = new createinsetsql().createinsert("subiaodb", "alarmconfig", " where alarmType='intenseal_7'");
+        String createinsert = new createinsetsql().createinsert("subiaodb", "partitiontableconfig",
+                "where baseTableName='drivercardrecord' and  tableSchema='subiaodb' ");
         allsql+=createinsert+"\n";
         System.out.println(allsql);
+
     }
 
 }

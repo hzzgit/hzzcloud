@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author ：hzz
- * @description：TODO
+ * @description： 在进行CAS的时候，两个线程可能开始结束刚好都一样，符合CAS原则，但是其实并不是真正的流程
  * @date ：2020/7/31 11:16
  */
 public class ABA导致的问题 {

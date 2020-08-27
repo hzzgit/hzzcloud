@@ -1,9 +1,6 @@
 package com.hzz.hzzcloud.拦截器;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -17,6 +14,8 @@ public class 测试多线程下的线程变量 implements Runnable {
     MyLocalThreadbyinterceptor myLocalThreadbyinterceptor=new MyLocalThreadbyinterceptor();
     @Override
     public void run() {
+        Thread thread = Thread.currentThread();
+        //System.out.println(thread.getName());
         myLocalThreadbyinterceptor.add();
         atomicInteger.incrementAndGet();
         a++;
@@ -25,6 +24,7 @@ public class 测试多线程下的线程变量 implements Runnable {
 
     public static void main(String[] args) {
         测试多线程下的线程变量 a=new 测试多线程下的线程变量();
+        ExecutorService executorService1    = Executors.newFixedThreadPool(10);
         ExecutorService executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
@@ -33,7 +33,7 @@ public class 测试多线程下的线程变量 implements Runnable {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.awaitTermination(100, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

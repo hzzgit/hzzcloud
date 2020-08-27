@@ -5,7 +5,7 @@
 <!--${tableconment}mapper -->
 <mapper namespace="${tablename}mapper">
 
-    <!--查询${tableconment}列表 -->s
+    <!--查询${tableconment}列表 -->
     <select id="selectlist" parameterType="java.util.HashMap"
             resultType="java.util.HashMap">
         select

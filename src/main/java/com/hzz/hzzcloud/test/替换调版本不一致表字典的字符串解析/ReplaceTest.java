@@ -64,8 +64,6 @@ public class ReplaceTest {
 
         boolean isWhereArg = false;//是否是where条件后面的参数
 
-        boolean isWhereReplaceArg = false;//是否触发where条件后面and替换
-
         StringBuilder finalSql = new StringBuilder();
         for (int i = 0; i < sql.length(); i++) {
             char c = sql.charAt(i);
@@ -81,28 +79,18 @@ public class ReplaceTest {
                         }
                     }
                     if (ChangeStr != null) {//如果有改变
-                        if (isWhereArg) {
-                            isWhereReplaceArg = true;
-                        } else {
+                        if (!isWhereArg) {
                             finalSql.append(" null as " + ChangeStr);
-                        }
-                    } else {
-                        if (isWhereReplaceArg == false) {
+                        }else{
                             finalSql.append(colName);
                         }
+                    } else {
+                            finalSql.append(colName);
                     }
-                }
-                if (isWhereArg) {//如果是在后续where查询条件的替换
-                    if (isWhereReplaceArg == false) {
-                        finalSql.append(c);
-                    }
-                } else {
-                    finalSql.append(c);
                 }
 
-                if ("and".equalsIgnoreCase(colName.toString().toLowerCase())) {
-                    isWhereReplaceArg = false;
-                }
+                finalSql.append(c);
+
 
                 if ("where".equalsIgnoreCase(colName.toString().toLowerCase())) {
                     isWhereArg = true;
