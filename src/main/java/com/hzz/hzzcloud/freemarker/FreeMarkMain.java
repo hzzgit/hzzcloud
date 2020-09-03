@@ -16,7 +16,7 @@ public class FreeMarkMain {
 
        // freeMarkExcuter.readTable("subiaodb", "talkchannel",false,false,true);
       //  freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200701",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "wirelessuploading",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+        freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200830",false,false, TemplateEnum.TEMPLATE_PATH1,false);
     }
 
 }

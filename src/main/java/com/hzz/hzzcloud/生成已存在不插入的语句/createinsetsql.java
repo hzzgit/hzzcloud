@@ -28,15 +28,24 @@ public class createinsetsql {
         List<String> query = mysqldb.queryFirstOne(sql, table_schema, table_name);
 
         String sql2 = "select * from  " + table_schema + "." + table_name + "  " + wheredata;
-        ConverMap converMap = mysqldb.queryFirst(sql2);
+        List<ConverMap> query1 = mysqldb.query(sql2);
+        StringBuilder data = new StringBuilder();
+        for (ConverMap converMap : query1) {
+            String sout = sout(query, converMap, table_schema, table_name);
+            data.append(sout + "\n");
+        }
+        return data.toString();
+
+    }
+
+    private String sout(List<String> query, ConverMap converMap, String table_schema, String table_name) {
         String[] filenamessplit = query.toArray(new String[query.size()]);
         String[] valuessplit = new String[converMap.size()];
         for (int i = 1; i < filenamessplit.length; i++) {
-            String string = converMap.getString(filenamessplit[i])  ;
-            if("true".equalsIgnoreCase(string)||"false".equalsIgnoreCase(string)){
+            String string = converMap.getString(filenamessplit[i]);
+            if ("true".equalsIgnoreCase(string) || "false".equalsIgnoreCase(string)) {
                 valuessplit[i] = string;
-            }
-            else if (!string.equalsIgnoreCase("null")) {
+            } else if (!string.equalsIgnoreCase("null")) {
                 valuessplit[i] = "'" + string + "'";
 
             } else {
@@ -50,7 +59,7 @@ public class createinsetsql {
 
         String selecttablesql = " ( select 1 from  " + table_schema + "." + table_name + " where 1=1  ";
 
-        boolean isfirst=false;
+        boolean isfirst = false;
         for (int i = 1; i < filenamessplit.length; i++) {
 
             String filename = filenamessplit[i].replaceAll("`", "").trim();
@@ -67,7 +76,7 @@ public class createinsetsql {
                 arg = false;
             }
 
-            if (i > 0&&isfirst) {
+            if (i > 0 && isfirst) {
                 filenamesql += ",";
                 valsql += ",";
             }
@@ -76,11 +85,11 @@ public class createinsetsql {
             filenamesql += filename;
             valsql += fileval;
 
-            if (arg&&i>0&&!"null".equalsIgnoreCase(fileval)) {
+            if (arg && i > 0 && !"null".equalsIgnoreCase(fileval)) {
                 selecttablesql += " and ";
                 selecttablesql += " " + filename + "=" + fileval;
             }
-            isfirst=true;
+            isfirst = true;
         }
 
         selecttablesql += ");";
@@ -92,11 +101,12 @@ public class createinsetsql {
         return allsql;
     }
 
+
     public static void main(String[] args) {
-        String allsql="";
-        String createinsert = new createinsetsql().createinsert("subiaodb", "partitiontableconfig",
-                "where baseTableName='drivercardrecord' and  tableSchema='subiaodb' ");
-        allsql+=createinsert+"\n";
+        String allsql = "";
+        String createinsert = new createinsetsql().createinsert("subiaodb", "basicdata",
+                "where parent ='drivingType' ");
+        allsql += createinsert + "\n";
         System.out.println(allsql);
 
     }

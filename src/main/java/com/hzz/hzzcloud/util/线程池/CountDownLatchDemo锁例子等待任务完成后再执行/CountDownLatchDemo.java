@@ -20,7 +20,7 @@ public class CountDownLatchDemo {
             worker1.start();//
             worker2.start();//
             try {
-                latch.await();//等待所有工人完成工作
+                latch.await();//等待所有工人完成工作,这边其实说白了就是让这个参数减一减到0，就算释放了
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

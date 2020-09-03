@@ -126,9 +126,12 @@ public class LockConditionPreferModel implements Model {
         }
     }
 
+
     public static void main(String[] args) {
         Model model = new LockConditionPreferModel(3);
         Arrays.asList(1, 2).forEach(x -> new Thread(model.newRunnableConsumer()).start());
         Arrays.asList(1, 2, 3, 4, 5).forEach(x -> new Thread(model.newRunnableProducer()).start());
     }
+
+
 }

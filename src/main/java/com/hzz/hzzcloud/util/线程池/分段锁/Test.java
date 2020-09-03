@@ -18,7 +18,7 @@ public class Test {
         node1.next=node2;
 
         list[0] = node1;
-        list[1] = node1;
+        list[1] = node4;
 
         new Thread(() -> {
             Node node = list[0];
