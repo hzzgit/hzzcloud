@@ -85,7 +85,7 @@ public class LockConditionPreferModel implements Model {
                 }
 
                 if (newBufSize > 0) {
-                    CONSUMER_LOCK.unlock();
+                    CONSUMER_LOCK.lockInterruptibly();
                     try {
                         NOT_EMPTY_CONDITION.signalAll();
                     } finally {

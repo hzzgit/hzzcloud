@@ -40,4 +40,18 @@ public class HzzcloudApplication {
         return new RestTemplate();
     }
 
+//    @Bean("pikaConfig")
+//    @ConfigurationProperties(prefix = "fxft.pika")
+//    @ConditionalOnMissingBean
+//    public RedisConfig createPikaConfig() {
+//        return new RedisConfig();
+//    }
+//
+//    @Bean("pikaUtil")
+//    @ConditionalOnMissingBean
+//    public RedisUtil createPikaUtil(@Qualifier("pikaConfig") RedisConfig config) {
+//        RedisAutoConfiguration rac = new RedisAutoConfiguration();
+//        return rac.createRedisUtil(rac.createJedisPool(config));
+//    }
+
 }

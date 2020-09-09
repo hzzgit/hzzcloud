@@ -47,7 +47,21 @@ private EasyExceClasslUtil exceClasslUtil;
 @ResponseBody
 @RequestMapping("/save.action")
 public JsonMessage save(
-@RequestBody  ${entityName} ${tablename}, HttpServletRequest request) throws Exception {
+<#list tableColumnList as tablecolumn>
+    <#if  tablecolumn.datatype=="varchar">
+        //${tablecolumn.columncomment}
+        @RequestParam(required = false) String  ${tablecolumn.columnname},
+    <#elseif  tablecolumn.datatype=="int">
+        //${tablecolumn.columncomment}
+        @RequestParam(required = false) Long  ${tablecolumn.columnname},
+    <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
+        //${tablecolumn.columncomment}
+        @RequestParam(required = false) Date  ${tablecolumn.columnname},
+    </#if>
+</#list>
+@RequestBody  ${entityName} ${tablename}, HttpServletRequest request
+)
+throws Exception {
 ${tablename}service.save(${tablename});
 return new JsonMessage(true, "操作成功");
 }
