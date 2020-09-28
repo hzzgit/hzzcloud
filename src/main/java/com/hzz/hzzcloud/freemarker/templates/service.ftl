@@ -56,7 +56,7 @@
         */
         public void fdelete(String Id) throws Exception {
 
-            String sql = "update ${tableschema}.${tablename} set deleted =id where ${pricolname}=? ";
+            String sql = "update ${tableschema}.${tablename} set deleted =${pricolname} where ${pricolname}=? ";
             jdbcUtil.sql(sql).addIndexParam(Id).executeUpdate();
         }
 

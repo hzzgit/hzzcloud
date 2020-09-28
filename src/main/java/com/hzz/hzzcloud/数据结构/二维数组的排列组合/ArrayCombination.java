@@ -6,6 +6,7 @@ package com.hzz.hzzcloud.数据结构.二维数组的排列组合;
  * @date ：2020/8/18 13:55
  */
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ArrayCombination {
@@ -58,7 +59,8 @@ public class ArrayCombination {
                 System.out.print( obj+" ");
             }
         }
-
+        LinkedHashMap linkedHashMap=new LinkedHashMap();
+        linkedHashMap.put("1",1);
         /**
          输出结果：
          组合1---A1 B1 C1

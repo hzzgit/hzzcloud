@@ -44,26 +44,12 @@ private EasyExceClasslUtil exceClasslUtil;
 private UserVehicleRefCacheService userVehicleRefCacheService;
 
 /**
-* 保存${tableconment}
-*
+* 保存${tableconment},使用json请求
 * @return
 */
 @ResponseBody
 @RequestMapping("/save.action")
 public JsonMessage save(
-
-<#list tableColumnList as tablecolumn>
-    <#if  tablecolumn.datatype=="varchar">
-        //${tablecolumn.columncomment}
-        @RequestParam(required = false) String  ${tablecolumn.columnname},
-    <#elseif  tablecolumn.datatype=="int">
-        //${tablecolumn.columncomment}
-        @RequestParam(required = false) Long  ${tablecolumn.columnname},
-    <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
-        //${tablecolumn.columncomment}
-        @RequestParam(required = false) Date  ${tablecolumn.columnname},
-    </#if>
-</#list>
 @RequestBody  ${entityName} ${tablename}, HttpServletRequest request
 ) throws Exception {
 TokenUser tuser = TokenUser.getFromRequest(request);
@@ -106,13 +92,19 @@ return new JsonMessage(true, "操作成功");
     @RequestParam(required = false) Long[] depIds,
     <#list tableColumnList as tablecolumn>
         <#if  tablecolumn.datatype=="varchar">
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(required = false) String  ${tablecolumn.columnname},
         <#elseif  tablecolumn.datatype=="int">
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(required = false) Long  ${tablecolumn.columnname},
         <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(required = false) Date  start${tablecolumn.columnname},
             @RequestParam(required = false) Date  end${tablecolumn.columnname},
         </#if>
@@ -141,12 +133,12 @@ return new JsonMessage(true, "操作成功");
     * 导出列表文件
 <#list tableColumnList as tablecolumn>
     <#if  tablecolumn.datatype=="varchar">
-    *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+        *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
     <#elseif  tablecolumn.datatype=="int">
-    *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
+        *   @param  ${tablecolumn.columnname} ${tablecolumn.columncomment}
     <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
-    *   @param  start${tablecolumn.columnname} ${tablecolumn.columncomment}开始时间
-    *   @param  end${tablecolumn.columnname} ${tablecolumn.columncomment}结束时间
+        *   @param  start${tablecolumn.columnname} ${tablecolumn.columncomment}开始时间
+        *   @param  end${tablecolumn.columnname} ${tablecolumn.columncomment}结束时间
     </#if>
 </#list>
     * @return
@@ -157,13 +149,19 @@ return new JsonMessage(true, "操作成功");
     @RequestParam(required = false) Long[] depIds,
     <#list tableColumnList as tablecolumn>
         <#if  tablecolumn.datatype=="varchar">
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(value = "${tablecolumn.columnname}",required = false) String  ${tablecolumn.columnname},
         <#elseif  tablecolumn.datatype=="int">
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(value = "${tablecolumn.columnname}",required = false) Long  ${tablecolumn.columnname},
         <#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>
-            //${tablecolumn.columncomment}
+            /**
+            *${tablecolumn.columncomment}
+            */
             @RequestParam(value = "${tablecolumn.columnname}",required = false) Date  start${tablecolumn.columnname},
             @RequestParam(value = "${tablecolumn.columnname}",required = false) Date  end${tablecolumn.columnname},
         </#if>

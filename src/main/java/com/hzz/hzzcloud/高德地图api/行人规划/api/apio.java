@@ -27,7 +27,6 @@ public class apio {
     static double ee = 0.00669342162296594323;
 
     public static void main(String[] args) {
-
         String key="a7c538c85b1d65c958a20a46761a1db1";
         RestTemplate restTemplate=new RestTemplate();
         String forObject = restTemplate.getForObject("https://restapi.amap.com/v3/direction/walking?origin=" +
