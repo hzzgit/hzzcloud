@@ -50,11 +50,15 @@ public class FreeMarkDao {
         tableVo.setOrdercol(ordervbyname);//排序字段
         tableVo.setPricolname(pricolname);
         tableVo.setTableColumnList(query);
+
+        TableNameVo tableNameVo = searchTableName(table_schema, table_name);
+        tableVo.setTableconment(tableNameVo.getTableconment());
+
         return tableVo;
     }
 
     //获取表注释
-    public TableNameVo searchTableName(String table_schema, String table_name) {
+    private TableNameVo searchTableName(String table_schema, String table_name) {
         String sql = " select table_name tablename,table_comment tableconment from INFORMATION_SCHEMA.TABLES  where table_schema = ?\n" +
                 "AND table_name =?";
         TableNameVo tableNameVo = mysqlDao.queryFirst(sql, TableNameVo.class, table_schema, table_name);

@@ -11,11 +11,8 @@
     import net.fxft.common.jdbc.JdbcUtil;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
-    import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
     import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
     import net.fxft.ascswebcommon.vo.UserVehicleAuthority;
-    import ${packageVo.entity}.*;
-    import ${packageVo.exlvo}.*;
 
 
     @Service
@@ -39,16 +36,18 @@
 
 
 
-        /**
-        * 保存${tableconment}
-        */
-        public void save(${entityName} ${tablename}) throws Exception {
-            if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
-            jdbcUtil.insert(${tablename}).execute();
-            } else {//修改
-            jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all()).execute();
-            }
-        }
+    /**
+    * 保存${tableconment}
+    */
+    public void save(${entityName} ${tablename}) throws Exception {
+    if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
+    ${entityName} ${tablename}.setCreatedate(new Date());
+    jdbcUtil.insert(${tablename}).execute();
+    } else {//修改
+    ${entityName} ${tablename}.setUpdatedate(new Date());
+    jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all()).execute();
+    }
+    }
 
 
         /**

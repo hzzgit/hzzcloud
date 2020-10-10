@@ -21,6 +21,10 @@ public class TableVo {
 
     private List<TableColumn> tableColumnList;//字段内容
 
+    private  TableVo tableVobyDep;
+    private  TableVo tableVobyVehicle;
+    private  TableVo tableVobyUserLim;
+
     public String getClassname() {
         return classname;
     }
@@ -118,5 +122,30 @@ public class TableVo {
 
     public void setTableColumnList(List<TableColumn> tableColumnList) {
         this.tableColumnList = tableColumnList;
+    }
+
+
+    public TableVo getTableVobyDep() {
+        return tableVobyDep;
+    }
+
+    public void setTableVobyDep(TableVo tableVobyDep) {
+        this.tableVobyDep = tableVobyDep;
+    }
+
+    public TableVo getTableVobyVehicle() {
+        return tableVobyVehicle;
+    }
+
+    public void setTableVobyVehicle(TableVo tableVobyVehicle) {
+        this.tableVobyVehicle = tableVobyVehicle;
+    }
+
+    public TableVo getTableVobyUserLim() {
+        return tableVobyUserLim;
+    }
+
+    public void setTableVobyUserLim(TableVo tableVobyUserLim) {
+        this.tableVobyUserLim = tableVobyUserLim;
     }
 }

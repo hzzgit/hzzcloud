@@ -5,7 +5,6 @@ import com.hzz.hzzcloud.freemarker.Vo.PackageVo;
 import com.hzz.hzzcloud.freemarker.Vo.PathVo;
 import com.hzz.hzzcloud.freemarker.Vo.TableVo;
 import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
-import com.hzz.hzzcloud.freemarker.emun.TemplateEnum;
 import com.hzz.hzzcloud.freemarker.emun.WebEnum;
 import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
@@ -14,26 +13,23 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.*;
-import java.util.List;
 
-public class FreeMarkExcuter {
+/**
+ * 用来生成规则，以及机构授权，车辆授权，用户授权
+ */
+public class FreeMarkAutoByTreeExcuter {
 
     private MysqlDao mysqlDao = null;
-    private static String TEMPLATE_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templates";
 
-    private static final String TEMPLATE_PATH1 = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templates";
-    private static final String TEMPLATE_PATHNOCOMMON = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesnocommon";
     private static final String TEMPLATE_TREE = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatestree";
 
+    private static final String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\maintree";
 
-    private static final String TEMPLATE_OTHER = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesother";
+    private static final String packpath = "com.hzz.hzzcloud.freemarker.maintree";
 
-
-    private static final String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\main";
-    private static final String packpath = "com.hzz.hzzcloud.freemarker.main";
     public Configuration configuration = new Configuration();
 
-    public FreeMarkExcuter() {
+    public FreeMarkAutoByTreeExcuter() {
         // step2 获取模版路径
         JdkDataSource.jdkmysql();
         mysqlDao = JdkDataSource.mysqldb;
@@ -46,43 +42,87 @@ public class FreeMarkExcuter {
      * @param table_name       表名
      * @param veanddepquanxian 车辆机构权限
      * @param depquanxian      机构权限,车辆机构权限为true的时候,这个不生效
-     * @param templateEnum         使用继承模板还是原始模板,枚举类是TemplateEnum
-     * @param isother          是否读取其他的模板文件夹
      */
-    public void readTable(String table_schema, String table_name, boolean veanddepquanxian, boolean depquanxian, TemplateEnum templateEnum, boolean isother) {
-        if (templateEnum == TemplateEnum.TEMPLATE_PATH1) {//这边是依赖common的版本
-            TEMPLATE_PATH = TEMPLATE_PATH1;
-        } else if (templateEnum == TemplateEnum.TEMPLATE_PATHNOCOMMON) {//这个是非依赖common的版本
-            TEMPLATE_PATH=TEMPLATE_PATHNOCOMMON;
-        }
+    public void readTable(String table_schema, String table_name, boolean veanddepquanxian,
+                          boolean depquanxian) {
         try {
-            configuration.setDirectoryForTemplateLoading(new File(TEMPLATE_PATH));
+            configuration.setDirectoryForTemplateLoading(new File(TEMPLATE_TREE));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        table_schema = table_schema.toLowerCase();
-        table_name = table_name.toLowerCase();
-        FreeMarkDao freeMarkDao = new FreeMarkDao();
-        TableVo tableVo = freeMarkDao.search(table_schema, table_name);
+        table_schema = table_schema.toLowerCase();//所在数据库
+        table_name = table_name.toLowerCase();//所在表
+        FreeMarkDao freeMarkDao = new FreeMarkDao();//查询到所需要的表名表结构等
+        TableVo tableVo = freeMarkDao.search(table_schema, table_name);//查询到规则的主表
+        TableVo tableVobyDep = freeMarkDao.search(table_schema, table_name + "bydep");//查询到规则的主表对应的机构表
+        TableVo tableVobyVehicle = freeMarkDao.search(table_schema, table_name + "byvehicle");//查询到规则的主表对应的车辆表
+        TableVo tableVobyUserLim = freeMarkDao.search(table_schema, table_name+"userlim");//查询到规则的主表对应的用户授权表
+        tableVo.setTableVobyDep(tableVobyDep);
+        tableVo.setTableVobyVehicle(tableVobyVehicle);
+        tableVo.setTableVobyUserLim(tableVobyUserLim);
+
 
         tableVo.setVeanddepquanxian(veanddepquanxian);//如果需要权限,那么就加入这个
         tableVo.setDepquanxian(depquanxian);
-        PathVo pathVo = CreateDir(table_name);//各文件所在路径
+
+        PathVo pathVo = CreateDir(table_name);//创建文件夹，并返回各文件所在路径
+
         String packagetablename = packpath + "." + table_name;//这个是生成的文件夹的package名称
+
         PackageVo packageVo = new PackageVo(packagetablename + "." + WebEnum.entity.getValue(),
                 packagetablename + "." + WebEnum.controller,
                 packagetablename + "." + WebEnum.service.getValue(),
                 packagetablename + "." + WebEnum.vo.getValue(),
                 packagetablename + "." + WebEnum.exlvo.getValue());
         String EntityName = firstcolUp(table_name);//首字符大写的名称
-
         tableVo.setEntityName(EntityName);//生成的实体类的类名,首字母大写
+        tableVobyDep.setEntityName(firstcolUp(table_name + "bydep"));//生成的实体类的类名,首字母大写
+        tableVobyVehicle.setEntityName(firstcolUp(table_name + "byvehicle"));//生成的实体类的类名,首字母大写
+        tableVobyUserLim.setEntityName(firstcolUp(table_name+"userlim"));//生成的实体类的类名,首字母大写
+
+
+
         tableVo.setPackageVo(packageVo);
         tableVo.setPackpath(packpath + "." + table_name);
+
+        tableVobyDep.setPackageVo(packageVo);
+        tableVobyDep.setPackpath(packpath + "." + table_name);
+
+        tableVobyVehicle.setPackageVo(packageVo);
+        tableVobyVehicle.setPackpath(packpath + "." + table_name);
+
+        tableVobyUserLim.setPackageVo(packageVo);
+        tableVobyUserLim.setPackpath(packpath + "." + table_name);
+
+
+
+        writetemList(pathVo,EntityName,tableVo);//进行模板刻印
+
+
+        System.out.println(table_name + " 文件创建成功 !");
+
+    }
+
+    /**
+     * 根据文件模板进行批量创建
+     */
+    private void writetemList(PathVo pathVo,String EntityName,TableVo tableVo){
 
         writetem(WebEnum.entity.getValue() + ".ftl",
                 pathVo.getEntitypath() + File.separator + EntityName + ".java",
                 tableVo);//创建实体类
+
+        writetem(WebEnum.entity.getValue() + ".ftl",
+                pathVo.getEntitypath() + File.separator + EntityName + "bydep.java",
+                tableVo.getTableVobyDep());//创建实体机构授权类
+
+        writetem(WebEnum.entity.getValue() + ".ftl",
+                pathVo.getEntitypath() + File.separator + EntityName + "byvehicle.java",
+                tableVo.getTableVobyVehicle());//创建实体车辆授权类
+
+        writetem(WebEnum.entity.getValue() + ".ftl",
+                pathVo.getEntitypath() + File.separator + EntityName + "userlim.java",
+                tableVo.getTableVobyUserLim());//创建实体用户授权类
 
         writetem(WebEnum.exlvo.getValue() + ".ftl",
                 pathVo.getExlVopath() + File.separator + EntityName + "ExlVo.java",
@@ -99,39 +139,6 @@ public class FreeMarkExcuter {
         writetem(WebEnum.mapper.getValue() + ".ftl",
                 pathVo.getAllpath() + File.separator + tableVo.getTablename() + WebEnum.mapper.getValue() + ".xml",
                 tableVo);//创建mapper
-
-        if (isother) {
-            System.out.println("开始读取自定义模板");
-            try {
-                configuration.setDirectoryForTemplateLoading(new File(TEMPLATE_OTHER));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //自定义模板引擎,命名规则,文件名-文件类型,例如test-java.ftl
-            List<String> otherfilenames = FileUtil.scanFilesWithRecursion(TEMPLATE_OTHER);
-            if (otherfilenames != null && otherfilenames.size() > 0) {
-                for (String otherfilename : otherfilenames) {
-                    try {
-                        String realpath = otherfilename.substring(0, otherfilename.indexOf("."));
-                        String[] split = realpath.split("-");
-                        String filetype = split[1];
-                        String filename = split[0];
-                        String classname = firstcolUp(tableVo.getTablename()) + filename;
-                        tableVo.setClassname(classname);
-                        tableVo.getPackageVo().setOtherpackname(packagetablename);
-                        writetem(otherfilename,
-                                pathVo.getAllpath() + File.separator + classname + "." + filetype,
-                                tableVo);
-                        System.out.println("生成自定义模板" + otherfilename + ",生成文件:" + pathVo.getAllpath() + File.separator + tableVo.getTablename() + filename + "." + filetype);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-            }
-        }
-
-        System.out.println(table_name + " 文件创建成功 !");
 
     }
 
@@ -170,6 +177,11 @@ public class FreeMarkExcuter {
     }
 
 
+    /**
+     * 创建文件夹
+     * @param table_name
+     * @return
+     */
     private PathVo CreateDir(String table_name) {
         String allpath = CLASS_PATH + File.separator + table_name;
         String entitypath = CLASS_PATH + File.separator + table_name + File.separator + "entity";
@@ -193,24 +205,19 @@ public class FreeMarkExcuter {
 
     /**
      * 迭代删除文件夹
+     *
      * @param dirPath 文件夹路径
      */
-    private  void deleteDir(String dirPath)
-    {
+    private void deleteDir(String dirPath) {
         File file = new File(dirPath);
-        if(file.isFile())
-        {
+        if (file.isFile()) {
             file.delete();
-        }else
-        {
+        } else {
             File[] files = file.listFiles();
-            if(files == null)
-            {
+            if (files == null) {
                 file.delete();
-            }else
-            {
-                for (int i = 0; i < files.length; i++)
-                {
+            } else {
+                for (int i = 0; i < files.length; i++) {
                     deleteDir(files[i].getAbsolutePath());
                 }
                 file.delete();

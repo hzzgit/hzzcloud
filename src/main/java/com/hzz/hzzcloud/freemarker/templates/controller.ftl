@@ -1,7 +1,6 @@
 package ${packageVo.controller};
 
 import com.alibaba.fastjson.JSON;
-import com.hzz.hzzcloud.jdbcutil.util.ConverterUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.online.TokenUser;
 import net.fxft.ascswebcommon.util.easyexcel.EasyExceClasslUtil;
@@ -9,21 +8,15 @@ import net.fxft.ascswebcommon.vo.PaginateResult;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.hzz.hzzcloud.freemarker.util.quanxianUtil;
-import com.hzz.hzzcloud.freemarker.util.RequestUtil;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.hzz.hzzcloud.freemarker.util.MaptoBeanUtil;
 import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
 import net.fxft.ascswebcommon.vo.UserVehicleAuthority;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import ${packageVo.entity}.*;
-import ${packageVo.service}.*;
-import ${packageVo.exlvo}.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 /**
