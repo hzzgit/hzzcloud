@@ -134,6 +134,10 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
 
     </dependencies>
@@ -148,7 +152,19 @@
         </snapshotRepository>
     </distributionManagement>
 
-
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Nexus Repository</name>
+            <url>http://125.77.23.196:8081/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <repositories>
         <repository>
             <id>nexus</id>
@@ -174,7 +190,7 @@
             <plugin>
                 <groupId>com.hzz</groupId>
                 <artifactId>hzzz-deploy</artifactId>
-                <version>3.5-SNAPSHOT</version>
+                <version>3.6-RELEASE</version>
                 <executions>
                     <execution>
                         <id>exportDataToFile</id>

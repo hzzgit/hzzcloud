@@ -21,6 +21,9 @@ import java.util.Map;
 public class VehicleAction extends GeneAction{
 
 
+    /**
+     * 我就是测试下
+     */
     @Value("${config.jwtSecret:}")
     private String jwtSecret;
 
