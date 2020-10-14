@@ -1,5 +1,7 @@
 package com.hzz.hzzcloud.学习.事务的隔离级别;
 
+import com.ltmonitor.util.StringUtil;
+
 /**
  * @author ：hzz
  * @description：TODO
@@ -12,4 +14,13 @@ public class 事务的隔离级别 {
     repeatable read(MySQL默认隔离级别) 可以重复读取，但有幻读 ，只读取insert并且提交的sql，但是在对于统计数量等，
     在MySQL中，其他事务新增的数据，看不到，不会产生幻读。采用多版本并发控制（MVCC）机制解决幻读问题。
     serializable 可读，不可写。像java中的锁，写数据必须等待另一个事务结束。其实就是直接锁表了*/
+ public static void main(String[] args) {
+     String routePointRadius="12,31,45,21,111";
+     String[] routePointRadiusArr =null;
+     if(!StringUtil.isNullOrEmpty(routePointRadius)){
+         routePointRadiusArr=routePointRadius.split(",");
+     }
+     System.out.println(routePointRadiusArr);
+
+ }
 }

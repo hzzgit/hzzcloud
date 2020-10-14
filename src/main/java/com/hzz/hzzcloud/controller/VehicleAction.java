@@ -5,21 +5,47 @@ import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
 @Slf4j
 @RequestMapping("/test")
-@RefreshScope
+
 public class VehicleAction extends GeneAction{
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
+
+    public static void main(String[] args) {
+        Number altitude;
+        short a=1;
+        altitude=a;
+        System.out.println(altitude);
+    }
+
+    @PostConstruct
+    private void init(){
+             new Thread(()->{
+                             while (true){
+                                 try {
+                                     String name=applicationContext.getEnvironment().getRequiredProperty("name");
+                                     System.out.println("动态刷新值："+name);
+                                     Thread.sleep(1000);
+                                 } catch (InterruptedException e) {
+                                     e.printStackTrace();
+                                 }
+                             }
+                     }).start();
+    }
 
     /**
      * 我就是测试下
