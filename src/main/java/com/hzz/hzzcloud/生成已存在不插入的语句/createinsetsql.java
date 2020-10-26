@@ -104,7 +104,7 @@ public class createinsetsql {
 
     public static void main(String[] args) {
         String allsql = "";
-        String createinsert = new createinsetsql().createinsert("subiaodb", "basicdata",
+        String createinsert = new createinsetsql().createinsert("subiaodb", "web_route_config",
                 "where parent ='drivingType' ");
         allsql += createinsert + "\n";
         System.out.println(allsql);

@@ -6,7 +6,7 @@ public enum WebEnum {
     service("service"),
     mapper("mapper"),
     exlvo("exlvo"),
-    vo("vo");
+    vo("protocol");
 
     WebEnum(String value) {
         this.value = value;

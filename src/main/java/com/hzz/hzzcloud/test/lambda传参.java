@@ -18,15 +18,19 @@ public class lambda传参 {
     }
 
     public static void main(String[] args) {
-        Integer te = te(p -> {
-            Integer c=0;
-            try {
-                c=Integer.valueOf(p)*2121;
-            } catch (NumberFormatException e) {
 
-            }
-            return c;
-        },"33");
-        System.out.println(te);
+        Long msg=new Long(1603444771876L);
+        msg=msg/1000*1000;
+        Long msgend=new Long(1603444778876L);
+        msgend=(msgend+1000)/1000*1000;
+
+        System.out.println(msg);
+        System.out.println(msgend);
+
+
+
+
+
+
     }
 }

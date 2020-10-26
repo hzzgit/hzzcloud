@@ -175,7 +175,7 @@ public class FreeMarkExcuter {
         String entitypath = CLASS_PATH + File.separator + table_name + File.separator + "entity";
         String Controllerpath = CLASS_PATH + File.separator + table_name + File.separator + "controller";
         String Servicepath = CLASS_PATH + File.separator + table_name + File.separator + "service";
-        String Vopath = CLASS_PATH + File.separator + table_name + File.separator + "vo";
+        String Vopath = CLASS_PATH + File.separator + table_name + File.separator + "protocol";
         String exlVopath = CLASS_PATH + File.separator + table_name + File.separator + "exlvo";
 
         String[] paths = new String[]{allpath, entitypath, Controllerpath, Servicepath, Vopath, exlVopath};

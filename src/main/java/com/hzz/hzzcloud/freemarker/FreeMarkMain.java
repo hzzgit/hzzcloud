@@ -18,10 +18,18 @@ public class FreeMarkMain {
 
        // freeMarkExcuter.readTable("subiaodb", "talkchannel",false,false,true);
       //  freeMarkExcuter.readTable("gps_hisdata", "gpsinfo_20200701",false,false, TemplateEnum.TEMPLATE_PATH1,false);
-        freeMarkExcuter.readTable("subiaodb", "transfertoaction",
-                false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+//        freeMarkExcuter.readTable("subiaodb", "imggathercommand",
+//                false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 
-     //     freeMarkAutoByTreeExcuter.readTable("subiaodb", "tablename",false,false);
+//        freeMarkExcuter.readTable("subiaodb", "keypoint_area",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+//        freeMarkExcuter.readTable("subiaodb", "keypoint_areapoint",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+//        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbyarea",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+//        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbysimno",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+//        freeMarkExcuter.readTable("subiaodb", "keypoint_ordermanage",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+       freeMarkExcuter.readTable("subiaodb", "imggathercommand",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+       freeMarkExcuter.readTable("subiaodb", "imggatherlistcommand",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+
+//        freeMarkAutoByTreeExcuter.readTable("subiaodb","yrgpstranspond",false,false);
 
     }
 
