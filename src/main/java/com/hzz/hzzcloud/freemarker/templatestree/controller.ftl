@@ -43,7 +43,8 @@ public JsonMessage save(
 @RequestBody  ${entityName} ${tablename}, HttpServletRequest request
 )
 throws Exception {
-${tablename}service.save(${tablename});
+OnlineUser onlineUser = getOnlineUser();
+${tablename}service.save(${tablename},  onlineUser.getEntityId());
 return new JsonMessage(true, "操作成功");
 }
 
@@ -238,7 +239,7 @@ alldata.put("${tablename}", ${tablename});
 log.error("查询详情失败", e);
 return json(true, "查询详情失败");
 }
-return json(true, alldata);
+return json(true,1, alldata);
 }
 
 

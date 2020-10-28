@@ -3,15 +3,20 @@ package com.hzz.hzzcloud.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 //文件上传基础service
 @Service
@@ -24,6 +29,33 @@ public class ImageSaveService {
        return saveimg(request,driverImg);
     }
 
+
+    @Autowired
+    private DataSource dataSource;
+
+    private void save(){
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into vehicle values (1,2,3)");
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }finally {
+            try {
+                connection.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private JsonMessage saveimg(HttpServletRequest request, String driverImg){
         try {

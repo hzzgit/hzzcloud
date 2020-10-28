@@ -29,7 +29,12 @@ String name="{\n";
 </#list>
 name+="}";
 System.out.println(name);
-
+name ="    \"success\":true, \n "+
+" \"code\":200,\n " +
+" \"message\":\"success\", \n " +
+" \"data\": " +name+
+", \n \"total\":1 ";
+System.out.println(name);
 }
 
 }

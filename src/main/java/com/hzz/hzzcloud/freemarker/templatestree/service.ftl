@@ -42,7 +42,7 @@ public List<Department> getAuthorizedDepList(List<Long> depIdList) {
         List<Department> depList = null;
             depList = departmentService.fetchDepartmentList(depIdList);//这里是找到机构的具体属性
             Collections.sort(depList, new Comparator<Department>() {
-                
+
                 public int compare(Department o1, Department o2) {
                 if (o1.getName() == null)
                 return -1;
@@ -361,7 +361,7 @@ public List<Department> getAuthorizedDepList(List<Long> depIdList) {
 
 
                                                                 @Transactional
-                                                                
+
                                                                 public void saveConfigByUser(Long id, String[] deleteuserIdsArr, String[] adduserIdsArr) {
                                                                 try {
                                                                 if (deleteuserIdsArr != null && deleteuserIdsArr.length > 0) {
@@ -416,8 +416,8 @@ public List<Department> getAuthorizedDepList(List<Long> depIdList) {
 
 
 
-                            
-                            
+
+
                                 /**
 * 分页查询${tableconment}
 */
@@ -433,11 +433,13 @@ return paginateResult;
                                                                     */
                                                                     public void save(${entityName} ${tablename}) throws Exception {
                                                                     if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
-                                                                    ${entityName} ${tablename}.setCreatedate(new Date());
+                                                                     ${tablename}.setCreatedate(new Date());
+                                                                    ${tablename}.setUserid(userid);
                                                                     jdbcUtil.insert(${tablename}).execute();
                                                                     } else {//修改
-                                                                    ${entityName} ${tablename}.setUpdatedate(new Date());
-                                                                    jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all()).execute();
+                                                                    ${tablename}.setUpdatedate(new Date());
+                                                                    jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all().minus(${entityName}.F_createdate,
+                                                                    ${entityName}.F_deleted,${entityName}.F_id,${entityName}.F_userid)).execute();
                                                                     }
                                                                     }
 

@@ -28,6 +28,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>net.fxft</groupId>
+            <artifactId>ascs-alarmtranferevent</artifactId>
+            <version>2.12-RELEASE</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 <!--        <dependency>-->
 <!--            <groupId>com.hzz</groupId>-->
