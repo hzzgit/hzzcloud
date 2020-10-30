@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class VehicleAction extends GeneAction{
         System.out.println(altitude);
     }
 
-    @PostConstruct
+//    @PostConstruct
     private void init(){
              new Thread(()->{
                              while (true){
