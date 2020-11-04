@@ -1,7 +1,7 @@
 package com.hzz.hzzcloud.controller.spring托管的事务测试.service;
 
-import com.hzz.hzzcloud.jdbcutil.annotation.DbTableId;
-import com.hzz.hzzcloud.jdbcutil.annotation.DbTableName;
+import com.hzz.hzzjdbc.jdbcutil.annotation.DbTableId;
+import com.hzz.hzzjdbc.jdbcutil.annotation.DbTableName;
 import lombok.Data;
 
 /**

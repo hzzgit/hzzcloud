@@ -1,11 +1,9 @@
 package com.hzz.hzzcloud.controller.spring托管的事务测试.service;
 
-import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
+import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author ：hzz
@@ -19,7 +17,7 @@ public class start事务 {
     @Autowired
     private MysqlDao mysqlDao;
 
-    @PostConstruct
+//    @PostConstruct
     public void starttran(){
              new Thread(()->{
                              while (true){
@@ -37,7 +35,7 @@ public class start事务 {
                         Student.setId(i);
                           Student.setName("测试"+i);
                           Student.setAge(i);
-                          mysqlDao.insert(Student);
+                          mysqlDao.getMysqlUtil().insert(Student);
                           try {
                               Thread.sleep(1000);
                           } catch (InterruptedException e) {
@@ -50,7 +48,7 @@ public class start事务 {
 
     @Transactional
     public void search(){
-        Integer o = mysqlDao.queryFirstVal("select count(1) from student");
+        Integer o = mysqlDao.getMysqlUtil().queryFirstVal("select count(1) from student");
         System.out.println(o);
     }
 }

@@ -4,6 +4,8 @@ package com.hzz.hzzcloud.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,6 +20,10 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LogAspect {
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @Pointcut("execution(public * com.hzz.hzzcloud.controller.*.*(..))")
     public void webLog(){}
 

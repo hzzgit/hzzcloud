@@ -1,6 +1,5 @@
 package com.hzz.hzzcloud.freemarker.util;
 
-import com.hzz.hzzcloud.jdbcutil.util.ConverterUtils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

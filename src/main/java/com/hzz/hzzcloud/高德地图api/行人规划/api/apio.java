@@ -1,12 +1,12 @@
 package com.hzz.hzzcloud.高德地图api.行人规划.api;
 
 import com.alibaba.fastjson.JSON;
-import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
-import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
-import com.hzz.hzzcloud.jdbcutil.util.TimeUtils;
 import com.hzz.hzzcloud.高德地图api.行人规划.Vo.JsonsRootBean;
 import com.hzz.hzzcloud.高德地图api.行人规划.Vo.Paths;
 import com.hzz.hzzcloud.高德地图api.行人规划.Vo.Steps;
+import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
+import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
+import com.hzz.hzzjdbc.jdbcutil.util.TimeUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class apio {
                     " `extendVersion`, `extendJson`) VALUES (0, 8106481254648860618, ?, ?," +
                     " ?, ?, ?, 0, 27.00, 280, 0.00, ?," +
                     " ?, 610200.00, 90.00, 786627, b'1', 83.00, 3, 0, 1, 0, NULL)";
-            mysqlDao.excutesql(sql,simNo.hashCode(),simNo,vehicleId,date,date,latitude,longtidute);
+            mysqlDao.getMysqlUtil().excutesql(sql,simNo.hashCode(),simNo,vehicleId,date,date,latitude,longtidute);
 
             try {
                 Thread.sleep(1000);

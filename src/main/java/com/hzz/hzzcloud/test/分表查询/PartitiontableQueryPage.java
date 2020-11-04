@@ -1,6 +1,6 @@
 package com.hzz.hzzcloud.test.分表查询;
 
-import com.hzz.hzzcloud.jdbcutil.util.TimeUtils;
+import com.hzz.hzzjdbc.jdbcutil.util.TimeUtils;
 import net.fxft.common.jdbc.JdbcUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

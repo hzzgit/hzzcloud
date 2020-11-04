@@ -1,6 +1,6 @@
 package com.hzz.hzzcloud.test.分表查询;
 
-import com.hzz.hzzcloud.jdbcutil.util.TimeUtils;
+import com.hzz.hzzjdbc.jdbcutil.util.TimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.common.jdbc.JdbcUtil;
 import org.springframework.beans.factory.annotation.Autowired;

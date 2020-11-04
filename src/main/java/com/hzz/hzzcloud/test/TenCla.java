@@ -1,6 +1,6 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.annotation.DbColNUll;
+import com.hzz.hzzjdbc.jdbcutil.annotation.DbColNUll;
 import lombok.Data;
 
 import java.util.Date;

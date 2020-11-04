@@ -10,9 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class 起 {
     public static void main(String[] args) {
+        String depIdstr="'1','2','3',";
+        depIdstr=depIdstr.substring(0,depIdstr.length()-1);
 
-
-
+        System.out.println(depIdstr);
 
 
     }

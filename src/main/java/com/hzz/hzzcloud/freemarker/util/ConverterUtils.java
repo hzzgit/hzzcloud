@@ -1,11 +1,16 @@
-package com.hzz.hzzcloud.jdbcutil.util;
+package com.hzz.hzzcloud.freemarker.util;
+
+import net.fxft.ascswebcommon.util.StringUtil;
+import net.fxft.ascswebcommon.web.util.ConverMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 数据类型转换工具类
@@ -51,7 +56,19 @@ public class ConverterUtils {
         }
         return defaultVal;
     }
-
+    //将字符串转成Long数组
+    public static Long[] StringtoList(String depId){
+        Long[] depIds = null;
+        //获取用户的车辆和机构权限，互斥之后
+        if(!StringUtil.isNullOrEmpty(depId)&&!"0".equalsIgnoreCase(depId)){
+            String[] depId1=depId.split(",");
+            depIds = new Long[depId1.length];
+            for (int i = 0; i < depId1.length; i++) {
+                depIds[i] = net.fxft.ascswebcommon.web.util.ConverterUtils.toLong(depId1[i]);
+            }
+        }
+        return depIds;
+    }
     /**
      * <将对象转换为int>
      *
@@ -82,14 +99,7 @@ public class ConverterUtils {
     public static Float toFloat(Object obj, float defaultVal) {
         return (obj != null) ? Float.parseFloat(toString(obj, "0")) : defaultVal;
     }
-    //用来判断集合是否非空且大于0
-    public static boolean isList(List list) {
-        boolean arg = false;
-        if (list != null && list.size() > 0) {
-            arg = true;
-        }
-        return arg;
-    }
+
     /**
      * <将对象转换为Float>
      *
@@ -169,18 +179,16 @@ public class ConverterUtils {
      */
     public static Integer Stringdoutoint(Object obj, Integer defaultVal) {
         try {
-            Double b = ConverterUtils.toDouble(obj, 0.0);
+            Double b = net.fxft.ascswebcommon.web.util.ConverterUtils.toDouble(obj, 0.0);
             Integer c = Integer.valueOf(b.intValue());
             return (b != null) ? Integer.valueOf(toString(b.intValue(), "0")) : defaultVal;
         } catch (Exception e) {
             return defaultVal;
         }
     }
-
     public static Date toDate(Object object){
         return   toDate( object,  null);
     }
-
     public static Date toDate(Object object, Date defaultVal) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -194,17 +202,43 @@ public class ConverterUtils {
                 try {
                     return sdf1.parse(String.valueOf(object));
                 } catch (ParseException e2) {
-                    return  defaultVal;
+                    return defaultVal;
                 }
             }
         }
     }
 
     public static void main(String[] args) {
-        Date da = ConverterUtils.toDate("2019-06-11", new Date());
+        Date da = net.fxft.ascswebcommon.web.util.ConverterUtils.toDate("2019-06-11", new Date());
         System.out.println(da);
     }
 
+    private static final Logger logger = LoggerFactory.getLogger(net.fxft.ascswebcommon.web.util.ConverterUtils.class);
+
+
+    //将集合根据字段进行排序
+    public static void Listsort(List<ConverMap> datas, boolean isasc, String sortcolname) {
+        if (isList(datas)) {
+            Collections.sort(datas, new Comparator<ConverMap>() {
+                        @Override
+                        public int compare(ConverMap o1, ConverMap o2) {
+                            try {
+                                Double type1num = o1.getDouble(sortcolname, 0.0);
+                                Double type2num = o2.getDouble(sortcolname, 0.0);
+                                if (isasc) {
+                                    return type1num.compareTo(type2num);
+                                } else {
+                                    return type2num.compareTo(type1num);
+                                }
+                            } catch (Exception e) {
+                                logger.debug("排序报错,v1=" + o1 + ",v2=" + o2, e);
+                                return 0;
+                            }
+                        }
+                    }
+            );
+        }
+    }
 
     /**
      * 保留小数点几位
@@ -214,9 +248,14 @@ public class ConverterUtils {
      * @return
      */
     public static double keeppointbynum(double cn, int point) {
-        BigDecimal b = new BigDecimal(cn);
-        double f1 = b.setScale(point, BigDecimal.ROUND_HALF_UP).doubleValue();
-        return f1;
+        try {
+            BigDecimal co = new BigDecimal(cn);
+            double f1 = co.setScale(point, BigDecimal.ROUND_HALF_UP).doubleValue();
+            return f1;
+        } catch (NumberFormatException e) {
+            logger.error("转换出错:" + cn, e);
+            return 0.0;
+        }
     }
 
     public static String keeponepoint(Double cn) {
@@ -231,5 +270,45 @@ public class ConverterUtils {
         return da;
     }
 
+    //用来判断集合是否非空且大于0
+    public static boolean isList(List list) {
+        boolean arg = false;
+        if (list != null && list.size() > 0) {
+            arg = true;
+        }
+        return arg;
+    }
 
+    /**
+     * 将集合转成Map
+     *
+     * @param List
+     * @return
+     */
+    public static Map getListtoMap(List<Long> List) {
+        Map<Long, Boolean> Map = new HashMap<>();
+        if (isList(List)) {
+            for (Long aLong : List) {
+                Map.put(aLong, true);
+            }
+        }
+        return Map;
+    }
+
+
+    /**
+     * 将集合转成Map
+     *
+     * @param List
+     * @return
+     */
+    public static Map getListtoconMap(List<Long> List) {
+        Map<Long, Boolean> Map = new ConcurrentHashMap<>();
+        if (isList(List)) {
+            for (Long aLong : List) {
+                Map.put(aLong, true);
+            }
+        }
+        return Map;
+    }
 }

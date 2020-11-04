@@ -1,8 +1,9 @@
 package com.hzz.hzzcloud.生成已存在不插入的语句;
 
-import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
-import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
-import com.hzz.hzzcloud.jdbcutil.util.ConverMap;
+
+import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
+import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
+import com.hzz.hzzjdbc.jdbcutil.util.ConverMap;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class createinsetsql {
     public static MysqlDao mysqldb = null;
 
     public createinsetsql() {
-        mysqldb = JdkDataSource.jdkmysql();
+        JdkDataSource.jdkmysql();
     }
 
 
@@ -25,10 +26,10 @@ public class createinsetsql {
         String sql = "select column_name  from\n" +
                 "information_schema.COLUMNS where table_schema not in ('mysql','information_schema','performance_schema','sys') \n" +
                 "and table_schema =? and table_name=?";
-        List<String> query = mysqldb.queryFirstOne(sql, table_schema, table_name);
+        List<String> query = mysqldb.getMysqlUtil().queryFirstOne(sql, table_schema, table_name);
 
         String sql2 = "select * from  " + table_schema + "." + table_name + "  " + wheredata;
-        List<ConverMap> query1 = mysqldb.query(sql2);
+        List<ConverMap> query1 = mysqldb.getMysqlUtil().query(sql2);
         StringBuilder data = new StringBuilder();
         for (ConverMap converMap : query1) {
             String sout = sout(query, converMap, table_schema, table_name);

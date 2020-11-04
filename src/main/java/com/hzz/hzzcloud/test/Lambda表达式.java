@@ -1,7 +1,8 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
-import com.hzz.hzzcloud.jdbcutil.util.ConverMap;
+
+import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
+import com.hzz.hzzjdbc.jdbcutil.util.ConverMap;
 
 import java.util.*;
 import java.util.function.Function;
@@ -20,12 +21,12 @@ public class Lambda表达式 {
         student.setName("修改信息21212");
         student.setCreatedate(new Date());
         student.setBirthday(new Date());
-        JdkDataSource.mysqldb.update(student);
-        String name= (String) JdkDataSource.mysqldb.queryFirstVal("select name from student where id=254");
+        JdkDataSource.mysqldb.getMysqlUtil().update(student);
+        String name= (String) JdkDataSource.mysqldb.getMysqlUtil().queryFirstVal("select name from student where id=254");
         System.out.println(name);
         String sq1l="select * from student";
-        List<Student> query = JdkDataSource.mysqldb.query(sq1l, Student.class);
-        List<ConverMap> query1= JdkDataSource.mysqldb.query(sq1l);
+        List<Student> query = JdkDataSource.mysqldb.getMysqlUtil().query(sq1l, Student.class);
+        List<ConverMap> query1= JdkDataSource.mysqldb.getMysqlUtil().query(sq1l);
         query1.sort((p,v)-> (int) (p.getLong("age")-v.getLong("age")));
         query1.sort((p,v)-> (int) (-p.getLong("age")-v.getLong("age")));
         Map<String, List<Student>> collect = query.stream().

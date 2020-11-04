@@ -1,7 +1,8 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.dbmain.MysqlDao;
-import com.hzz.hzzcloud.jdbcutil.jdkjdbc.JdkDataSource;
+
+import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
+import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 
 import java.io.Console;
 import java.util.ArrayList;

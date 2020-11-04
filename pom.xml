@@ -30,6 +30,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.hzz</groupId>
+            <artifactId>hzzjdbc</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>net.fxft</groupId>
             <artifactId>ascs-alarmtranferevent</artifactId>
             <version>2.12-RELEASE</version>

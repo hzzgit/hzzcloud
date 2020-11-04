@@ -1,6 +1,7 @@
 package com.hzz.hzzcloud.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hzz.hzzcloud.aop.UserAccess;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class VehicleAction extends GeneAction{
 
     @ResponseBody
     @RequestMapping("/abc.action")
+    @UserAccess(desc = "测试")
     public JsonMessage abc() {
         String userName = request.getHeader("userName")+"5"+jwtSecret;
         return  new JsonMessage(true,userName);

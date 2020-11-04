@@ -1,7 +1,8 @@
 package com.hzz.hzzcloud.test;
 
-import com.hzz.hzzcloud.jdbcutil.annotation.DbTableId;
-import com.hzz.hzzcloud.jdbcutil.annotation.DbTableName;
+
+import com.hzz.hzzjdbc.jdbcutil.annotation.DbTableId;
+import com.hzz.hzzjdbc.jdbcutil.annotation.DbTableName;
 import lombok.Data;
 
 import java.io.Serializable;
