@@ -26,7 +26,7 @@ public class FreeMarkMain {
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbyarea",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbysimno",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_ordermanage",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
-       freeMarkExcuter.readTable("subiaodb", "videofileitem",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+       freeMarkExcuter.readTable("subiaodb", "datafillingvehicle",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 
        // freeMarkAutoByTreeExcuter.readTable("subiaodb","yrgpstranspond",false,false);
 

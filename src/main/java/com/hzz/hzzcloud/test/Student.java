@@ -10,7 +10,7 @@ import java.util.Date;
 
 @DbTableName(value = "Student")
 @Data
-public class Student  extends TenCla implements Serializable {
+public class Student  extends TenCla implements Serializable,StudentInter {
 
     @DbTableId
     private Integer id;
