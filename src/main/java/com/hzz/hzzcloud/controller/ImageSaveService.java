@@ -10,10 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -25,15 +22,15 @@ public class ImageSaveService {
 
     private String driverImg = "image";
 
-    public JsonMessage saveDriverimg(HttpServletRequest request){
-       return saveimg(request,driverImg);
+    public JsonMessage saveDriverimg(HttpServletRequest request) {
+        return saveimg(request, driverImg);
     }
 
 
     @Autowired
     private DataSource dataSource;
 
-    private void save(){
+    private void save() {
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
@@ -48,7 +45,7 @@ public class ImageSaveService {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }finally {
+        } finally {
             try {
                 connection.commit();
             } catch (SQLException e) {
@@ -57,22 +54,22 @@ public class ImageSaveService {
         }
     }
 
-    private JsonMessage saveimg(HttpServletRequest request, String driverImg){
+    private JsonMessage saveimg(HttpServletRequest request, String driverImg) {
         try {
-            return  saveDriverImg(request,driverImg);
+            return saveDriverImg(request, driverImg);
         } catch (Exception e) {
-            log.error("上传图片失败",e);
-            return new JsonMessage(false,"上传失败");
+            log.error("上传图片失败", e);
+            return new JsonMessage(false, "上传失败");
         }
     }
 
 
     //这边的照片名称全部都是driverImg,多张就是driverImg1，driverImg2，driverImg3等
-    private JsonMessage saveDriverImg(HttpServletRequest request,  String driverImg) throws Exception {
+    private JsonMessage saveDriverImg(HttpServletRequest request, String driverImg) throws Exception {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multipartRequest.getFile(driverImg);
         String modulename = String.valueOf(multipartRequest.getParameter("modulename"));
-        String path="D:\\"+modulename;
+        String path = "D:\\" + modulename;
         String driverImgUrl = null;
         if (file != null) {
             String uploadFileName = file.getOriginalFilename();
@@ -103,7 +100,7 @@ public class ImageSaveService {
             }
         }
 
-        return new JsonMessage(true,modulename+"上传成功")  ;
+        return new JsonMessage(true, modulename + "上传成功");
     }
 
 
@@ -116,5 +113,29 @@ public class ImageSaveService {
         }
         inStream.close();
         return outStream.toByteArray();
+    }
+
+    public static void main(String[] args) {
+        File file = new File("D:\\桌面备份\\备份文件\\要移动的文件\\redis连接信息.json");
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+
+
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[128];
+            int len = 0;
+            while ((len = is.read(buffer)) != -1) {
+                outStream.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String name="我";
+        byte[] bytes = name.getBytes();
+        System.out.println(bytes.length);
+        Integer integer=new Integer(21);
+
     }
 }

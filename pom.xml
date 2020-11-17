@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.hzz</groupId>
             <artifactId>hzzjdbc</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.fxft</groupId>
@@ -40,11 +40,11 @@
             <version>2.12-RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-<!--        <dependency>-->
-<!--            <groupId>com.hzz</groupId>-->
-<!--            <artifactId>serialize</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.hzz</groupId>-->
+        <!--            <artifactId>serialize</artifactId>-->
+        <!--            <version>0.0.1-SNAPSHOT</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
@@ -58,10 +58,10 @@
 
 
         <!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-dependencies</artifactId>-->
-<!--            <version>${spring-cloud.version}</version>-->
-<!--        </dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-dependencies</artifactId>-->
+        <!--            <version>${spring-cloud.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>net.fxft</groupId>
             <artifactId>ascs-web-common</artifactId>
@@ -73,11 +73,11 @@
             <artifactId>lucene-core</artifactId>
             <version>4.0.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>5.1.31</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--            <version>5.1.31</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>net.fxft</groupId>
             <artifactId>fxft-cloud</artifactId>
@@ -124,11 +124,11 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.10.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>druid</artifactId>-->
-<!--            <version>1.0.29</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>druid</artifactId>-->
+        <!--            <version>1.0.29</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.rocksdb/rocksdbjni -->
         <dependency>
             <groupId>org.rocksdb</groupId>
@@ -148,6 +148,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+        <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.19</version>
         </dependency>
 
 
@@ -193,32 +200,26 @@
     <build>
         <finalName>hzzcloud</finalName>
         <plugins>
-
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>*.properties</exclude>
+                        <exclude>*.xml</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.hzz</groupId>
-                <artifactId>hzzz-deploy</artifactId>
-                <version>3.6-RELEASE</version>
-                <executions>
-                    <execution>
-                        <id>exportDataToFile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>sayhi</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
-
-
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

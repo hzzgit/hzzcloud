@@ -7,6 +7,7 @@ import com.hzz.hzzcloud.freemarker.Vo.TableVo;
 import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
 import com.hzz.hzzcloud.freemarker.emun.TemplateEnum;
 import com.hzz.hzzcloud.freemarker.emun.WebEnum;
+import com.hzz.hzzcloud.工具.快速读取resources中的文件.FileLoaderUtil;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 import freemarker.template.Configuration;
@@ -19,14 +20,12 @@ import java.util.List;
 public class FreeMarkExcuter {
 
     private MysqlDao mysqlDao = null;
-    private static String TEMPLATE_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templates";
 
-    private static final String TEMPLATE_PATH1 = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templates";
-    private static final String TEMPLATE_PATHNOCOMMON = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesnocommon";
-    private static final String TEMPLATE_TREE = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatestree";
-
-
-    private static final String TEMPLATE_OTHER = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatesother";
+    private String TEMPLATE_PATH = "templates";
+    private  String TEMPLATE_PATH1 = "templates";
+    private  String TEMPLATE_PATHNOCOMMON = "templatesnocommon";
+    private  String TEMPLATE_TREE = "templatestree";
+    private  String TEMPLATE_OTHER = "templatesother";
 
 
     private static final String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\main";
@@ -34,6 +33,15 @@ public class FreeMarkExcuter {
     public Configuration configuration = new Configuration();
 
     public FreeMarkExcuter() {
+        try {
+            TEMPLATE_PATH = FileLoaderUtil.getFilePath(TEMPLATE_PATH);
+            TEMPLATE_PATH1 = FileLoaderUtil.getFilePath(TEMPLATE_PATH1);
+            TEMPLATE_PATHNOCOMMON = FileLoaderUtil.getFilePath(TEMPLATE_PATHNOCOMMON);
+            TEMPLATE_TREE = FileLoaderUtil.getFilePath(TEMPLATE_TREE);
+            TEMPLATE_OTHER = FileLoaderUtil.getFilePath(TEMPLATE_OTHER);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         // step2 获取模版路径
         JdkDataSource.jdkmysql();
         mysqlDao = JdkDataSource.mysqldb;
@@ -46,14 +54,14 @@ public class FreeMarkExcuter {
      * @param table_name       表名
      * @param veanddepquanxian 车辆机构权限
      * @param depquanxian      机构权限,车辆机构权限为true的时候,这个不生效
-     * @param templateEnum         使用继承模板还是原始模板,枚举类是TemplateEnum
+     * @param templateEnum     使用继承模板还是原始模板,枚举类是TemplateEnum
      * @param isother          是否读取其他的模板文件夹
      */
     public void readTable(String table_schema, String table_name, boolean veanddepquanxian, boolean depquanxian, TemplateEnum templateEnum, boolean isother) {
         if (templateEnum == TemplateEnum.TEMPLATE_PATH1) {//这边是依赖common的版本
             TEMPLATE_PATH = TEMPLATE_PATH1;
         } else if (templateEnum == TemplateEnum.TEMPLATE_PATHNOCOMMON) {//这个是非依赖common的版本
-            TEMPLATE_PATH=TEMPLATE_PATHNOCOMMON;
+            TEMPLATE_PATH = TEMPLATE_PATHNOCOMMON;
         }
         try {
             configuration.setDirectoryForTemplateLoading(new File(TEMPLATE_PATH));
@@ -193,24 +201,19 @@ public class FreeMarkExcuter {
 
     /**
      * 迭代删除文件夹
+     *
      * @param dirPath 文件夹路径
      */
-    private  void deleteDir(String dirPath)
-    {
+    private void deleteDir(String dirPath) {
         File file = new File(dirPath);
-        if(file.isFile())
-        {
+        if (file.isFile()) {
             file.delete();
-        }else
-        {
+        } else {
             File[] files = file.listFiles();
-            if(files == null)
-            {
+            if (files == null) {
                 file.delete();
-            }else
-            {
-                for (int i = 0; i < files.length; i++)
-                {
+            } else {
+                for (int i = 0; i < files.length; i++) {
                     deleteDir(files[i].getAbsolutePath());
                 }
                 file.delete();
