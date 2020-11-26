@@ -6,6 +6,7 @@ import com.hzz.hzzcloud.freemarker.Vo.PathVo;
 import com.hzz.hzzcloud.freemarker.Vo.TableVo;
 import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
 import com.hzz.hzzcloud.freemarker.emun.WebEnum;
+import com.hzz.hzzcloud.工具.快速读取resources中的文件.FileLoaderUtil;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 import freemarker.template.Configuration;
@@ -21,7 +22,7 @@ public class FreeMarkAutoByTreeExcuter {
 
     private MysqlDao mysqlDao = null;
 
-    private static final String TEMPLATE_TREE = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\templatestree";
+    private  String TEMPLATE_TREE = "templatestree";
 
     private static final String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\java\\com\\hzz\\hzzcloud\\freemarker\\maintree";
 
@@ -30,6 +31,12 @@ public class FreeMarkAutoByTreeExcuter {
     public Configuration configuration = new Configuration();
 
     public FreeMarkAutoByTreeExcuter() {
+        try {
+            TEMPLATE_TREE = FileLoaderUtil.getFilePath(TEMPLATE_TREE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         // step2 获取模版路径
         JdkDataSource.jdkmysql();
         mysqlDao = JdkDataSource.mysqldb;

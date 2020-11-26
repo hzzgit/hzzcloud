@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--奕人gps转发基于protobuffer协议配置表mapper -->
+<mapper namespace="yrgpstranspondmapper">
+
+    <!--查询奕人gps转发基于protobuffer协议配置表列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  名称   -->
+                a.name,
+                <!--  consumer为⽤户id由奕人提供   -->
+                a.consumer,
+                <!--  ak由奕人提供   -->
+                a.ak,
+                <!--  转发的ip地址   -->
+                a.ip,
+                <!--  转发的端口号   -->
+                a.port,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  修改时间   -->
+                a.updatedate,
+                <!--  用户id   -->
+                a.userid,
+                <!--  是否启用,0禁用,1启用   -->
+                a.isuse,
+                <!--  删除标志,1代表删除,0代表正常   -->
+                a.deleted
+        from
+        subiaodb.yrgpstranspond as a
+
+        where 1=1
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="name != null ">
+                    and a.name=#{name}
+                    <!-- and a.name like '%${name}%'-->
+                </if>
+                <if test="consumer != null ">
+                    and a.consumer=#{consumer}
+                    <!-- and a.consumer like '%${consumer}%'-->
+                </if>
+                <if test="ak != null ">
+                    and a.ak=#{ak}
+                    <!-- and a.ak like '%${ak}%'-->
+                </if>
+                <if test="ip != null ">
+                    and a.ip=#{ip}
+                    <!-- and a.ip like '%${ip}%'-->
+                </if>
+                <if test="port != null ">
+                    and a.port=#{port}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                <if test="startupdatedate != null ">
+                    and a.updatedate >= #{startupdatedate }
+                </if>
+                <if test="endupdatedate != null ">
+                    and <![CDATA[ a.updatedate < #{endupdatedate }]]>
+                </if>
+                <if test="userid != null ">
+                    and a.userid=#{userid}
+                </if>
+                and a.deleted=false
+
+
+
+            order by a.updatedate desc
+
+    </select>
+
+
+</mapper>

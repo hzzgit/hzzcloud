@@ -2,7 +2,6 @@ package com.hzz.hzzcloud.freemarker;
 
 import com.hzz.hzzcloud.freemarker.FreeMarkConfig.FreeMarkAutoByTreeExcuter;
 import com.hzz.hzzcloud.freemarker.FreeMarkConfig.FreeMarkExcuter;
-import com.hzz.hzzcloud.freemarker.emun.TemplateEnum;
 
 
 /**
@@ -26,9 +25,9 @@ public class FreeMarkMain {
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbyarea",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_orderbysimno",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_ordermanage",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
-       freeMarkExcuter.readTable("subiaodb", "datafillingvehicle",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
+       //freeMarkExcuter.readTable("subiaodb", "oldflowrateno",false,false, TemplateEnum.TEMPLATE_PATH1,false);
 
-       // freeMarkAutoByTreeExcuter.readTable("subiaodb","yrgpstranspond",false,false);
+        freeMarkAutoByTreeExcuter.readTable("subiaodb","yrgpstranspond",false,false);
 
     }
 

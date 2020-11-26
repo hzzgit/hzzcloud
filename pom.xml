@@ -157,6 +157,11 @@
             <version>1.0.19</version>
         </dependency>
 
+        <!--加入前端模板引擎用于跳转-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
     </dependencies>
     <distributionManagement>

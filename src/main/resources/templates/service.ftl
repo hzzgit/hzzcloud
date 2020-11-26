@@ -41,11 +41,12 @@
     */
     public void save(${entityName} ${tablename}) throws Exception {
     if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
-    ${entityName} ${tablename}.setCreatedate(new Date());
+   ${tablename}.setCreatedate(new Date());
+    ${tablename}.setUpdatedate(new Date());
     jdbcUtil.insert(${tablename}).execute();
     } else {//修改
-    ${entityName} ${tablename}.setUpdatedate(new Date());
-    jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all()).execute();
+     ${tablename}.setUpdatedate(new Date());
+    jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all().minus(${entityName}.F_createdate)).execute();
     }
     }
 
