@@ -1,8 +1,6 @@
-package com.hzz.hzzcloud.freemarkerbydir;
+package com.hzz.hzzcloud.freemarkcustom;
 
 
-import com.hzz.hzzcloud.freemarker.Vo.TableVo;
-import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
 import com.hzz.hzzcloud.freemarkerbydir.dto.PathVoByDir;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
@@ -15,11 +13,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeMarkbydirExcuter {
+public class FreeMarkbyCustom {
 
     private MysqlDao mysqlDao = null;
 
-    private String TEMPLATE_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\resources\\templatesdir\\template";
+    private String TEMPLATE_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\resources\\templatesdir\\templatecustom";
     private String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\resources\\templatesdir\\main";
 
     public Configuration configuration = new Configuration();
@@ -28,7 +26,7 @@ public class FreeMarkbydirExcuter {
     private List<PathVoByDir> pathVoList = new ArrayList<PathVoByDir>();
 
 
-    public FreeMarkbydirExcuter() {
+    public FreeMarkbyCustom() {
         TEMPLATE_PATH = TEMPLATE_PATH.replace("\\", File.separator);
         CLASS_PATH = CLASS_PATH.replace("\\", File.separator);
         deleteDir(CLASS_PATH);
@@ -45,33 +43,22 @@ public class FreeMarkbydirExcuter {
     //读取表进行模板生成
 
     /**
-     * @param table_schema     表所在数据库
-     * @param table_name       表名
-     * @param veanddepquanxian 车辆机构权限
-     * @param depquanxian      机构权限,车辆机构权限为true的时候,这个不生效
+     *
      */
-    public void readTable(String table_schema, String table_name, boolean veanddepquanxian, boolean depquanxian) {
-        table_schema = table_schema.toLowerCase();
-        table_name = table_name.toLowerCase();
-        FreeMarkDao freeMarkDao = new FreeMarkDao();
-        TableVo tableVo = freeMarkDao.search(table_schema, table_name);
-        tableVo.setVeanddepquanxian(veanddepquanxian);//如果需要权限,那么就加入这个
-        tableVo.setDepquanxian(depquanxian);
+    public void readTable(TableBase tableVo) {
 
-
-        String EntityName = firstcolUp(table_name);//首字符大写的名称
-        tableVo.setEntityName(EntityName);//生成的实体类的类名,首字母大写
 
         createDir(tableVo, TEMPLATE_PATH);
 
         for (PathVoByDir pathVoByDir : pathVoList) {
             String classPath = pathVoByDir.getClassPath();
-            classPath = classPath.replace(this.CLASS_PATH+File.separator, "");
+            classPath = classPath.replace(this.CLASS_PATH + File.separator, "");
             classPath = classPath.replace(File.separator, ".");
-            classPath=classPath.substring(0,classPath.lastIndexOf("."));
+            classPath = classPath.substring(0, classPath.lastIndexOf("."));
             if(classPath.indexOf(".")>-1){
                 classPath = classPath.substring(0, classPath.lastIndexOf("."));
             }
+
             tableVo.setPackpath(classPath);
 
             try {
@@ -79,13 +66,12 @@ public class FreeMarkbydirExcuter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             writetem(pathVoByDir.getTempName(),
                     pathVoByDir.getClassPath(),
                     tableVo);//创建实体类
         }
 
-        System.out.println(table_name + " 文件创建成功 !");
+        System.out.println(" 文件创建成功 !");
         pathVoList.clear();
     }
 
@@ -97,7 +83,7 @@ public class FreeMarkbydirExcuter {
      * @param classpath 要写入的文件路径
      * @param tableVo   查出来的表的内容,字段名,表名注释等
      */
-    private void writetem(String ftlpath, String classpath, TableVo tableVo) {
+    private void writetem(String ftlpath, String classpath, TableBase tableVo) {
         Writer out = null;
         // step4 加载模版文件
         try {
@@ -160,7 +146,7 @@ public class FreeMarkbydirExcuter {
     /**
      * 根据模板创建文件夹
      */
-    private void createDir(TableVo tableVo, String TEMPLATE_PATH) {
+    private void createDir(TableBase tableVo, String TEMPLATE_PATH) {
         File file = new File(TEMPLATE_PATH);
         File[] files = file.listFiles();
         for (File file1 : files) {
@@ -199,8 +185,8 @@ public class FreeMarkbydirExcuter {
     }
 
 
-    private String checkfilename(String ftppath, TableVo tableVo) {
-        Class<? extends TableVo> aClass = tableVo.getClass();
+    private String checkfilename(String ftppath, TableBase tableVo) {
+        Class<? extends TableBase> aClass = tableVo.getClass();
         for (Field declaredField : aClass.getDeclaredFields()) {
             String fieldName = declaredField.getName();
             Class<?> type = declaredField.getType();

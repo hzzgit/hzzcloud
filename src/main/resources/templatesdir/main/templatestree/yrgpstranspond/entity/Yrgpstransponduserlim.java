@@ -6,7 +6,7 @@ import java.util.*;
 
 @Data
 @DbTable(value="subiaodb.yrgpstransponduserlim")
-public class Yrgpstransponduserlin implements java.io.Serializable  {
+public class Yrgpstransponduserlim implements java.io.Serializable  {
 
 private static final long serialVersionUID = 1L;
 

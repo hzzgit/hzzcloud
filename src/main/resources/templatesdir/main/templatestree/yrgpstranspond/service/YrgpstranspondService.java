@@ -431,7 +431,7 @@ public List<Department> getAuthorizedDepList(List<Long> depIdList) {
                                                                     /**
                                                                     * 保存奕人gps转发基于protobuffer协议配置表
                                                                     */
-                                                                    public void save(Yrgpstranspond yrgpstranspond) throws Exception {
+                                                                    public void save(Yrgpstranspond yrgpstranspond,long userid) throws Exception {
                                                                     if (yrgpstranspond.getId() == 0) {//新增
                                                                     yrgpstranspond.setCreatedate(new Date());
                                                                     yrgpstranspond.setUserid(userid);

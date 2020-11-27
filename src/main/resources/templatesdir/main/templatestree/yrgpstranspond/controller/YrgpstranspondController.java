@@ -42,7 +42,8 @@ public JsonMessage save(
 @RequestBody  Yrgpstranspond yrgpstranspond, HttpServletRequest request
 )
 throws Exception {
-yrgpstranspondservice.save(yrgpstranspond);
+OnlineUser onlineUser = getOnlineUser();
+yrgpstranspondservice.save(yrgpstranspond,  onlineUser.getEntityId());
 return new JsonMessage(true, "操作成功");
 }
 

@@ -36,6 +36,7 @@ return paginateResult;
 public void save(Yrgpstranspond yrgpstranspond) throws Exception {
 if (yrgpstranspond.getId() == 0) {//新增
  yrgpstranspond.setCreatedate(new Date());
+yrgpstranspond.setUpdatedate(new Date());
 jdbcUtil.insert(yrgpstranspond).execute();
 } else {//修改
  yrgpstranspond.setUpdatedate(new Date());
