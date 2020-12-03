@@ -14,21 +14,21 @@ public class FreeMarkbydirMain {
 
 
     public static void main(String[] args) {
-        JdkDataSource.jdkmysql();
-        MysqlDao mysqldb = JdkDataSource.mysqldb;
-        List<ConverMap> query = mysqldb.query("select table_schema as tableschema,table_name as tablename from INFORMATION_SCHEMA.TABLES\n" +
-                "where table_schema in('subiaodb','gps_hisdata') ");
-
+//        JdkDataSource.jdkmysql();
+//        MysqlDao mysqldb = JdkDataSource.mysqldb;
+//        List<ConverMap> query = mysqldb.query("select table_schema as tableschema,table_name as tablename from INFORMATION_SCHEMA.TABLES\n" +
+//                "where table_schema in('subiaodb','gps_hisdata') ");
+//
+//        for (ConverMap converMap : query) {
+//            String table_schema = converMap.getString("tableschema");
+//            String tablename = converMap.getString("tablename");
+//            freeMarkbydirExcuter.readTable(table_schema, tablename,
+//                    false,false);
+//        }
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
-        for (ConverMap converMap : query) {
-            String table_schema = converMap.getString("tableschema");
-            String tablename = converMap.getString("tablename");
-            freeMarkbydirExcuter.readTable(table_schema, tablename,
-                    false,false);
-        }
 
-//        freeMarkbydirExcuter.readTable("subiaodb", "yrgpstranspond",
-//                false,false);
+        freeMarkbydirExcuter.readTable("subiaodb", "yrgpstranspond",
+                false,false);
 
     }
 
