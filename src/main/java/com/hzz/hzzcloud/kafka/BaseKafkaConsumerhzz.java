@@ -51,7 +51,7 @@
 //                Consumer<String, byte[]> cos = BaseKafkaConsumerhzz.this.kafkaConsumerFactory.createConsumer(consumerGroupId, "");
 //                cos.subscribe(topicList);
 //
-//                do {
+//                DO {
 //                    try {
 //                        if (BaseKafkaConsumerhzz.this.paused) {
 //                            Thread.sleep(100L);

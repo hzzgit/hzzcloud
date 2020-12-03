@@ -14,7 +14,7 @@ public interface Subject {
     public void del(Observer observer);
 
     /*通知所有的观察者*/
-    public void notifyObservers();
+    public void notifyObservers( String name);
 
     /*自身的操作*/
     public void operation();

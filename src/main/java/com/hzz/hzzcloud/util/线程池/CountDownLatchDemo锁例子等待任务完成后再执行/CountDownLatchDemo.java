@@ -43,9 +43,9 @@ public class CountDownLatchDemo {
         }
         @Override
         public void run(){
-            System.out.println("Worker "+workerName+" do work begin at "+sdf.format(new Date()));
+            System.out.println("Worker "+workerName+" DO work begin at "+sdf.format(new Date()));
             doWork();//工作了
-            System.out.println("Worker "+workerName+" do work complete at "+sdf.format(new Date()));
+            System.out.println("Worker "+workerName+" DO work complete at "+sdf.format(new Date()));
             latch.countDown();//工人完成工作，计数器减一
 
         }

@@ -22,10 +22,10 @@ public abstract class AbstractSubject implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers( String name) {
         Enumeration<Observer> enumo = vector.elements();
         while(enumo.hasMoreElements()){
-            enumo.nextElement().update();
+            enumo.nextElement().update(name);
         }
     }
 }

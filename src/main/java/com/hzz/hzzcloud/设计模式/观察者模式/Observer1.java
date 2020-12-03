@@ -8,7 +8,7 @@ package com.hzz.hzzcloud.设计模式.观察者模式;
 public class Observer1 implements Observer {
 
     @Override
-    public void update() {
-        System.out.println("observer1 has received!");
+    public void update(String name) {
+        System.out.println("observer1 has received!    "+name);
     }
 }

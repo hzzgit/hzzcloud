@@ -12,12 +12,13 @@ import java.util.List;
 public class ObserverTest {
 
     public static void main(String[] args) {
-        Subject sub = new MySubject();
-        sub.add(new Observer1());
+        Subject sub = new MySubject("腾");
+        Observer1 observer1 = new Observer1();
+        sub.add(observer1);
         sub.add(new Observer2());
-        List a=new ArrayList<>();
-        Iterator iterator = a.iterator();
-        
+        sub.add(new Observer3());
+
+        sub.del(observer1);
         sub.operation();
     }
 

@@ -1,4 +1,4 @@
-package com.hzz.hzzcloud.生成已存在不插入的语句;
+package com.hzz.hzzcloud.公司临时代码.生成已存在不插入的语句;
 
 
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
