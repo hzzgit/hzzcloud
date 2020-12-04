@@ -1,10 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>V基础</title>
 </head>
 <body>
-<h1>123456789</h1>
+
+<div id="app" class="app">
+    {{message}}
+    <div v-for=" item in datas" :key="item.name">
+        {{ item.name }}
+        {{ item.age }}
+    </div>
+    <h1 v-if="awesome">Vue is awesome!</h1>
+    <h1 v-else-if="awesome" >Vue is111 awesome!</h1>
+    <h1 v-else>Oh no 😢</h1>
+    <div>
+        {{school}}
+    </div>
+    <div v-for="item in school.student">
+        {{ item.bo}}
+        {{ item.na}}
+        {{school.message}}
+        {{school.mobile}}
+    </div>
+
+    <button v-on:click="test">好丑</button>
+</div>
+
+<div>
+{{message}}
+</div>
+
+<p class="app1">{{message}}</p>
+<p class="app3">{{message}}</p>
+
+
+<div id="app-2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+
+    <span v-bind:href="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+
+        <div :style="{ fontSize: size + 'px' }">测试字体大小</div>
+        <div :style="{ backgroundColor: color,width:size+'px'}"  style="width: 100px;height: 100px"></div>
+  </span>
+
+    <a :href="url">跳转到百度</a>
+</div>
+
+<button onclick="clock()">按下</button>
+
+<script>
+
+    var colors=['red','green','blue','black'];
+
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: '页面加载于 ' + new Date().toLocaleString(),
+            size:1,
+            color:'red',
+            url:'index2.html'
+        }
+    })
+
+
+    var app=new Vue({
+         el:"#app",
+        //  el:".app",
+        //  el:"div",
+        data:{
+            message:'测试',
+            datas:[{'name':"小明",'age':12},{'name':"小红",'age':12}],
+            awesome:true,
+            school:{
+                message:"ces ",
+                mobile:121313,
+                student:[{na:'121',bo:111},{na:'121',bo:111},{na:'121',bo:111},
+                    {na:'121',bo:111},{na:'121',bo:111},{na:'121',bo:111}]
+            }
+        },
+        methods:{
+             test:function () {
+                console.log("我点了下")
+             }
+        }
+    })
+    var app12=new Vue({
+        // el:"#app",
+          el:"p",//这边这个选择器只能选到匹配的第一个，且body是不能作为挂载元素的
+        data:{
+            message:'测试',
+            datas:[{'name':"小明",'age':12},{'name':"小红",'age':12}],
+            awesome:true
+
+        }
+    })
+
+    var app3=new Vue({
+        // el:"#app",
+        el:".app3",
+        data:{
+            message:'测试',
+            datas:[{'name':"小明",'age':12},{'name':"小红",'age':12}],
+            awesome:true
+        }
+    })
+    var co=0;
+
+    var int=self.setInterval("clock()",1000);
+    function clock()
+    {
+        var d=new Date();
+        var t=d.toLocaleTimeString();
+       app.message=t;
+        co=co+5;
+        app.datas[0]={'name':t,'age':co++};
+        app2.size=(co);
+        if(co%2==0){
+            app.awesome=true;
+        }else{
+            app.awesome=false;
+        }
+
+        for (var i = 0; i < app.datas.length; i++) {
+            var data=app.datas[i];
+            console.log(data.name);
+
+        }
+
+        app2.color=colors[co%4];
+
+
+    }
+
+</script>
+
 </body>
 </html>

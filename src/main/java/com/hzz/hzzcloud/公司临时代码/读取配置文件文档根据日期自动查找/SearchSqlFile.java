@@ -90,7 +90,6 @@ public class SearchSqlFile {
         } catch (NullPointerException var3) {
             return null;
         } catch (ParseException var4) {
-            var4.printStackTrace();
             return null;
         }
     }

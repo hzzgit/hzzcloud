@@ -1,5 +1,8 @@
 package com.hzz.hzzcloud.test;
 
+import net.fxft.ascsgpsfilter.util.GPSFilter;
+import net.fxft.ascsgpsfilter.util.GpsMileageUtil;
+
 import java.util.UUID;
 
 /**
@@ -11,12 +14,17 @@ public class UUID纯数字  {
 
 
     public static Integer getUUIDInOrderId(){
-        Integer orderId= UUID.randomUUID().toString().hashCode();
+        long leastSignificantBits = UUID.randomUUID().getLeastSignificantBits();
+        System.out.println(leastSignificantBits);
+
+        String s = UUID.randomUUID().toString();
+        Integer orderId= s.hashCode();
         orderId = orderId < 0 ? -orderId : orderId; //String.hashCode() 值会为空
         return orderId;
     }
 
     public static void main(String[] args) {
         System.out.println(UUID纯数字.getUUIDInOrderId());
+
     }
 }

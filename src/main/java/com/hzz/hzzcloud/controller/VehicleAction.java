@@ -2,8 +2,16 @@ package com.hzz.hzzcloud.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hzz.hzzcloud.aop.UserAccess;
+import com.hzz.hzzcloud.controller.vo.PageVo;
+import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
+import com.hzz.hzzjdbc.jdbcutil.util.ConverMap;
+import com.hzz.hzzjdbc.jdbcutil.vo.PaginateResult;
+import com.hzz.hzzjdbc.submeter.util.JdbcSearchSqlUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.web.util.JsonMessage;
+import net.fxft.ascswebcommon.web.util.MaptoBeanUtil;
+import net.fxft.common.util.MapUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -20,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,6 +40,9 @@ public class VehicleAction extends GeneAction {
     @Autowired
     private ApplicationContext applicationContext;
 
+
+    @Autowired
+    private MysqlDao mysqlDao;
 
     public static void main(String[] args) {
         Number altitude;
@@ -72,16 +84,18 @@ public class VehicleAction extends GeneAction {
     }
 
     @ResponseBody
-    @RequestMapping("/alarm.action")
-    public ResultVo alarm(
-            @RequestBody(required = false) AlarmGranterEvent alarmGranterEvent
+    @RequestMapping("/list.action")
+    public PaginateResult list(
+            @RequestBody PageVo pageVo
     ) {
-        Map params = getParams();
-        System.out.println(JSON.toJSONString(params));
-        ResultVo resultVo = new ResultVo();
-        resultVo.setMsg("请求成");
-        resultVo.setStatus(1);
-        return resultVo;
+        Map<String, Object> stringObjectMap = MaptoBeanUtil.objToMap(pageVo);
+        String sql = "select * from vehicle where 1=1";
+        JdbcSearchSqlUtil jdbcSearchSqlUtil=new JdbcSearchSqlUtil(sql,stringObjectMap);
+        jdbcSearchSqlUtil.append(" and plateNo like ? ","plateno","%","%");
+        jdbcSearchSqlUtil.append(" and simNo like ? ","simno","%","%");
+        PaginateResult paginateResult = mysqlDao.queryPage(jdbcSearchSqlUtil.getSql(),pageVo.getPage(),pageVo.getPagesize(),
+                jdbcSearchSqlUtil.getSearchParams().toArray());
+        return paginateResult;
     }
 
 
