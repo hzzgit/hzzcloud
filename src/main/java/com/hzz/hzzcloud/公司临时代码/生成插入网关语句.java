@@ -5,12 +5,15 @@ import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 import com.hzz.hzzjdbc.jdbcutil.util.ConverMap;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class 生成插入网关语句 {
     public static void main(String[] args) {
         JdkDataSource.jdkmysql();
         MysqlDao mysqlDao=  JdkDataSource.mysqldb;
+        Map<String, ?> objects =new HashMap<>();
 
         String sql="SELECT * from web_route_config";
         List<ConverMap> query = mysqlDao.getMysqlUtil().query(sql);

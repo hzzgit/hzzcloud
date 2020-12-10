@@ -106,8 +106,8 @@ public class createinsetsql {
 
     public static void main(String[] args) {
         String allsql = "";
-        String createinsert = new createinsetsql().createinsert("subiaodb", "web_route_config",
-                " where remark='司机约谈' ");
+        String createinsert = new createinsetsql().createinsert("subiaodb", "partitiontableaddfield",
+                " where baseTableName='adasalarm' and AddField='direction'");
         allsql += createinsert + "\n";
         System.out.println(allsql);
 
