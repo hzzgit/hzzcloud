@@ -2,6 +2,8 @@ package com.hzz.hzzcloud.controller.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author ：hzz
  * @description：TODO
@@ -9,8 +11,10 @@ import lombok.Data;
  */
 @Data
 public class PageVo {
+
     private int page;
     private int pagesize;
+
     private String plateNo;
     private String simNo;
 }

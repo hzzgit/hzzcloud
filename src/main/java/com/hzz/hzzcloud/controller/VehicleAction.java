@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,7 +87,7 @@ public class VehicleAction extends GeneAction {
     @ResponseBody
     @RequestMapping("/list.action")
     public PaginateResult list(
-            @RequestBody PageVo pageVo
+           @Validated @RequestBody PageVo pageVo
     ) {
         Map<String, Object> stringObjectMap = MaptoBeanUtil.objToMap(pageVo);
         String sql = "select * from vehicle where 1=1";
