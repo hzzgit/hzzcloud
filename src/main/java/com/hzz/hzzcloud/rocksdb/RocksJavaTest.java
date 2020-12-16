@@ -4,6 +4,7 @@ import com.hzz.hzzcloud.test.Student;
 import net.fxft.gateway.util.KryoUtil;
 import org.rocksdb.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,16 +14,25 @@ import java.util.Map;
 
 class RocksJavaTest {
 
-    private static final String dbPath = "D:\\hzzmysoft\\rockdb";
+    private static String dbPath = "D:\\hzzmysoft\\rockdb";
 
-    static {
-        RocksDB.loadLibrary();
-    }
+    public static   RocksDB rocksDB;
+//    static {
+//        dbPath= System.getProperty("user.dir")+ File.separator+"rockdb";
+//        RocksDB.loadLibrary();
+//        try {
+//            connect();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (RocksDBException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    RocksDB rocksDB;
 
 
-    public void connect() throws IOException, RocksDBException {
+
+    public static void connect() throws IOException, RocksDBException {
         Options options = new Options();
         options.setCreateIfMissing(true);
         // 文件不存在，则先创建文件
@@ -138,17 +148,11 @@ class RocksJavaTest {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        RocksJavaTest test = new RocksJavaTest();
-    //    test.testDefaultColumnFamily();
+    public static void main(String[] args) throws Exception {//    test.testDefaultColumnFamily();
 //        test.testCertainColumnFamily();
-        test.connect();
-        Student student=new Student();
-        student.setName("测试");
-        test.rocksDB.put("test".getBytes(), KryoUtil.object2clsbyte(student));
-        byte[] bytes = test.rocksDB.get("test".getBytes());
-        Student o = KryoUtil.clsbyte2object(bytes);
-        System.out.println(1);
+        RocksJavaTest rocksJavaTest=new RocksJavaTest();
+        rocksJavaTest.testCertainColumnFamily();
+
     }
 
 }

@@ -172,8 +172,8 @@ public class FreeMarkbydirExcuter {
             File file2 = new File(this.CLASS_PATH + File.separator + path);
             if (!directory) {
                 path = path.replace(".ftl", "");
-                if (path.indexOf("_") > -1) {
-                    path = path.replace("_", ".");
+                if (path.indexOf("-") > -1) {
+                    path = path.replace("-", ".");
                 } else {
                     path = path + ".java";
                 }

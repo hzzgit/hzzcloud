@@ -27,7 +27,7 @@ public class FreeMarkbydirMain {
 //        }
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
-        freeMarkbydirExcuter.readTable("subiaodb", "yrgpstranspond",
+        freeMarkbydirExcuter.readTable("subiaodb", "vehiclereport",
                 false,false);
 
     }
