@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--企业车辆信息表维护表mapper -->
+<mapper namespace="vehiclereportmapper">
+
+    <!--查询企业车辆信息表维护表列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  车牌号   -->
+                a.plateno,
+                <!--  颜色   -->
+                a.color,
+                <!--  吨座位   -->
+                a.ton,
+                <!--  运输证号   -->
+                a.transportcard,
+                <!--  技术等级   -->
+                a.jilevel,
+                <!--  等级评定日   -->
+                a.jileveldate,
+                <!--  下次综检日   -->
+                a.aftercheckdate,
+                <!--  末次二维日   -->
+                a.lastweidate,
+                <!--  下次维护日   -->
+                a.afterweidate,
+                <!--  运输企业   -->
+                a.transportdep,
+                <!--  上次综检日   -->
+                a.beforecheckdate,
+                <!--  车辆类型   -->
+                a.vehicletype,
+                <!--  年审日期   -->
+                a.yearcheckdate,
+                <!--  年审结果   -->
+                a.yearcheckresult,
+                <!--  状态   -->
+                a.state,
+                <!--  车籍地   -->
+                a.vehicleaddress,
+                <!--  企业许可证   -->
+                a.deplicence,
+                <!--  创建日期   -->
+                a.vehiclecreatetime,
+                <!--  车主   -->
+                a.vehicleowner,
+                <!--  运输类型   -->
+                a.transporttype,
+                <!--  行驶证登记日   -->
+                a.drivercardregisterdate,
+                <!--  行政区域   -->
+                a.region,
+                <!--  发动机号   -->
+                a.enginenumber,
+                <!--  车架号   -->
+                a.vin,
+                <!--  厂牌型号   -->
+                a.factoryplatemodel,
+                <!--  运输证发证日   -->
+                a.transportcardcreatedate,
+                <!--  经营范围   -->
+                a.businessscope,
+                <!--  危货审批   -->
+                a.dangercargocheck,
+                <!--  驾驶员姓名   -->
+                a.drivername,
+                <!--  从业资格证号   -->
+                a.certificatecode,
+                <!--  押运员   -->
+                a.supercargo,
+                <!--  押运员资格证号   -->
+                a.supercargocertificatecode,
+                <!--  承运货种   -->
+                a.cargotype,
+                <!--  标志灯编号   -->
+                a.signlightnumber,
+                <!--  标志灯安装日期   -->
+                a.signlightinsdate,
+                <!--  标志灯有效期   -->
+                a.signlightvaliditydate,
+                <!--  标志牌有效期   -->
+                a.signboardvaliditydate,
+                <!--  承运人责任险   -->
+                a.carriersrisk,
+                <!--  承运人责任险有效期   -->
+                a.carriersriskvaliditydate,
+                <!--  使用GPS   -->
+                a.isusegps,
+                <!--  有行车记录仪   -->
+                a.isusedriverrecorder,
+                <!--  带行车记录仪的GPS   -->
+                a.isusegpsanddervercorder,
+                <!--  安检有效期   -->
+                a.safecheckdate,
+                <!--  违章次数   -->
+                a.violationnum,
+                <!--  交警状态   -->
+                a.policestate,
+                <!--  二级维护周期   -->
+                a.secondmaintenancecycle,
+                <!--  二级维护间隔里程   -->
+                a.secondmaintenancemileage,
+                <!--  燃料种类   -->
+                a.fueltype,
+                <!--  驾驶员   -->
+                a.driver,
+                <!--  驾驶员资格证   -->
+                a.drivercard,
+                <!--  驾驶员身份证   -->
+                a.driversfzh,
+                <!--  行驶证首发日期   -->
+                a.drivercardfirstdate,
+                <!--  运输证首发日期   -->
+                a.transportcardfirstdate,
+                <!--  满载总质量   -->
+                a.fulltotalmass,
+                <!--  长   -->
+                a.length,
+                <!--  宽   -->
+                a.width,
+                <!--  高   -->
+                a.height,
+                <!--  企业手机   -->
+                a.depmobilephone,
+                <!--  企业电话   -->
+                a.deptelephone,
+                <!--  车身颜色   -->
+                a.carbodycolor,
+                <!--  运力来源   -->
+                a.capacitysource,
+                <!--  准牵引总质量   -->
+                a.tractionmass,
+                <!--  二维维修企业   -->
+                a.twomaintaindep,
+                <!--  综检单位   -->
+                a.allinspection,
+                <!--  交警车型   -->
+                a.policecartype,
+                <!--  统计日期   -->
+                a.time,
+                <!--  创建时间   -->
+                a.createtime,
+                <!--  创建用户   -->
+                a.userid
+        from
+        subiaodb.vehiclereport as a
+
+        where 1=1
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="plateno != null ">
+                    and a.plateno=#{plateno}
+                    <!-- and a.plateno like '%${plateno}%'-->
+                </if>
+                <if test="color != null ">
+                    and a.color=#{color}
+                    <!-- and a.color like '%${color}%'-->
+                </if>
+                <if test="ton != null ">
+                    and a.ton=#{ton}
+                    <!-- and a.ton like '%${ton}%'-->
+                </if>
+                <if test="transportcard != null ">
+                    and a.transportcard=#{transportcard}
+                    <!-- and a.transportcard like '%${transportcard}%'-->
+                </if>
+                <if test="jilevel != null ">
+                    and a.jilevel=#{jilevel}
+                    <!-- and a.jilevel like '%${jilevel}%'-->
+                </if>
+                <if test="transportdep != null ">
+                    and a.transportdep=#{transportdep}
+                    <!-- and a.transportdep like '%${transportdep}%'-->
+                </if>
+                <if test="vehicletype != null ">
+                    and a.vehicletype=#{vehicletype}
+                    <!-- and a.vehicletype like '%${vehicletype}%'-->
+                </if>
+                <if test="yearcheckresult != null ">
+                    and a.yearcheckresult=#{yearcheckresult}
+                    <!-- and a.yearcheckresult like '%${yearcheckresult}%'-->
+                </if>
+                <if test="state != null ">
+                    and a.state=#{state}
+                    <!-- and a.state like '%${state}%'-->
+                </if>
+                <if test="vehicleaddress != null ">
+                    and a.vehicleaddress=#{vehicleaddress}
+                    <!-- and a.vehicleaddress like '%${vehicleaddress}%'-->
+                </if>
+                <if test="deplicence != null ">
+                    and a.deplicence=#{deplicence}
+                    <!-- and a.deplicence like '%${deplicence}%'-->
+                </if>
+                <if test="vehiclecreatetime != null ">
+                    and a.vehiclecreatetime=#{vehiclecreatetime}
+                    <!-- and a.vehiclecreatetime like '%${vehiclecreatetime}%'-->
+                </if>
+                <if test="vehicleowner != null ">
+                    and a.vehicleowner=#{vehicleowner}
+                    <!-- and a.vehicleowner like '%${vehicleowner}%'-->
+                </if>
+                <if test="transporttype != null ">
+                    and a.transporttype=#{transporttype}
+                    <!-- and a.transporttype like '%${transporttype}%'-->
+                </if>
+                <if test="region != null ">
+                    and a.region=#{region}
+                    <!-- and a.region like '%${region}%'-->
+                </if>
+                <if test="enginenumber != null ">
+                    and a.enginenumber=#{enginenumber}
+                    <!-- and a.enginenumber like '%${enginenumber}%'-->
+                </if>
+                <if test="vin != null ">
+                    and a.vin=#{vin}
+                    <!-- and a.vin like '%${vin}%'-->
+                </if>
+                <if test="factoryplatemodel != null ">
+                    and a.factoryplatemodel=#{factoryplatemodel}
+                    <!-- and a.factoryplatemodel like '%${factoryplatemodel}%'-->
+                </if>
+                <if test="businessscope != null ">
+                    and a.businessscope=#{businessscope}
+                    <!-- and a.businessscope like '%${businessscope}%'-->
+                </if>
+                <if test="dangercargocheck != null ">
+                    and a.dangercargocheck=#{dangercargocheck}
+                    <!-- and a.dangercargocheck like '%${dangercargocheck}%'-->
+                </if>
+                <if test="drivername != null ">
+                    and a.drivername=#{drivername}
+                    <!-- and a.drivername like '%${drivername}%'-->
+                </if>
+                <if test="certificatecode != null ">
+                    and a.certificatecode=#{certificatecode}
+                    <!-- and a.certificatecode like '%${certificatecode}%'-->
+                </if>
+                <if test="supercargo != null ">
+                    and a.supercargo=#{supercargo}
+                    <!-- and a.supercargo like '%${supercargo}%'-->
+                </if>
+                <if test="supercargocertificatecode != null ">
+                    and a.supercargocertificatecode=#{supercargocertificatecode}
+                    <!-- and a.supercargocertificatecode like '%${supercargocertificatecode}%'-->
+                </if>
+                <if test="cargotype != null ">
+                    and a.cargotype=#{cargotype}
+                    <!-- and a.cargotype like '%${cargotype}%'-->
+                </if>
+                <if test="signlightnumber != null ">
+                    and a.signlightnumber=#{signlightnumber}
+                    <!-- and a.signlightnumber like '%${signlightnumber}%'-->
+                </if>
+                <if test="carriersrisk != null ">
+                    and a.carriersrisk=#{carriersrisk}
+                    <!-- and a.carriersrisk like '%${carriersrisk}%'-->
+                </if>
+                <if test="isusegps != null ">
+                    and a.isusegps=#{isusegps}
+                    <!-- and a.isusegps like '%${isusegps}%'-->
+                </if>
+                <if test="isusedriverrecorder != null ">
+                    and a.isusedriverrecorder=#{isusedriverrecorder}
+                    <!-- and a.isusedriverrecorder like '%${isusedriverrecorder}%'-->
+                </if>
+                <if test="isusegpsanddervercorder != null ">
+                    and a.isusegpsanddervercorder=#{isusegpsanddervercorder}
+                    <!-- and a.isusegpsanddervercorder like '%${isusegpsanddervercorder}%'-->
+                </if>
+                <if test="violationnum != null ">
+                    and a.violationnum=#{violationnum}
+                </if>
+                <if test="policestate != null ">
+                    and a.policestate=#{policestate}
+                    <!-- and a.policestate like '%${policestate}%'-->
+                </if>
+                <if test="secondmaintenancecycle != null ">
+                    and a.secondmaintenancecycle=#{secondmaintenancecycle}
+                    <!-- and a.secondmaintenancecycle like '%${secondmaintenancecycle}%'-->
+                </if>
+                <if test="secondmaintenancemileage != null ">
+                    and a.secondmaintenancemileage=#{secondmaintenancemileage}
+                    <!-- and a.secondmaintenancemileage like '%${secondmaintenancemileage}%'-->
+                </if>
+                <if test="fueltype != null ">
+                    and a.fueltype=#{fueltype}
+                    <!-- and a.fueltype like '%${fueltype}%'-->
+                </if>
+                <if test="driver != null ">
+                    and a.driver=#{driver}
+                    <!-- and a.driver like '%${driver}%'-->
+                </if>
+                <if test="drivercard != null ">
+                    and a.drivercard=#{drivercard}
+                    <!-- and a.drivercard like '%${drivercard}%'-->
+                </if>
+                <if test="driversfzh != null ">
+                    and a.driversfzh=#{driversfzh}
+                    <!-- and a.driversfzh like '%${driversfzh}%'-->
+                </if>
+                <if test="fulltotalmass != null ">
+                    and a.fulltotalmass=#{fulltotalmass}
+                </if>
+                <if test="length != null ">
+                    and a.length=#{length}
+                </if>
+                <if test="width != null ">
+                    and a.width=#{width}
+                </if>
+                <if test="height != null ">
+                    and a.height=#{height}
+                </if>
+                <if test="depmobilephone != null ">
+                    and a.depmobilephone=#{depmobilephone}
+                    <!-- and a.depmobilephone like '%${depmobilephone}%'-->
+                </if>
+                <if test="deptelephone != null ">
+                    and a.deptelephone=#{deptelephone}
+                    <!-- and a.deptelephone like '%${deptelephone}%'-->
+                </if>
+                <if test="carbodycolor != null ">
+                    and a.carbodycolor=#{carbodycolor}
+                    <!-- and a.carbodycolor like '%${carbodycolor}%'-->
+                </if>
+                <if test="capacitysource != null ">
+                    and a.capacitysource=#{capacitysource}
+                    <!-- and a.capacitysource like '%${capacitysource}%'-->
+                </if>
+                <if test="tractionmass != null ">
+                    and a.tractionmass=#{tractionmass}
+                </if>
+                <if test="twomaintaindep != null ">
+                    and a.twomaintaindep=#{twomaintaindep}
+                    <!-- and a.twomaintaindep like '%${twomaintaindep}%'-->
+                </if>
+                <if test="allinspection != null ">
+                    and a.allinspection=#{allinspection}
+                    <!-- and a.allinspection like '%${allinspection}%'-->
+                </if>
+                <if test="policecartype != null ">
+                    and a.policecartype=#{policecartype}
+                    <!-- and a.policecartype like '%${policecartype}%'-->
+                </if>
+                <if test="startcreatetime != null ">
+                    and a.createtime >= #{startcreatetime }
+                </if>
+                <if test="endcreatetime != null ">
+                    and <![CDATA[ a.createtime < #
+                    {endcreatetime }]]>
+                </if>
+                <if test="userid != null ">
+                    and a.userid=#{userid}
+                </if>
+
+
+
+        union
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  车牌号   -->
+                a.plateno,
+                <!--  颜色   -->
+                a.color,
+                <!--  吨座位   -->
+                a.ton,
+                <!--  运输证号   -->
+                a.transportcard,
+                <!--  技术等级   -->
+                a.jilevel,
+                <!--  等级评定日   -->
+                a.jileveldate,
+                <!--  下次综检日   -->
+                a.aftercheckdate,
+                <!--  末次二维日   -->
+                a.lastweidate,
+                <!--  下次维护日   -->
+                a.afterweidate,
+                <!--  运输企业   -->
+                a.transportdep,
+                <!--  上次综检日   -->
+                a.beforecheckdate,
+                <!--  车辆类型   -->
+                a.vehicletype,
+                <!--  年审日期   -->
+                a.yearcheckdate,
+                <!--  年审结果   -->
+                a.yearcheckresult,
+                <!--  状态   -->
+                a.state,
+                <!--  车籍地   -->
+                a.vehicleaddress,
+                <!--  企业许可证   -->
+                a.deplicence,
+                <!--  创建日期   -->
+                a.vehiclecreatetime,
+                <!--  车主   -->
+                a.vehicleowner,
+                <!--  运输类型   -->
+                a.transporttype,
+                <!--  行驶证登记日   -->
+                a.drivercardregisterdate,
+                <!--  行政区域   -->
+                a.region,
+                <!--  发动机号   -->
+                a.enginenumber,
+                <!--  车架号   -->
+                a.vin,
+                <!--  厂牌型号   -->
+                a.factoryplatemodel,
+                <!--  运输证发证日   -->
+                a.transportcardcreatedate,
+                <!--  经营范围   -->
+                a.businessscope,
+                <!--  危货审批   -->
+                a.dangercargocheck,
+                <!--  驾驶员姓名   -->
+                a.drivername,
+                <!--  从业资格证号   -->
+                a.certificatecode,
+                <!--  押运员   -->
+                a.supercargo,
+                <!--  押运员资格证号   -->
+                a.supercargocertificatecode,
+                <!--  承运货种   -->
+                a.cargotype,
+                <!--  标志灯编号   -->
+                a.signlightnumber,
+                <!--  标志灯安装日期   -->
+                a.signlightinsdate,
+                <!--  标志灯有效期   -->
+                a.signlightvaliditydate,
+                <!--  标志牌有效期   -->
+                a.signboardvaliditydate,
+                <!--  承运人责任险   -->
+                a.carriersrisk,
+                <!--  承运人责任险有效期   -->
+                a.carriersriskvaliditydate,
+                <!--  使用GPS   -->
+                a.isusegps,
+                <!--  有行车记录仪   -->
+                a.isusedriverrecorder,
+                <!--  带行车记录仪的GPS   -->
+                a.isusegpsanddervercorder,
+                <!--  安检有效期   -->
+                a.safecheckdate,
+                <!--  违章次数   -->
+                a.violationnum,
+                <!--  交警状态   -->
+                a.policestate,
+                <!--  二级维护周期   -->
+                a.secondmaintenancecycle,
+                <!--  二级维护间隔里程   -->
+                a.secondmaintenancemileage,
+                <!--  燃料种类   -->
+                a.fueltype,
+                <!--  驾驶员   -->
+                a.driver,
+                <!--  驾驶员资格证   -->
+                a.drivercard,
+                <!--  驾驶员身份证   -->
+                a.driversfzh,
+                <!--  行驶证首发日期   -->
+                a.drivercardfirstdate,
+                <!--  运输证首发日期   -->
+                a.transportcardfirstdate,
+                <!--  满载总质量   -->
+                a.fulltotalmass,
+                <!--  长   -->
+                a.length,
+                <!--  宽   -->
+                a.width,
+                <!--  高   -->
+                a.height,
+                <!--  企业手机   -->
+                a.depmobilephone,
+                <!--  企业电话   -->
+                a.deptelephone,
+                <!--  车身颜色   -->
+                a.carbodycolor,
+                <!--  运力来源   -->
+                a.capacitysource,
+                <!--  准牵引总质量   -->
+                a.tractionmass,
+                <!--  二维维修企业   -->
+                a.twomaintaindep,
+                <!--  综检单位   -->
+                a.allinspection,
+                <!--  交警车型   -->
+                a.policecartype,
+                <!--  统计日期   -->
+                a.time,
+                <!--  创建时间   -->
+                a.createtime,
+                <!--  创建用户   -->
+                a.userid
+        from
+        subiaodb.vehiclereport as a,
+        subiaodb.vehiclereportuserlim as u
+
+
+        where 1=1
+        and a.id =u.mainid
+
+            <if test="userid !=null ">
+                and u.userId = #{userid}
+            </if>
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="plateno != null ">
+                    and a.plateno=#{plateno}
+                    <!-- and a.plateno like '%${plateno}%'-->
+                </if>
+                <if test="color != null ">
+                    and a.color=#{color}
+                    <!-- and a.color like '%${color}%'-->
+                </if>
+                <if test="ton != null ">
+                    and a.ton=#{ton}
+                    <!-- and a.ton like '%${ton}%'-->
+                </if>
+                <if test="transportcard != null ">
+                    and a.transportcard=#{transportcard}
+                    <!-- and a.transportcard like '%${transportcard}%'-->
+                </if>
+                <if test="jilevel != null ">
+                    and a.jilevel=#{jilevel}
+                    <!-- and a.jilevel like '%${jilevel}%'-->
+                </if>
+                <if test="transportdep != null ">
+                    and a.transportdep=#{transportdep}
+                    <!-- and a.transportdep like '%${transportdep}%'-->
+                </if>
+                <if test="vehicletype != null ">
+                    and a.vehicletype=#{vehicletype}
+                    <!-- and a.vehicletype like '%${vehicletype}%'-->
+                </if>
+                <if test="yearcheckresult != null ">
+                    and a.yearcheckresult=#{yearcheckresult}
+                    <!-- and a.yearcheckresult like '%${yearcheckresult}%'-->
+                </if>
+                <if test="state != null ">
+                    and a.state=#{state}
+                    <!-- and a.state like '%${state}%'-->
+                </if>
+                <if test="vehicleaddress != null ">
+                    and a.vehicleaddress=#{vehicleaddress}
+                    <!-- and a.vehicleaddress like '%${vehicleaddress}%'-->
+                </if>
+                <if test="deplicence != null ">
+                    and a.deplicence=#{deplicence}
+                    <!-- and a.deplicence like '%${deplicence}%'-->
+                </if>
+                <if test="vehiclecreatetime != null ">
+                    and a.vehiclecreatetime=#{vehiclecreatetime}
+                    <!-- and a.vehiclecreatetime like '%${vehiclecreatetime}%'-->
+                </if>
+                <if test="vehicleowner != null ">
+                    and a.vehicleowner=#{vehicleowner}
+                    <!-- and a.vehicleowner like '%${vehicleowner}%'-->
+                </if>
+                <if test="transporttype != null ">
+                    and a.transporttype=#{transporttype}
+                    <!-- and a.transporttype like '%${transporttype}%'-->
+                </if>
+                <if test="region != null ">
+                    and a.region=#{region}
+                    <!-- and a.region like '%${region}%'-->
+                </if>
+                <if test="enginenumber != null ">
+                    and a.enginenumber=#{enginenumber}
+                    <!-- and a.enginenumber like '%${enginenumber}%'-->
+                </if>
+                <if test="vin != null ">
+                    and a.vin=#{vin}
+                    <!-- and a.vin like '%${vin}%'-->
+                </if>
+                <if test="factoryplatemodel != null ">
+                    and a.factoryplatemodel=#{factoryplatemodel}
+                    <!-- and a.factoryplatemodel like '%${factoryplatemodel}%'-->
+                </if>
+                <if test="businessscope != null ">
+                    and a.businessscope=#{businessscope}
+                    <!-- and a.businessscope like '%${businessscope}%'-->
+                </if>
+                <if test="dangercargocheck != null ">
+                    and a.dangercargocheck=#{dangercargocheck}
+                    <!-- and a.dangercargocheck like '%${dangercargocheck}%'-->
+                </if>
+                <if test="drivername != null ">
+                    and a.drivername=#{drivername}
+                    <!-- and a.drivername like '%${drivername}%'-->
+                </if>
+                <if test="certificatecode != null ">
+                    and a.certificatecode=#{certificatecode}
+                    <!-- and a.certificatecode like '%${certificatecode}%'-->
+                </if>
+                <if test="supercargo != null ">
+                    and a.supercargo=#{supercargo}
+                    <!-- and a.supercargo like '%${supercargo}%'-->
+                </if>
+                <if test="supercargocertificatecode != null ">
+                    and a.supercargocertificatecode=#{supercargocertificatecode}
+                    <!-- and a.supercargocertificatecode like '%${supercargocertificatecode}%'-->
+                </if>
+                <if test="cargotype != null ">
+                    and a.cargotype=#{cargotype}
+                    <!-- and a.cargotype like '%${cargotype}%'-->
+                </if>
+                <if test="signlightnumber != null ">
+                    and a.signlightnumber=#{signlightnumber}
+                    <!-- and a.signlightnumber like '%${signlightnumber}%'-->
+                </if>
+                <if test="carriersrisk != null ">
+                    and a.carriersrisk=#{carriersrisk}
+                    <!-- and a.carriersrisk like '%${carriersrisk}%'-->
+                </if>
+                <if test="isusegps != null ">
+                    and a.isusegps=#{isusegps}
+                    <!-- and a.isusegps like '%${isusegps}%'-->
+                </if>
+                <if test="isusedriverrecorder != null ">
+                    and a.isusedriverrecorder=#{isusedriverrecorder}
+                    <!-- and a.isusedriverrecorder like '%${isusedriverrecorder}%'-->
+                </if>
+                <if test="isusegpsanddervercorder != null ">
+                    and a.isusegpsanddervercorder=#{isusegpsanddervercorder}
+                    <!-- and a.isusegpsanddervercorder like '%${isusegpsanddervercorder}%'-->
+                </if>
+                <if test="violationnum != null ">
+                    and a.violationnum=#{violationnum}
+                </if>
+                <if test="policestate != null ">
+                    and a.policestate=#{policestate}
+                    <!-- and a.policestate like '%${policestate}%'-->
+                </if>
+                <if test="secondmaintenancecycle != null ">
+                    and a.secondmaintenancecycle=#{secondmaintenancecycle}
+                    <!-- and a.secondmaintenancecycle like '%${secondmaintenancecycle}%'-->
+                </if>
+                <if test="secondmaintenancemileage != null ">
+                    and a.secondmaintenancemileage=#{secondmaintenancemileage}
+                    <!-- and a.secondmaintenancemileage like '%${secondmaintenancemileage}%'-->
+                </if>
+                <if test="fueltype != null ">
+                    and a.fueltype=#{fueltype}
+                    <!-- and a.fueltype like '%${fueltype}%'-->
+                </if>
+                <if test="driver != null ">
+                    and a.driver=#{driver}
+                    <!-- and a.driver like '%${driver}%'-->
+                </if>
+                <if test="drivercard != null ">
+                    and a.drivercard=#{drivercard}
+                    <!-- and a.drivercard like '%${drivercard}%'-->
+                </if>
+                <if test="driversfzh != null ">
+                    and a.driversfzh=#{driversfzh}
+                    <!-- and a.driversfzh like '%${driversfzh}%'-->
+                </if>
+                <if test="fulltotalmass != null ">
+                    and a.fulltotalmass=#{fulltotalmass}
+                </if>
+                <if test="length != null ">
+                    and a.length=#{length}
+                </if>
+                <if test="width != null ">
+                    and a.width=#{width}
+                </if>
+                <if test="height != null ">
+                    and a.height=#{height}
+                </if>
+                <if test="depmobilephone != null ">
+                    and a.depmobilephone=#{depmobilephone}
+                    <!-- and a.depmobilephone like '%${depmobilephone}%'-->
+                </if>
+                <if test="deptelephone != null ">
+                    and a.deptelephone=#{deptelephone}
+                    <!-- and a.deptelephone like '%${deptelephone}%'-->
+                </if>
+                <if test="carbodycolor != null ">
+                    and a.carbodycolor=#{carbodycolor}
+                    <!-- and a.carbodycolor like '%${carbodycolor}%'-->
+                </if>
+                <if test="capacitysource != null ">
+                    and a.capacitysource=#{capacitysource}
+                    <!-- and a.capacitysource like '%${capacitysource}%'-->
+                </if>
+                <if test="tractionmass != null ">
+                    and a.tractionmass=#{tractionmass}
+                </if>
+                <if test="twomaintaindep != null ">
+                    and a.twomaintaindep=#{twomaintaindep}
+                    <!-- and a.twomaintaindep like '%${twomaintaindep}%'-->
+                </if>
+                <if test="allinspection != null ">
+                    and a.allinspection=#{allinspection}
+                    <!-- and a.allinspection like '%${allinspection}%'-->
+                </if>
+                <if test="policecartype != null ">
+                    and a.policecartype=#{policecartype}
+                    <!-- and a.policecartype like '%${policecartype}%'-->
+                </if>
+                <if test="startcreatetime != null ">
+                    and a.createtime >= #{startcreatetime }
+                </if>
+                <if test="endcreatetime != null ">
+                    and <![CDATA[ a.createtime < #
+                    {endcreatetime }]]>
+                </if>
+                <if test="userid != null ">
+                    and a.userid=#{userid}
+                </if>
+
+
+
+
+
+    </select>
+
+
+</mapper>
