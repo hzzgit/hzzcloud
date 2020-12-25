@@ -107,7 +107,7 @@ public class createinsetsql {
     public static void main(String[] args) {
         String allsql = "";
         String createinsert = new createinsetsql().createinsert("subiaodb", "web_route_config",
-                " where path_name='/platformconfig/**' ");
+                " where remark ='历史视频下载' ");
         allsql += createinsert + "\n";
         System.out.println(allsql);
 

@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class 按月分区 {
     public static void main(String[] args) {
-        String ptable="vehiclereport";
+        String ptable="car_duration";
         String sql="\t PARTITION BY RANGE ( TO_DAYS( time ) ) (";
-        for (int i = 1; i >-300 ; i--) {
+        for (int i = 1; i >-2 ; i--) {
             String time = TimeUtils.getdatebyMonth2(new Date(),i);
             String yytime=TimeUtils.getdatebyMonth(new Date(),i-1);
             String name="\nPARTITION p_"+ptable+time+" " +
