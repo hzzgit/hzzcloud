@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--金融报表生成，用于控制每个用户每个月什么时间段生成指定车辆的数据mapper -->
+<mapper namespace="reportpushbytimemapper">
+
+    <!--查询金融报表生成，用于控制每个用户每个月什么时间段生成指定车辆的数据列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  中文名   -->
+                a.username,
+                <!--  英文名   -->
+                a.userid,
+                <!--  开始时间，yyyy-mm   -->
+                a.starttime,
+                <!--  结束时间,yyyy-mm   -->
+                a.endtime,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  删除标志   -->
+                a.deleted,
+                <!--  登录名   -->
+                a.loginname,
+                <!--  车辆主键   -->
+                a.vehicleid,
+                <!--  车牌号   -->
+                a.plateno
+        from
+        subiaodb.reportpushbytime as a
+
+        where 1=1
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="username != null ">
+                    and a.username=#{username}
+                    <!-- and a.username like '%${username}%'-->
+                </if>
+                <if test="userid != null ">
+                    and a.userid=#{userid}
+                </if>
+                <if test="starttime != null ">
+                    and a.starttime=#{starttime}
+                    <!-- and a.starttime like '%${starttime}%'-->
+                </if>
+                <if test="endtime != null ">
+                    and a.endtime=#{endtime}
+                    <!-- and a.endtime like '%${endtime}%'-->
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                and a.deleted=false
+                <if test="loginname != null ">
+                    and a.loginname=#{loginname}
+                    <!-- and a.loginname like '%${loginname}%'-->
+                </if>
+                <if test="vehicleid != null ">
+                    and a.vehicleid=#{vehicleid}
+                </if>
+                <if test="plateno != null ">
+                    and a.plateno=#{plateno}
+                    <!-- and a.plateno like '%${plateno}%'-->
+                </if>
+
+
+
+            order by a.createdate desc
+
+    </select>
+
+
+</mapper>
