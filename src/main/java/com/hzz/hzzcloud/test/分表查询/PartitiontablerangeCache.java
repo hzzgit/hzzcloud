@@ -27,7 +27,7 @@ public class PartitiontablerangeCache {
     private JdbcUtil jdbcUtil;
 
 
-    @PostConstruct
+   // @PostConstruct
     private void init() {
         try {
             String sql = "select  tableSchema,tableName,baseTableName,dataEndDate,dataBeginDate" +

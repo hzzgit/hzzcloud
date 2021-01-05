@@ -1,6 +1,7 @@
 package com.hzz.hzzcloud;
 
 import com.hzz.hzzcloud.spring.SpringUtil;
+import lombok.extern.slf4j.Slf4j;
 import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
 import net.fxft.gateway.device.DeviceManager;
 import net.fxft.gateway.device.IDeviceManager;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableFeignClients
+//@EnableHystrix
 //@MapperScan("com.hzz.hzzcloud.freemarker.main.maparea.dao")
 public class HzzcloudApplication {
 

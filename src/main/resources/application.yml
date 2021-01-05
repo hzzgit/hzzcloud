@@ -1,0 +1,27 @@
+fxft:
+  jdbc:
+    debug: true
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  thymeleaf:
+    prefix: classpath:/webhtml/
+
+
+hzz:
+  refresh-value:
+    checkInterval: 30
+    enabled: true
+server:
+  port: 8924
+
+name: 22
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    connection-timeout: 10000

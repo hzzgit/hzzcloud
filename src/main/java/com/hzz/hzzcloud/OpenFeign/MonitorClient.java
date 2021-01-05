@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @description：TODO
  * @date ：2020/12/1 14:12
  */
-//@FeignClient(name = "monitorwebapi",fallback =MonitorClientFallbackFactory.class )
-@FeignClient("monitorwebapi" )
+@FeignClient(name = "monitorwebapi",fallback = MonitorClientFallbackFactory.class)
+//@FeignClient("monitorwebapi" )
 public interface MonitorClient {
 
 
