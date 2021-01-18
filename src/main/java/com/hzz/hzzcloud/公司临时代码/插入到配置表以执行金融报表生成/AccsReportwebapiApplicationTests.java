@@ -13,7 +13,7 @@ public class AccsReportwebapiApplicationTests {
 
 
     public static void main(String[] args) {
-        for (int i = 1; i <22 ; i++) {
+        for (int i = 2; i <23 ; i++) {
             String time=getdatebyMonth(i);
             String getlastmonthbyday = getlastmonthbyday(time);
             String sql="INSERT INTO `subiaodb`.`journey_config`(`id`, `createDate`, `isPross`, `updateDate_data`, `updateDate_report`, `remark`) " +
