@@ -27,9 +27,9 @@ public class FreeMarkbydirMain {
 //        }
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
-        freeMarkbydirExcuter.readTable("subiaodb", "reportpushbytime",
-                false,false);
 
+        freeMarkbydirExcuter.readTable("subiaodb", "takingphotosbytimeresult",
+                true,true);
     }
 
 }

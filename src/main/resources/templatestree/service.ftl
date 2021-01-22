@@ -435,7 +435,7 @@ return paginateResult;
                                                                     if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
                                                                      ${tablename}.setCreatedate(new Date());
                                                                     ${tablename}.setUserid(userid);
-                                                                    jdbcUtil.insert(${tablename}).execute();
+                                                                    jdbcUtil.insert(${tablename}).insertColumn(ColumnSet.all()).execute();
                                                                     } else {//修改
                                                                     ${tablename}.setUpdatedate(new Date());
                                                                     jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all().minus(${entityName}.F_createdate,

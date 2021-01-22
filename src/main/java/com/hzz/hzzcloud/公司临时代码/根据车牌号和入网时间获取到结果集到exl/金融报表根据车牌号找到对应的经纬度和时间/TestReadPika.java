@@ -108,7 +108,7 @@ public class TestReadPika {
             GpsMessage gpsMessage=null;
             LocationVo locationVo=null;
             if(str!=null&&!"".equalsIgnoreCase(trim)){
-                for (int i = 0; i <200 ; i++) {
+                for (int i = 0; i <1000 ; i++) {
                     Date dateBefore = getDateBefore(new Date(), i);
                     String time = dateToStr(dateBefore);
                     String key="gzf:"+time+":"+trim;
