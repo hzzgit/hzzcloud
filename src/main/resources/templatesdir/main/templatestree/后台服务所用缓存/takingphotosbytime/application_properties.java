@@ -1,0 +1,3 @@
+takingphotosbytimeEnabled=true
+
+

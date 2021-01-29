@@ -27,7 +27,7 @@ public class FreeMarkMain {
 //        freeMarkExcuter.readTable("subiaodb", "keypoint_ordermanage",false,false, TemplateEnum.TEMPLATE_PATHNOCOMMON,false);
        //freeMarkExcuter.readTable("subiaodb", "oldflowrateno",false,false, TemplateEnum.TEMPLATE_PATH1,false);
 
-        freeMarkAutoByTreeExcuter.readTable("subiaodb","takingphotosbytime",false,false);
+        freeMarkAutoByTreeExcuter.readTable("subiaodb","flowlimitconfig",false,false);
 
     }
 

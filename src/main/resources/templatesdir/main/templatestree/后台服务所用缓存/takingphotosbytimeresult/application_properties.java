@@ -1,3 +1,0 @@
-takingphotosbytimeresultEnabled=true
-
-
