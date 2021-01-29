@@ -362,7 +362,7 @@ List<Long> depList1 = new ArrayList<>();
                 sql = "select userid,name from userinfo where createStaff =? and deleted = 0";
                 alldata = jdbcUtil.sql(sql).addIndexParam(getOnlineUser().getEntityId()).queryWithMap();
                 }
-                String resql = "select userid from ${tableVobyUserLim.tablename} where mainid=?";
+                String resql = "select userid from ${tablename}userlim where mainid=?";
                 List<Integer> userlims = jdbcUtil.sql(resql).addIndexParam(id).queryFirstColInt();
                     Map userlimMap = new HashMap();
                     if (ConverterUtils.isList(userlims)) {

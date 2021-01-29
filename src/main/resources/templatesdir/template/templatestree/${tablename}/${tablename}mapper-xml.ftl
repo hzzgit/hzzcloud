@@ -117,7 +117,7 @@
         </#list>
         from
         ${tableschema}.${tablename} as a,
-        ${tableschema}.${tableVobyUserLim.tablename} as u
+        ${tableschema}.${tablename}userlim as u
 
         <#if veanddepquanxian?? && veanddepquanxian=true>
             left join vehicle v on a.vehicleId =v.vehicleId and v.deleted=false

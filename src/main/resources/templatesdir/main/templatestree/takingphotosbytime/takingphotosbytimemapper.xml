@@ -185,34 +185,117 @@
                 a.username
         from
         subiaodb.takingphotosbytime as a,
-        subiaodb.FreeMarker template error (DEBUG mode; use RETHROW in production!):
-The following has evaluated to null or missing:
-==> tableVobyUserLim  [in template "${tablename}mapper-xml.ftl" at line 120, column 26]
+        subiaodb.takingphotosbytimeuserlim as u
 
-----
-Tip: If the failing expression is known to legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
-----
+            left join vehicle v on a.vehicleId =v.vehicleId and v.deleted=false
 
-----
-FTL stack trace ("~" means nesting-related):
-	- Failed at: ${tableVobyUserLim.tablename}  [in template "${tablename}mapper-xml.ftl" at line 120, column 24]
-----
+        where 1=1
+        and a.id =u.mainid
 
-Java stack trace (for programmers):
-----
-freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
-	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:134)
-	at freemarker.core.UnexpectedTypeException.newDescriptionBuilder(UnexpectedTypeException.java:85)
-	at freemarker.core.UnexpectedTypeException.<init>(UnexpectedTypeException.java:48)
-	at freemarker.core.NonHashException.<init>(NonHashException.java:49)
-	at freemarker.core.Dot._eval(Dot.java:48)
-	at freemarker.core.Expression.eval(Expression.java:101)
-	at freemarker.core.DollarVariable.calculateInterpolatedStringOrMarkup(DollarVariable.java:100)
-	at freemarker.core.DollarVariable.accept(DollarVariable.java:63)
-	at freemarker.core.Environment.visit(Environment.java:334)
-	at freemarker.core.Environment.visit(Environment.java:340)
-	at freemarker.core.Environment.process(Environment.java:313)
-	at freemarker.template.Template.process(Template.java:383)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.writetem(FreeMarkbydirExcuter.java:109)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.readTable(FreeMarkbydirExcuter.java:83)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirMain.main(FreeMarkbydirMain.java:31)
+            <if test="userid !=null ">
+                and u.userId = #{userid}
+            </if>
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="name != null ">
+                    and a.name=#{name}
+                    <!-- and a.name like '%${name}%'-->
+                </if>
+                <if test="configinterval != null ">
+                    and a.configinterval=#{configinterval}
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #
+                    {endcreatedate }]]>
+                </if>
+                <if test="startupdatedate != null ">
+                    and a.updatedate >= #{startupdatedate }
+                </if>
+                <if test="endupdatedate != null ">
+                    and <![CDATA[ a.updatedate < #
+                    {endupdatedate }]]>
+                </if>
+                <if test="starttime != null ">
+                    and a.starttime=#{starttime}
+                    <!-- and a.starttime like '%${starttime}%'-->
+                </if>
+                <if test="endtime != null ">
+                    and a.endtime=#{endtime}
+                    <!-- and a.endtime like '%${endtime}%'-->
+                </if>
+                <if test="startvalidstarttime != null ">
+                    and a.validstarttime >= #{startvalidstarttime }
+                </if>
+                <if test="endvalidstarttime != null ">
+                    and <![CDATA[ a.validstarttime < #
+                    {endvalidstarttime }]]>
+                </if>
+                <if test="startvalidendtime != null ">
+                    and a.validendtime >= #{startvalidendtime }
+                </if>
+                <if test="endvalidendtime != null ">
+                    and <![CDATA[ a.validendtime < #
+                    {endvalidendtime }]]>
+                </if>
+                <if test="configcondition != null ">
+                    and a.configcondition=#{configcondition}
+                </if>
+                <if test="channel != null ">
+                    and a.channel=#{channel}
+                    <!-- and a.channel like '%${channel}%'-->
+                </if>
+                <if test="userid != null ">
+                    and a.userid=#{userid}
+                </if>
+                <if test="isuse != null ">
+                    and a.isuse=#{isuse}
+                </if>
+                and a.deleted=false
+                <if test="username != null ">
+                    and a.username=#{username}
+                    <!-- and a.username like '%${username}%'-->
+                </if>
+
+
+
+                <if test="depIdList != null and vehicleIdList == null">
+                    and v.depId in
+                    <foreach
+                            collection="depIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="vehicleIdList != null and depIdList == null">
+                    and v.vehicleId in
+                    <foreach
+                            collection="vehicleIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+
+                <if test="vehicleIdList != null and depIdList != null">
+                    and (v.depId in
+                    <foreach
+                            collection="depIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                    or v.vehicleId in
+                    <foreach
+                            collection="vehicleIdList" index="index" item="item"
+                            open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                    )
+                </if>
+
+
+    </select>
+
+</mapper>
