@@ -209,14 +209,14 @@
                     and a.createdate >= #{startcreatedate }
                 </if>
                 <if test="endcreatedate != null ">
-                    and <![CDATA[ a.createdate < #
+                    and <![CDATA[ a.createdate <= #
                     {endcreatedate }]]>
                 </if>
                 <if test="startupdatedate != null ">
                     and a.updatedate >= #{startupdatedate }
                 </if>
                 <if test="endupdatedate != null ">
-                    and <![CDATA[ a.updatedate < #
+                    and <![CDATA[ a.updatedate <= #
                     {endupdatedate }]]>
                 </if>
                 <if test="starttime != null ">
