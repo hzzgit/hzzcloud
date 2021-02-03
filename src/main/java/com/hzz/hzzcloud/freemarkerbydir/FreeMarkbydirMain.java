@@ -28,7 +28,7 @@ public class FreeMarkbydirMain {
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
 
-        freeMarkbydirExcuter.readTable("subiaodb", "takingphotosbytime",
+        freeMarkbydirExcuter.readTable("subiaodb", "flowlimitconfig",
                 true,true);
     }
 
