@@ -118,7 +118,7 @@ PaginateResult paginateResult = new PaginateResult(500, "服务器错误");
 try {
 Map params = getParams(request);
 OnlineUser onlineUser = getOnlineUser();
-if(onlineUser.isSuperAdmin()){
+if(!onlineUser.isSuperAdmin()){
 params.put("owner", onlineUser.getEntityId());
 params.put("userid", onlineUser.getEntityId());
 }
