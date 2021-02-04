@@ -1,6 +1,7 @@
 package com.hzz.hzzcloud.rocksdb;
 
 import com.alibaba.fastjson.JSON;
+import com.hzz.hzzcloud.test.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.rocksdb.*;
 
@@ -49,14 +50,14 @@ public class RocksdbTableUtil {
                     columnFamilyHandleMapTemp.put(tablename, columnFamilyHandle);
                 }
             }
-            columnFamilyHandleMap=columnFamilyHandleMapTemp;
+            columnFamilyHandleMap = columnFamilyHandleMapTemp;
         }
     }
 
     public void open() {
         try {
             String property = System.getProperty("user.dir");
-            String dbPath =property+ File.separator+"rocks";
+            String dbPath = property + File.separator + "rocks";
             dbPath = "D:\\test\\rocksdb";
 //            String dbPath = "/ascs/rocks";
             Options options = new Options();
@@ -84,7 +85,7 @@ public class RocksdbTableUtil {
      * @param tableName
      */
     public void dropTable(String tableName) {
-        tableName=tableName.toLowerCase();
+        tableName = tableName.toLowerCase();
         Integer integer = isexsitTable(tableName);
         if (integer != null) {
             try {
@@ -93,12 +94,12 @@ public class RocksdbTableUtil {
                 columnFamilyHandles.remove(integer.intValue());
                 columnFamilyDescriptors.remove(integer.intValue());
                 columnFamilyHandleMap.remove(tableName);
-                log.debug("删除rocksdb表名为:"+tableName);
+                log.debug("删除rocksdb表名为:" + tableName);
             } catch (RocksDBException e) {
-                log.error("删除rocksdb的表异常,表名:"+tableName, e);
+                log.error("删除rocksdb的表异常,表名:" + tableName, e);
             }
         } else {
-            log.error("表不存在无法删除,表名:"+tableName);
+            log.error("表不存在无法删除,表名:" + tableName);
         }
     }
 
@@ -109,18 +110,18 @@ public class RocksdbTableUtil {
      */
     public void createTable(String tableName) {
         try {
-            tableName=tableName.toLowerCase();
+            tableName = tableName.toLowerCase();
             Integer integer = isexsitTable(tableName);
             if (integer == null) {
                 ColumnFamilyHandle columnFamilyHandle = rocksDB.createColumnFamily(
                         new ColumnFamilyDescriptor(tableName.getBytes(), new ColumnFamilyOptions()));
                 columnFamilyDescriptors.add(new ColumnFamilyDescriptor(tableName.getBytes(), new ColumnFamilyOptions()));
                 columnFamilyHandles.add(columnFamilyHandle);
-                columnFamilyHandleMap.put(tableName,columnFamilyHandle);
-                log.debug("创建rocksdb表名为:"+tableName);
+                columnFamilyHandleMap.put(tableName, columnFamilyHandle);
+                log.debug("创建rocksdb表名为:" + tableName);
             }
         } catch (RocksDBException e) {
-            log.error("创建rocksdb的表异常,表名:"+tableName, e);
+            log.error("创建rocksdb的表异常,表名:" + tableName, e);
         }
 
     }
@@ -131,7 +132,7 @@ public class RocksdbTableUtil {
      * @return
      */
     private Integer isexsitTable(String tableName) {
-        tableName=tableName.toLowerCase();
+        tableName = tableName.toLowerCase();
         Integer co = null;
         for (int i = 0; i < columnFamilyDescriptors.size(); i++) {
             if (new String(columnFamilyDescriptors.get(i).columnFamilyName()).equals(tableName)) {
@@ -148,8 +149,8 @@ public class RocksdbTableUtil {
             if (columnFamilyHandleMap.containsKey(tableName)) {
                 ColumnFamilyHandle columnFamilyHandle = columnFamilyHandleMap.get(tableName);
                 rocksDB.put(columnFamilyHandle, key.getBytes(), new byte[]{});
-            }else{
-                log.debug(tableName+"表不存在,key存储失败"+key);
+            } else {
+                log.debug(tableName + "表不存在,key存储失败" + key);
             }
         } catch (RocksDBException e) {
             log.error("添加rocksDB:key值数据异常", e);
@@ -163,8 +164,8 @@ public class RocksdbTableUtil {
             if (columnFamilyHandleMap.containsKey(tableName)) {
                 ColumnFamilyHandle columnFamilyHandle = columnFamilyHandleMap.get(tableName);
                 rocksDB.put(columnFamilyHandle, key.getBytes(), JSON.toJSONString(value).getBytes());
-            }else{
-                log.debug(tableName+"表不存在,key存储失败"+key);
+            } else {
+                log.debug(tableName + "表不存在,key存储失败" + key);
             }
         } catch (RocksDBException e) {
             log.error("添加rocksDB:key值数据异常", e);
@@ -173,20 +174,21 @@ public class RocksdbTableUtil {
 
     /**
      * 是否存在这个key
+     *
      * @param tableName
      * @param key
      * @return
      */
-    public boolean isexsitkey(String tableName, String key ) {
+    public boolean isexsitkey(String tableName, String key) {
         tableName = tableName.toLowerCase();
-       boolean arg=false;
+        boolean arg = false;
         try {
             if (columnFamilyHandleMap.containsKey(tableName)) {
                 ColumnFamilyHandle columnFamilyHandle = columnFamilyHandleMap.get(tableName);
                 byte[] bytes = new byte[0];
                 bytes = rocksDB.get(columnFamilyHandle, key.getBytes());
-                if(bytes!=null) {
-                    arg=true;
+                if (bytes != null) {
+                    arg = true;
                 }
             }
         } catch (RocksDBException e) {
@@ -204,11 +206,11 @@ public class RocksdbTableUtil {
                 ColumnFamilyHandle columnFamilyHandle = columnFamilyHandleMap.get(tableName);
                 byte[] bytes = new byte[0];
                 bytes = rocksDB.get(columnFamilyHandle, key.getBytes());
-                if(bytes!=null) {
+                if (bytes != null) {
                     object = (T) JSON.parseObject(new String(bytes), cls);
                 }
-            }else{
-                log.debug(tableName+"表不存在,key获取失败"+key);
+            } else {
+                log.debug(tableName + "表不存在,key获取失败" + key);
             }
         } catch (RocksDBException e) {
             log.error("获取rocksDB:key值数据异常", e);
@@ -257,7 +259,7 @@ public class RocksdbTableUtil {
      * @param iteratorConsumer
      */
     public void ConsumeQuery(String tableName, Consumer<RocksIterator> iteratorConsumer) {
-        tableName=tableName.toLowerCase();
+        tableName = tableName.toLowerCase();
         if (columnFamilyHandleMap.containsKey(tableName)) {
             ColumnFamilyHandle columnFamilyHandle = columnFamilyHandleMap.get(tableName);
             RocksIterator iter = rocksDB.newIterator(columnFamilyHandle);
@@ -291,16 +293,50 @@ public class RocksdbTableUtil {
         columnFamilyHandleMap = new ConcurrentHashMap<>();
     }
 
-    public void restart(){
+    public void restart() {
         close();
         open();
     }
 
     public static void main(String[] args) throws InterruptedException {
         RocksdbTableUtil rocksdbTableUtil = new RocksdbTableUtil();
-        rocksdbTableUtil.createTable("我特么");
-        rocksdbTableUtil.put("我特么","测试");
-        boolean isexsitkey = rocksdbTableUtil.isexsitkey("我特么", "测试");
-        System.out.println(1);
+        rocksdbTableUtil.columnFamilyHandleMap.forEach((p,v)->{
+            String tablename=p;
+            final int[] co = {0};
+              long s = System.currentTimeMillis();   //获取开始时间
+
+            rocksdbTableUtil.ConsumeQuery(tablename,iter->{
+                for (iter.seekToFirst(); iter.isValid(); iter.next()) {
+                    co[0] = co[0] +1;
+                }
+            });
+            long e = System.currentTimeMillis(); //获取结束时间
+            System.out.println(tablename+"数量为"+co[0]+"用时：" + (e - s) + "ms");
+            co[0]=0;
+        });
+//
+//       for (int i = 0; i < 10; i++) {
+//            rocksdbTableUtil.createTable("性能二" + i);
+//        }
+//        Student student = new Student();
+//        student.setName("小米");
+//        student.setAge(21313);
+
+
+
+//        for (int j = 0; j < 5; j++) {
+//            new Thread(() -> {
+//                long s = System.currentTimeMillis();   //获取开始时间
+//                for (int i = 0; i < 10000000; i++) {
+//                    for (int i1 = 0; i1 < 10; i1++) {
+//                        rocksdbTableUtil.put("性能1" + i1, "测试" + i, student);
+//                    }
+//                }
+//                long e = System.currentTimeMillis(); //获取结束时间
+//                System.out.println("用时：" + (e - s) + "ms");
+//            }).start();
+//        }
+
+
     }
 }
