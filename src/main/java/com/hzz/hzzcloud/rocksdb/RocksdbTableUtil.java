@@ -1,6 +1,7 @@
 package com.hzz.hzzcloud.rocksdb;
 
 import com.alibaba.fastjson.JSON;
+import com.hzz.hzzcloud.common.util.JacksonUtil;
 import com.hzz.hzzcloud.test.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.rocksdb.*;
@@ -300,6 +301,7 @@ public class RocksdbTableUtil {
 
     public static void main(String[] args) throws InterruptedException {
         RocksdbTableUtil rocksdbTableUtil = new RocksdbTableUtil();
+
         rocksdbTableUtil.columnFamilyHandleMap.forEach((p,v)->{
             String tablename=p;
             final int[] co = {0};
@@ -307,7 +309,8 @@ public class RocksdbTableUtil {
 
             rocksdbTableUtil.ConsumeQuery(tablename,iter->{
                 for (iter.seekToFirst(); iter.isValid(); iter.next()) {
-                    co[0] = co[0] +1;
+                    System.out.println(new String(iter.key()));
+                    System.out.println(JacksonUtil.parseJsonString(new String(iter.value()),Student.class));
                 }
             });
             long e = System.currentTimeMillis(); //获取结束时间
