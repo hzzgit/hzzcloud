@@ -1,4 +1,3 @@
-
 package ${packpath};
 /**
 * ${tableconment}业务层
@@ -431,11 +430,11 @@ public List<Department> getAuthorizedDepList(List<Long> depIdList) {
                                                                     /**
                                                                     * 保存${tableconment}
                                                                     */
-                                                                    public void save(${entityName} ${tablename},long userid) throws Exception {
+                                                                    public void save(${entityName} ${tablename},Long userid) throws Exception {
                                                                     if (${tablename}.get${pricolname?lower_case?cap_first}() == 0) {//新增
                                                                     ${tablename}.setCreatedate(new Date());
                                                                     ${tablename}.setUserid(userid);
-                                                                    jdbcUtil.insert(${tablename}).execute();
+                                                                    jdbcUtil.insert(${tablename}).insertColumn(ColumnSet.all()).execute();
                                                                     } else {//修改
                                                                     ${tablename}.setUpdatedate(new Date());
                                                                     jdbcUtil.update(${tablename}).whereIdRefValueEQ().updateColumn(ColumnSet.all().minus(${entityName}.F_createdate,

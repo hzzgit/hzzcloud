@@ -135,6 +135,7 @@
             </if>
         </#noparse>
         <#list tableColumnList as tablecolumn>
+            <#if tablecolumn.columnname?lower_case !="userid">
             <#if tablecolumn.datatype=="int" && tablecolumn.columnname?lower_case !="deleted">
                 <if test="${tablecolumn.columnname?lower_case} != null ">
                     and a.${tablecolumn.columnname?lower_case}=${r"#"}{${tablecolumn.columnname?lower_case}}
@@ -157,6 +158,7 @@
                     and <![CDATA[ a.${tablecolumn.columnname?lower_case} < ${r"#"}
                     {end${tablecolumn.columnname?lower_case} }]]>
                 </if>
+            </#if>
             </#if>
         </#list>
 

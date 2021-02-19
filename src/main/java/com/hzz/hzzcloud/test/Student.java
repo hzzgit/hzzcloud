@@ -20,12 +20,12 @@ public class Student  extends TenCla implements Serializable,StudentInter {
     private long age;
     private Boolean sex;
 
-    private Date birthday;
+    private Date birthday=new Date();
 
     //@DbColNUll
-    private String test;
+    private String test="scs";
 
-    private Date testtime;
+    private Date testtime=new Date();
 
 
     @Override

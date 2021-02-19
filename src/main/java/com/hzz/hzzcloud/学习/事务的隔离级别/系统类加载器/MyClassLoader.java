@@ -1,13 +1,19 @@
 package com.hzz.hzzcloud.学习.事务的隔离级别.系统类加载器;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -79,9 +85,22 @@ public class MyClassLoader extends  ClassLoader {
 
     public static void main(String[] args) {
         try {
+
+//从application.properties文件中获取用到的参数;
+            Resource resource1 = new ClassPathResource("application.properties");
+            Properties props1 = PropertiesLoaderUtils.loadProperties(resource1);
+            String host = props1.getProperty("mail.host");
+
             Class<?> myClassLoader = ClassLoader.getSystemClassLoader().loadClass("com.hzz.hzzcloud.学习.事务的隔离级别.系统类加载器.MyClassLoader");
             URL systemResource = ClassLoader.getSystemResource("application.properties");
+            URL bootResource = ClassLoader.getSystemResource("bootstrap.properties");
             String path = systemResource.getPath();
+            String path1 = bootResource.getPath();
+
+            //从application.properties文件中获取用到的参数;
+            Resource resource = new ClassPathResource(path);
+            Properties props = new Properties();
+            props.load(new FileInputStream(path));
 
             //有参数需要使用Constructor类对象
             //这种方式和下面这种方式都行，注意这里的参数类型是 new Class[]
@@ -104,6 +123,10 @@ public class MyClassLoader extends  ClassLoader {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

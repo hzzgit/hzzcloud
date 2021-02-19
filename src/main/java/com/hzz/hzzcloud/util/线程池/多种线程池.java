@@ -1,5 +1,7 @@
 package com.hzz.hzzcloud.util.线程池;
 
+import net.fxft.common.tpool.BlockedThreadPoolExecutor;
+
 import java.util.concurrent.*;
 
 /**
@@ -16,13 +18,13 @@ public class 多种线程池 {
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
 
-        //这种线程池，是无界队列线程池，多出的部分会添加到队列中等待，后面慢慢执行
+        //这种线程池，是无界队列线程池，多出的部分会添加到队列中等待，后面慢慢执行,该线程会阻塞
         ThreadPoolExecutor threadPoolExecutor1 = new ThreadPoolExecutor(1, 1,
                 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
 
         //这种线程池，永远都只执行一个，按顺序
-        ThreadPoolExecutor threadPoolExecutor2= new ThreadPoolExecutor(1, 1,
+        ThreadPoolExecutor threadPoolExecutor2 = new ThreadPoolExecutor(2, 2,
                 0L, TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<Runnable>(10));
 
@@ -41,16 +43,43 @@ public class 多种线程池 {
                 public void run() {
                     System.out.println(1);
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             });
+            System.out.println("添加到线程中"+i);
         }
 
         System.out.println("结束");
 
+
+        BlockedThreadPoolExecutor blockedThreadPoolExecutor = new BlockedThreadPoolExecutor(3, "11");
+        for (int i = 0; i < 10; i++) {
+            blockedThreadPoolExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread());
+                    try {
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+            System.out.println("这边执行了"+i);
+        }
+        //这边直接阻塞掉了
+        while (blockedThreadPoolExecutor.getActiveCount() > 1) {
+            try {
+                System.out.println("当前活动中的线程" + blockedThreadPoolExecutor.getActiveCount());
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }

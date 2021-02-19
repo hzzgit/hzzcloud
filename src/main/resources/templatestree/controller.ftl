@@ -92,7 +92,8 @@ public PaginateResult selectlist(
 */
 @RequestParam(required = false) Long[] depIds,
 <#list tableColumnList as tablecolumn>
-    <#if  tablecolumn.datatype=="varchar">
+    <#if   tablecolumn.columnname?lower_case!="updatedate" &&  tablecolumn.columnname?lower_case!="userid" &&  tablecolumn.columnname?lower_case!="deleted">
+        <#if  tablecolumn.datatype=="varchar">
         /**
         *${tablecolumn.columncomment}
         */
@@ -109,6 +110,7 @@ public PaginateResult selectlist(
         @RequestParam(required = false) Date  start${tablecolumn.columnname},
         @RequestParam(required = false) Date  end${tablecolumn.columnname},
     </#if>
+    </#if>
 </#list>
 HttpServletRequest request
 ) {
@@ -116,7 +118,7 @@ PaginateResult paginateResult = new PaginateResult(500, "服务器错误");
 try {
 Map params = getParams(request);
 OnlineUser onlineUser = getOnlineUser();
-if(onlineUser.isSuperAdmin()){
+if(!onlineUser.isSuperAdmin()){
 params.put("owner", onlineUser.getEntityId());
 params.put("userid", onlineUser.getEntityId());
 }
