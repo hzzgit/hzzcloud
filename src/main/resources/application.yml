@@ -17,7 +17,7 @@ hzz:
     checkInterval: 30
     enabled: true
 server:
-  port: 8924
+  port: 8964
 
 name: 22
 feign:
