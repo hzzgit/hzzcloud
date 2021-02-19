@@ -1,7 +1,5 @@
 package com.hzz.hzzcloud.test;
 
-import net.fxft.ascsgpsfilter.util.GPSFilter;
-import net.fxft.ascsgpsfilter.util.GpsMileageUtil;
 
 import java.util.UUID;
 

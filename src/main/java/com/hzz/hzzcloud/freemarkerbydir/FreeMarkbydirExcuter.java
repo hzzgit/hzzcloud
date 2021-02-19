@@ -19,8 +19,8 @@ public class FreeMarkbydirExcuter {
 
     private MysqlDao mysqlDao = null;
 
-    private String TEMPLATE_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\resources\\templatesdir\\template";
-    private String CLASS_PATH = "D:\\hzzmysoft\\myspace\\hzzcloud\\src\\main\\resources\\templatesdir\\main";
+    private String TEMPLATE_PATH = "E:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\template";
+    private String CLASS_PATH = "E:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\main";
 
     public Configuration configuration = new Configuration();
 
