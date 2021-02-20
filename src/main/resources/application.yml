@@ -33,13 +33,13 @@ hystrix:
     # 指定服务的配置
     user-service:
       coreSize: 20
-      maxQueueSize: 200
+      maxQueueSize: 200  #最大排队长度
       queueSizeRejectionThreshold: 3
     # userThreadPool是UserTimeOutCommand中配置的threadPoolKey
     userThreadPool:
       coreSize: 20
       maxQueueSize: 20
-      queueSizeRejectionThreshold: 3
+      queueSizeRejectionThreshold: 3 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列）注意：如果maxQueueSize=-1的话，则该选项不起作用
     # 这是默认的配置
     default:
       coreSize: 10
@@ -51,25 +51,25 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 20000 #在调用方配置，被该调用方的所有方法的超时时间都是该值，优先级低于下边的指定配置
     userCommandKey:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 15000
+            timeoutInMilliseconds: 15000 #在调用方配置，被该调用方的指定方法（HystrixCommandKey方法名）的超时时间是该值
     # 这是默认的配置
     default:
       execution:
         timeout:
-          enabled: true
+          enabled: true #是否启用超时断路器
         isolation:
-          strategy: THREAD
+          strategy: THREAD #使用哪种方案进行短路
           thread:
-            timeoutInMilliseconds: 15000
+            timeoutInMilliseconds: 15000 #在调用方配置，被该调用方的指定方法（HystrixCommandKey方法名）的超时时间是该值
             interruptOnTimeout: true
             interruptOnFutureCancel: false
           semaphore:
-            maxConcurrentRequests: 2
+            maxConcurrentRequests: 2 #最大请求数量
       fallback:
         enabled: true
         isolation:
@@ -79,9 +79,9 @@ hystrix:
         enabled: true
         forceOpen: false
         forceClosed: false
-        requestVolumeThreshold: 4
-        errorThresholdPercentage: 50
-        sleepWindowInMilliseconds: 10000
+        requestVolumeThreshold: 4 #（当在配置时间窗口内达到此数量的失败后，进行短路。默认20个）
+        errorThresholdPercentage: 50 #（出错百分比阈值，当达到此阈值后，开始短路。默认50%）
+        sleepWindowInMilliseconds: 10000  #短路多久以后开始尝试是否恢复，默认5s）
       metrics:
         rollingStats:
           timeInMilliseconds: 5000

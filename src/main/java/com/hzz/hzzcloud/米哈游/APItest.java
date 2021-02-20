@@ -1,5 +1,6 @@
 package com.hzz.hzzcloud.米哈游;
 
+import com.hzz.hzzcloud.公司临时代码.TimeUtils;
 import net.fxft.common.util.JacksonUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class APItest {
     public static  String Cookie="_MHYUUID=02cf79c9-6717-4c2f-a4e2-bb39d534c026; UM_distinctid=175b0c598b544d-0cdd5771a4b6c5-376b4502-1fa400-175b0c598b6851; _ga=GA1.2.1356378899.1612505360; _gid=GA1.2.937261832.1613697273; login_uid=190601568; login_ticket=Wo8Lh5ESWxrTvU1g8MLhUsbtby5vxb72XkmAjjJN; account_id=190601568; cookie_token=MZWtgkAVp1TYLqa3pHo2Fq5Z0MvkphFvjWFk1ebI; ltoken=1pG5e7TJUWwnlrvZ5ufYHBwv185kJv7LYsOeujBx; ltuid=190601568; _gat=1";
     public static  String DS="1613701552,6nQTsE,c8bb77fb2c2e9ba27b9b5cdbd3a1bc66";
     public static  String DS2="1613705852,ktQMaF,08fd58a1e56cadf48fa730a6aaa01081";
-    public static  String DS3="1613723711,FBcbiA,4530d789af82ed95dbbb9c82a92976c6";
+    public static  String DS3="1613811718,t6afWt,784d70ee34599a9eb61629109da675c2";
 
     public static  String Origin="https://bbs.mihoyo.com";
     public static  String Referer="https://bbs.mihoyo.com/ys/article/";
@@ -60,7 +62,7 @@ public class APItest {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity requestEntity = new HttpEntity(param, requestHeaders);
         ResponseEntity<String> stringResponseEntity = rt.postForEntity(url, requestEntity, String.class);
-        System.out.println("评论成功"+stringResponseEntity.getBody());
+        System.out.println("成功"+stringResponseEntity.getBody());
         Map<String, Object> stringObjectMap = JacksonUtil.parseJsonToMap(stringResponseEntity.getBody());
         Map data = (Map) stringObjectMap.get("data");
         String reply_id = (String) data.get("reply_id");
@@ -85,7 +87,7 @@ public class APItest {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity requestEntity = new HttpEntity(param, requestHeaders);
         ResponseEntity<String> stringResponseEntity = rt.postForEntity(url, requestEntity, String.class);
-        System.out.println("删除成功"+stringResponseEntity.getBody());
+        System.out.println("删除"+stringResponseEntity.getBody());
     }
 
 
@@ -93,38 +95,58 @@ public class APItest {
     public static void main(String[] args) {
         APItest apItest = new APItest();
 
+        int threadsleep=15000;
 
         while (true){
             try {
+                String time = DS3.split(",")[0];
+                System.out.println("token时间为"+ TimeUtils.dateTodetailStr( new Date(Long.valueOf(time)*1000)));
                 String 深渊post_id="4523686";
-                String 评论id = apItest.评论(深渊post_id);
+                String 评论id = null;
                 try {
-                    Thread.sleep(24000);
-                } catch (InterruptedException e) {
+                    评论id = apItest.评论(深渊post_id);
+
+                    try {
+                        Thread.sleep(threadsleep);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    apItest.删除评论(深渊post_id,评论id);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                apItest.删除评论(深渊post_id,评论id);
+
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(threadsleep);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 String 魈教程post_id="4157785";
-                String 魈评论id = apItest.评论(魈教程post_id);
+                String 魈评论id = null;
+
                 try {
-                    Thread.sleep(24000);
-                } catch (InterruptedException e) {
+                    魈评论id = apItest.评论(魈教程post_id);
+
+                    try {
+                        Thread.sleep(threadsleep);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    apItest.删除评论(魈教程post_id,魈评论id);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                apItest.删除评论(魈教程post_id,魈评论id);
+
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(threadsleep);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } catch (Exception e) {
                 try {
-                    Thread.sleep(20000);
+                    Thread.sleep(threadsleep);
                 } catch (InterruptedException ex) {
                     e.printStackTrace();
                 }
