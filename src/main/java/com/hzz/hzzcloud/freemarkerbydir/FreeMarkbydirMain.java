@@ -29,7 +29,7 @@ public class FreeMarkbydirMain {
 
 
         freeMarkbydirExcuter.readTable("subiaodb", "flowlimitconfig",
-                true,true);
+                false,false);
     }
 
 }

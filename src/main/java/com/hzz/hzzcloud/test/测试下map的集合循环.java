@@ -16,5 +16,8 @@ public class 测试下map的集合循环 {
             parkingNum=parkingNum+value;
         }
         System.out.println(parkingNum);
+        for (int i = 0; i < 2000; i++) {
+            System.out.println(i*i*i);
+        }
     }
 }

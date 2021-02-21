@@ -31,7 +31,6 @@
                 a.deleted
         from
         subiaodb.flowlimitconfig as a
-            left join vehicle v on a.vehicleId =v.vehicleId and v.deleted=false
 
         where 1=1
                 <if test="id != null ">
@@ -76,38 +75,6 @@
 
 
 
-                <if test="depIdList != null and vehicleIdList == null">
-                    and v.depId in
-                    <foreach
-                            collection="depIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                </if>
-                <if test="vehicleIdList != null and depIdList == null">
-                    and v.vehicleId in
-                    <foreach
-                            collection="vehicleIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                </if>
-
-                <if test="vehicleIdList != null and depIdList != null">
-                    and (v.depId in
-                    <foreach
-                            collection="depIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                    or v.vehicleId in
-                    <foreach
-                            collection="vehicleIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                    )
-                </if>
         union
         select
                 <!--  主键   -->
@@ -134,7 +101,6 @@
         subiaodb.flowlimitconfig as a,
         subiaodb.flowlimitconfiguserlim as u
 
-            left join vehicle v on a.vehicleId =v.vehicleId and v.deleted=false
 
         where 1=1
         and a.id =u.mainid
@@ -181,38 +147,6 @@
 
 
 
-                <if test="depIdList != null and vehicleIdList == null">
-                    and v.depId in
-                    <foreach
-                            collection="depIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                </if>
-                <if test="vehicleIdList != null and depIdList == null">
-                    and v.vehicleId in
-                    <foreach
-                            collection="vehicleIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                </if>
-
-                <if test="vehicleIdList != null and depIdList != null">
-                    and (v.depId in
-                    <foreach
-                            collection="depIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                    or v.vehicleId in
-                    <foreach
-                            collection="vehicleIdList" index="index" item="item"
-                            open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                    )
-                </if>
 
 
     </select>
