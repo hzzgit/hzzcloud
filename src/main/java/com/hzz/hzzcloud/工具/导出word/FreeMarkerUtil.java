@@ -125,7 +125,7 @@ public class FreeMarkerUtil {
             images.add(imageBase);
             images.add(imageBase2);
             data.put("images",images);
-            crateFile(data, "exportword.ftl", "D:/test/ces.doc");
+            crateFile(data, "exportword.ftl", "D:/test/ces新.doc");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class FreeMarkbydirExcuter {
 
@@ -26,11 +27,41 @@ public class FreeMarkbydirExcuter {
 
     //存储模板和class所在位置
     private List<PathVoByDir> pathVoList = new ArrayList<PathVoByDir>();
-
+    public String SysPath()
+    {
+        String path=this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if(path.toUpperCase().indexOf(".JAR")!=-1){
+            try{
+                //截取".JAR第一次出现前的字符串"
+                String StrPath=path.substring(0, path.toUpperCase().indexOf(".jar".toUpperCase()));
+                //获取“.jar”包的上一层文件夹
+                path=StrPath.substring(0,StrPath.lastIndexOf("/")+1);
+            }
+            catch(Exception e){
+                return "出错了:"+e.toString();
+            }
+        }
+        //第一个字符可能是斜杠，在Windows系统中去掉
+        Properties props = System.getProperties();
+        String osName = props.getProperty("os.name");
+        System.out.println( "os name" + osName);
+        if(path != null && !"".equals(path)){
+            if(path.substring(0,1).equals("\\") || path.substring(0,1).equals("/")){
+                path = path.substring(1);
+            }
+        }
+        return path.replace("file:","");
+    }
 
     public FreeMarkbydirExcuter() {
         TEMPLATE_PATH = TEMPLATE_PATH.replace("\\", File.separator);
         CLASS_PATH = CLASS_PATH.replace("\\", File.separator);
+//        String sysPath = SysPath();
+//        TEMPLATE_PATH=sysPath.substring(1,sysPath.length()-1)+"template";
+//        CLASS_PATH=sysPath+"main";
+//        System.out.println("模板路径:"+TEMPLATE_PATH);
+//        System.out.println(CLASS_PATH);
+
         deleteDir(CLASS_PATH);
         File file = new File(CLASS_PATH);
         if (!file.exists()) {
@@ -103,6 +134,7 @@ public class FreeMarkbydirExcuter {
         try {
             Template template = configuration.getTemplate(ftlpath);
             // step5 生成数据
+            System.out.println(classpath+"--创建路径");
             File docFile = new File(classpath);
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(docFile)));
             // step6 输出文件
@@ -164,8 +196,10 @@ public class FreeMarkbydirExcuter {
         File file = new File(TEMPLATE_PATH);
         File[] files = file.listFiles();
         for (File file1 : files) {
+
             boolean directory = file1.isDirectory();
             String path = file1.getPath();
+            System.out.println("找到的文件路径为"+path);
             path = path.replace(this.TEMPLATE_PATH, "");
             path = checkfilename(path, tableVo);
 
