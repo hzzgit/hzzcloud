@@ -21,7 +21,7 @@ public class APItest {
 
     RestTemplate rt =new RestTemplate();
     public static  String Cookie="_MHYUUID=02cf79c9-6717-4c2f-a4e2-bb39d534c026; UM_distinctid=175b0c598b544d-0cdd5771a4b6c5-376b4502-1fa400-175b0c598b6851; _ga=GA1.2.1356378899.1612505360; _gid=GA1.2.937261832.1613697273; login_uid=190601568; login_ticket=Wo8Lh5ESWxrTvU1g8MLhUsbtby5vxb72XkmAjjJN; account_id=190601568; cookie_token=MZWtgkAVp1TYLqa3pHo2Fq5Z0MvkphFvjWFk1ebI; ltoken=1pG5e7TJUWwnlrvZ5ufYHBwv185kJv7LYsOeujBx; ltuid=190601568; _gat=1";
-    public static  String DS3="1614763744,2PWESY,3c14156c42128e354249d4958a60a7a6";
+    public static  String DS3="1614934941,issJWb,4e3a4de36e1c5edcdacbc04e08c16473";
 
     public static  String Origin="https://bbs.mihoyo.com";
     public static  String Referer="https://bbs.mihoyo.com/ys/article/";

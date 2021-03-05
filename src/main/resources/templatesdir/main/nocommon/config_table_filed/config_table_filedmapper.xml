@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--用于管理平台配置表的信息的表字段配置表mapper -->
+<mapper namespace="config_table_filedmapper">
+
+    <!--查询用于管理平台配置表的信息的表字段配置表列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  主键   -->
+                a.id,
+                <!--  配置表主键   -->
+                a.mainid,
+                <!--  删除标志   -->
+                a.deleted,
+                <!--  字段名   -->
+                a.colname,
+                <!--  字段显示名称   -->
+                a.annotation,
+                <!--  创建时间   -->
+                a.createdate,
+                <!--  是否是查询条件字段,0=否，1为是   -->
+                a.issearchfiled,
+                <!--  查询方式,1 = ，2 左like 3 右like 4 全like 5 >= 6 <= 7>=且 <=(传参需要该字段开始条件加start结束条件加end开头) 8 是否下拉框，0是否1为是   -->
+                a.searchtype,
+                <!--  字段类型，1 字符串 2 数字 3 yyyy-mm-dd 时间 4 yyyy-mm-dd h24:mi:ss 时间   -->
+                a.coltype,
+                <!--  是否展示，0为否，1为是   -->
+                a.isshow,
+                <!--  是否排序字段   -->
+                a.issort,
+                <!--  排序方式，0升序，1降序   -->
+                a.sorttype
+        from
+        subiaodb.config_table_filed as a
+
+        where 1=1
+                <if test="id != null ">
+                    and a.id=#{id}
+                </if>
+                <if test="mainid != null ">
+                    and a.mainid=#{mainid}
+                </if>
+                and a.deleted=false
+                <if test="colname != null ">
+                    and a.colname=#{colname}
+                    <!-- and a.colname like '%${colname}%'-->
+                </if>
+                <if test="annotation != null ">
+                    and a.annotation=#{annotation}
+                    <!-- and a.annotation like '%${annotation}%'-->
+                </if>
+                <if test="startcreatedate != null ">
+                    and a.createdate >= #{startcreatedate }
+                </if>
+                <if test="endcreatedate != null ">
+                    and <![CDATA[ a.createdate < #{endcreatedate }]]>
+                </if>
+                <if test="issearchfiled != null ">
+                    and a.issearchfiled=#{issearchfiled}
+                </if>
+                <if test="searchtype != null ">
+                    and a.searchtype=#{searchtype}
+                </if>
+                <if test="coltype != null ">
+                    and a.coltype=#{coltype}
+                </if>
+                <if test="isshow != null ">
+                    and a.isshow=#{isshow}
+                </if>
+                <if test="issort != null ">
+                    and a.issort=#{issort}
+                </if>
+                <if test="sorttype != null ">
+                    and a.sorttype=#{sorttype}
+                </if>
+
+
+
+            order by a.createdate desc
+
+    </select>
+
+
+</mapper>

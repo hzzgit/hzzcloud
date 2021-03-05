@@ -28,7 +28,9 @@ public class FreeMarkbydirMain {
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
 
-        freeMarkbydirExcuter.readTable("subiaodb", "vehicle",
+        freeMarkbydirExcuter.readTable("subiaodb", "config_table",
+                false,false);
+        freeMarkbydirExcuter.readTable("subiaodb", "config_table_filed",
                 false,false);
     }
 
