@@ -3,6 +3,7 @@ package com.hzz.hzzcloud.test.集合反转;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author ：hzz
@@ -11,30 +12,19 @@ import java.util.List;
  */
 public class Collectionsreverse {
     public static void main(String[] args) {
-        List<String> searchSubmeter =new ArrayList<>();
-        searchSubmeter.add("1");
-        searchSubmeter.add("2");
-        searchSubmeter.add("3");
-        searchSubmeter.add("4");
 
-        Collections.reverse(searchSubmeter);
+        String str1 = "通话";
+        String str2 = "重地";
 
+        System.out.println(String.format("str1：%d | str2：%d",  111,222));
+        System.out.println(str1.equals(str2));
 
 
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("ce");
+        StringBuffer stringBuffer=new StringBuffer();
+        stringBuffer.append("ss");
 
 
-        List<Integer> ids=new ArrayList<>();
-        ids.add(1);
-        ids.add(13);
-        ids.add(131);
-        ids.add(132);
-        ids.add(1113);
-        ids.add(4);
-        ids.add(5);
-
-        Collections.reverse(ids);
-
-
-        System.out.println(1);
     }
 }
