@@ -1,15 +1,13 @@
 package com.hzz.hzzcloud.freemarker.util;
 
-import net.fxft.ascswebcommon.util.StringUtil;
-import net.fxft.ascswebcommon.web.util.ConverMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -56,19 +54,7 @@ public class ConverterUtils {
         }
         return defaultVal;
     }
-    //将字符串转成Long数组
-    public static Long[] StringtoList(String depId){
-        Long[] depIds = null;
-        //获取用户的车辆和机构权限，互斥之后
-        if(!StringUtil.isNullOrEmpty(depId)&&!"0".equalsIgnoreCase(depId)){
-            String[] depId1=depId.split(",");
-            depIds = new Long[depId1.length];
-            for (int i = 0; i < depId1.length; i++) {
-                depIds[i] = net.fxft.ascswebcommon.web.util.ConverterUtils.toLong(depId1[i]);
-            }
-        }
-        return depIds;
-    }
+
     /**
      * <将对象转换为int>
      *
@@ -171,21 +157,7 @@ public class ConverterUtils {
         return toDouble(obj, 0d);
     }
 
-    /**
-     * 将object转换为double类型再转成int，如果出错则返回 0d
-     *
-     * @param obj 需要转换的对象
-     * @return 转换后的结果
-     */
-    public static Integer Stringdoutoint(Object obj, Integer defaultVal) {
-        try {
-            Double b = net.fxft.ascswebcommon.web.util.ConverterUtils.toDouble(obj, 0.0);
-            Integer c = Integer.valueOf(b.intValue());
-            return (b != null) ? Integer.valueOf(toString(b.intValue(), "0")) : defaultVal;
-        } catch (Exception e) {
-            return defaultVal;
-        }
-    }
+
     public static Date toDate(Object object){
         return   toDate( object,  null);
     }
@@ -208,37 +180,7 @@ public class ConverterUtils {
         }
     }
 
-    public static void main(String[] args) {
-        Date da = net.fxft.ascswebcommon.web.util.ConverterUtils.toDate("2019-06-11", new Date());
-        System.out.println(da);
-    }
 
-    private static final Logger logger = LoggerFactory.getLogger(net.fxft.ascswebcommon.web.util.ConverterUtils.class);
-
-
-    //将集合根据字段进行排序
-    public static void Listsort(List<ConverMap> datas, boolean isasc, String sortcolname) {
-        if (isList(datas)) {
-            Collections.sort(datas, new Comparator<ConverMap>() {
-                        @Override
-                        public int compare(ConverMap o1, ConverMap o2) {
-                            try {
-                                Double type1num = o1.getDouble(sortcolname, 0.0);
-                                Double type2num = o2.getDouble(sortcolname, 0.0);
-                                if (isasc) {
-                                    return type1num.compareTo(type2num);
-                                } else {
-                                    return type2num.compareTo(type1num);
-                                }
-                            } catch (Exception e) {
-                                logger.debug("排序报错,v1=" + o1 + ",v2=" + o2, e);
-                                return 0;
-                            }
-                        }
-                    }
-            );
-        }
-    }
 
     /**
      * 保留小数点几位
@@ -253,7 +195,6 @@ public class ConverterUtils {
             double f1 = co.setScale(point, BigDecimal.ROUND_HALF_UP).doubleValue();
             return f1;
         } catch (NumberFormatException e) {
-            logger.error("转换出错:" + cn, e);
             return 0.0;
         }
     }

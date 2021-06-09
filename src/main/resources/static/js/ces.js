@@ -25,7 +25,7 @@ layui.use(['form', 'table'], function () {
                 deleteUser(data.id);
                 layer.close(index);
             });
-            document.location="/student";
+           // document.location="/student";
         } else if (obj.event === 'edit') {
             editUser(data.id);
         } else if (obj.event === 'view') {

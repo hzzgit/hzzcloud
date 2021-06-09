@@ -2,10 +2,6 @@ package com.hzz.hzzcloud;
 
 import com.hzz.hzzcloud.spring.SpringUtil;
 import com.hzz.hzzcloud.学习.springcloud自带的事件监听以及触发.*;
-import lombok.extern.slf4j.Slf4j;
-import net.fxft.ascswebcommon.service.impl.UserVehicleRefCacheService;
-import net.fxft.gateway.device.DeviceManager;
-import net.fxft.gateway.device.IDeviceManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,18 +32,6 @@ public class HzzcloudApplication {
 
 
 
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public IDeviceManager createDeviceManager() {
-        return new DeviceManager();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public UserVehicleRefCacheService createUserVehicleRefCacheService() {
-        return new UserVehicleRefCacheService();
     }
 
     @LoadBalanced

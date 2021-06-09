@@ -1,11 +1,5 @@
 package com.hzz.hzzcloud.freemarkerbydir;
 
-import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
-import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
-import com.hzz.hzzjdbc.jdbcutil.util.ConverMap;
-
-import java.util.List;
-
 /**
  * freeMark模板自动生成文件工具,这边是生成常规的增删改查-导出模板
  */
@@ -28,10 +22,10 @@ public class FreeMarkbydirMain {
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
 
-        freeMarkbydirExcuter.readTable("subiaodb", "config_table",
+        freeMarkbydirExcuter.readTable("subiaodb", "vehicle",
                 false,false);
-        freeMarkbydirExcuter.readTable("subiaodb", "config_table_filed",
-                false,false);
+//        freeMarkbydirExcuter.readTable("subiaodb", "config_table_filed",
+//                false,false);
     }
 
 }
