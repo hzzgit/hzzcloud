@@ -6,6 +6,7 @@ import com.hzz.hzzcloud.freemarker.Vo.PathVo;
 import com.hzz.hzzcloud.freemarker.Vo.TableVo;
 import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
 import com.hzz.hzzcloud.freemarker.emun.WebEnum;
+import com.hzz.hzzcloud.util.LineToHumpUtil;
 import com.hzz.hzzcloud.工具.快速读取resources中的文件.FileLoaderUtil;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
@@ -239,8 +240,18 @@ public class FreeMarkAutoByTreeExcuter {
      * @return
      */
     private String firstcolUp(String table_name) {
+        return  LineToHumpUtil.lineToHump(table_name);
+    }
+
+    public static void main(String[] args) {
+        String table_name="t_contract_ext_park";
         String EntityName = table_name.substring(0, 1).toUpperCase() + table_name.substring(1);//首字符大写的名称
-        return EntityName;
+        EntityName=    LineToHumpUtil.lineToHump(EntityName);
+        if(EntityName.substring(0,1).equalsIgnoreCase("T")){
+            EntityName=EntityName.substring(1);
+        }
+        System.out.println(EntityName);
+
     }
 
 }

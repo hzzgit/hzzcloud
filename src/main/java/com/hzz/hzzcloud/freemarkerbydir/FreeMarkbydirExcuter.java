@@ -4,6 +4,7 @@ package com.hzz.hzzcloud.freemarkerbydir;
 import com.hzz.hzzcloud.freemarker.Vo.TableVo;
 import com.hzz.hzzcloud.freemarker.dao.FreeMarkDao;
 import com.hzz.hzzcloud.freemarkerbydir.dto.PathVoByDir;
+import com.hzz.hzzcloud.util.LineToHumpUtil;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 import freemarker.template.Configuration;
@@ -20,8 +21,8 @@ public class FreeMarkbydirExcuter {
 
     private MysqlDao mysqlDao = null;
 
-    private String TEMPLATE_PATH = "E:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\template";
-    private String CLASS_PATH = "E:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\main";
+    private String TEMPLATE_PATH = "D:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\template";
+    private String CLASS_PATH = "D:\\mycode\\hzzcode\\hzzcloud\\src\\main\\resources\\templatesdir\\main";
 
     public Configuration configuration = new Configuration();
 
@@ -78,20 +79,24 @@ public class FreeMarkbydirExcuter {
     /**
      * @param table_schema     表所在数据库
      * @param table_name       表名
-     * @param veanddepquanxian 车辆机构权限
-     * @param depquanxian      机构权限,车辆机构权限为true的时候,这个不生效
+     * @param parkquanxian 车场权限
+
+     * @param packageName 要生成的dto vo mapper所在的package地址
      */
-    public void readTable(String table_schema, String table_name, boolean veanddepquanxian, boolean depquanxian) {
+    public void readTable(String table_schema, String table_name,
+                      String packageName,boolean parkquanxian) {
         table_schema = table_schema.toLowerCase();
         table_name = table_name.toLowerCase();
         FreeMarkDao freeMarkDao = new FreeMarkDao();
         TableVo tableVo = freeMarkDao.search(table_schema, table_name);
-        tableVo.setVeanddepquanxian(veanddepquanxian);//如果需要权限,那么就加入这个
-        tableVo.setDepquanxian(depquanxian);
 
+
+        tableVo.setPackageName(packageName);
+        tableVo.setParkquanxian(parkquanxian);
 
         String EntityName = firstcolUp(table_name);//首字符大写的名称
         tableVo.setEntityName(EntityName);//生成的实体类的类名,首字母大写
+        tableVo.setSentityName(EntityName.toLowerCase());//生成的实体类的类名，小写
 
         createDir(tableVo, TEMPLATE_PATH);
 
@@ -185,8 +190,7 @@ public class FreeMarkbydirExcuter {
      * @return
      */
     private String firstcolUp(String table_name) {
-        String EntityName = table_name.substring(0, 1).toUpperCase() + table_name.substring(1);//首字符大写的名称
-        return EntityName;
+        return LineToHumpUtil.lineToHump(table_name);
     }
 
     /**

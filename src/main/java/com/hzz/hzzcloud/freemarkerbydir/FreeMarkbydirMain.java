@@ -22,8 +22,8 @@ public class FreeMarkbydirMain {
         FreeMarkbydirExcuter freeMarkbydirExcuter=new FreeMarkbydirExcuter();
 
 
-        freeMarkbydirExcuter.readTable("subiaodb", "vehicle",
-                false,false);
+        freeMarkbydirExcuter.readTable("sync", "t_contract_park",
+                "com.cwgj.service.data",true);
 //        freeMarkbydirExcuter.readTable("subiaodb", "config_table_filed",
 //                false,false);
     }

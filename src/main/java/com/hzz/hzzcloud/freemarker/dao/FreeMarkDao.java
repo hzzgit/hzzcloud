@@ -4,6 +4,7 @@ package com.hzz.hzzcloud.freemarker.dao;
 import com.hzz.hzzcloud.freemarker.Vo.TableColumn;
 import com.hzz.hzzcloud.freemarker.Vo.TableNameVo;
 import com.hzz.hzzcloud.freemarker.Vo.TableVo;
+import com.hzz.hzzcloud.util.LineToHumpUtil;
 import com.hzz.hzzjdbc.jdbcutil.dbmain.MysqlDao;
 import com.hzz.hzzjdbc.jdbcutil.jdkjdbc.JdkDataSource;
 
@@ -28,7 +29,8 @@ public class FreeMarkDao {
         String  pricolname =null;//主键名称
         String ordervbyname=null;
         for (TableColumn tableColumn : query) {
-            tableColumn.setColumnname(tableColumn.getColumnname().toLowerCase());
+            tableColumn.setColumnname(LineToHumpUtil.lineToHumpbyCol(tableColumn.getColumnname()));
+            tableColumn.setColumnnameold(tableColumn.getColumnname());
         }
         for (TableColumn tableColumn : query) {
             if("PRI".equalsIgnoreCase(tableColumn.getColumnkey())){
@@ -52,7 +54,7 @@ public class FreeMarkDao {
         tableVo.setTableColumnList(query);
 
         TableNameVo tableNameVo = searchTableName(table_schema, table_name);
-        tableVo.setTableconment(tableNameVo.getTableconment());
+        tableVo.setTableconment(tableNameVo.getTableconment().replaceAll("表",""));
 
         return tableVo;
     }

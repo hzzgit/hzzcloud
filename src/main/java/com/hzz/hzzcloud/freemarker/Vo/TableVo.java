@@ -8,22 +8,41 @@ public class TableVo {
     private String pricolname;//主键名称
     private String tableschema;//所在数据库
     private String tablename;//表名
+
     private String packpath;//class所在package位置
     private String classname;//自定义的class名称
 
     private PackageVo packageVo;//各个类所在的package位置
     private  Boolean veanddepquanxian;//是否生成车辆机构权限
     private  Boolean depquanxian;//是否生成机构权限,如果上面的有,这个不生效
-    private String entityName;//大写的类名
+    private Boolean parkquanxian;//车场权限
+
+
+    private String entityName;//大写的类名,驼峰原则
+    private String sentityName;//小写的类名,驼峰原则
+
+
     private String tableconment;//表注释
 
     private String ordercol;//排序字段
 
     private List<TableColumn> tableColumnList;//字段内容
 
+    //所在文件夹的路径
+    private String packageName;
+
+
     private  TableVo tableVobyDep;
     private  TableVo tableVobyVehicle;
     private  TableVo tableVobyUserLim;
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 
     public String getClassname() {
         return classname;
@@ -73,6 +92,14 @@ public class TableVo {
         this.entityName = entityName;
     }
 
+    public String getSentityName() {
+        return sentityName;
+    }
+
+    public void setSentityName(String sentityName) {
+        this.sentityName = sentityName;
+    }
+
     public String getTableschema() {
         return tableschema;
     }
@@ -114,6 +141,14 @@ public class TableVo {
         if(veanddepquanxian==null) {
             this.depquanxian = depquanxian;
         }
+    }
+
+    public Boolean getParkquanxian() {
+        return parkquanxian;
+    }
+
+    public void setParkquanxian(Boolean parkquanxian) {
+        this.parkquanxian = parkquanxian;
     }
 
     public List<TableColumn> getTableColumnList() {
