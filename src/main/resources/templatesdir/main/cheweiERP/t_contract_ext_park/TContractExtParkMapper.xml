@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--车场合同附加协议mapper -->
+<mapper namespace="com.cwgj.service.data.mapper.TContractExtParkMapper">
+
+    <!--查询车场合同附加协议列表 -->
+    <select id="list"  resultType="com.cwgj.service.data.common.vo.contractextpark.ContractExtParkTableVO">
+             select
+                t2.park_name,    <!--  车场名称   -->
+                t2.operator_id,  <!--  运营商主键   -->
+                t2.operator_name,<!--  运营商名称  -->
+                t2.city_id,      <!--  城市id  -->
+                t2.city_name,    <!--  城市名称  -->
+                t1.contractext_id,<!--  附加合同主键   -->
+                t1.contract_no,<!--  合同编号   -->
+                t1.contract_no_ext,<!--  关联合同编号   -->
+                t1.park_guid,<!--  车场guid   -->
+                t1.sign_date,<!--  签约日期   -->
+                t1.contract_amount_ext,<!--  主合同金额(分)   -->
+                t1.receivable_amount,<!--  已回款总金额(分)   -->
+                t1.contract_amount,<!--  合同金额 (分),这个是调整之后的合同金额   -->
+                t1.contract_period,<!--  合同剩余年限 (单位 月)   -->
+                t1.periods_type,<!--  周期类型 0:自定义, 1：1个月, 2:3个月,3:6个月,4:12个月   -->
+                t1.single_phase_amount,<!--  每月服务费(分)   -->
+                t1.try_way,<!--  试用方式：0 试用天数 1 试用笔数 2 设置时间   -->
+                t1.try_number,<!--  根据试用方式传入相关的参数   -->
+                t1.deduct_money_type,<!--  扣款方式,0 全部优先回款 1 按百分比回款   -->
+                t1.deduct_money_percent,<!--  扣款百分比   -->
+                t1.stop_contract,<!--  是否终止原计划   -->
+                t1.remark,<!--  备注   -->
+                t1.approve_status,<!--  0、审批中  1、审批通过，2、审批失败   -->
+                t1.process_failed_remark,<!--  审批拒绝原因   -->
+                t1.sale_user_id,<!--  销售负责人账号id   -->
+                t1.sale_person,<!--  销售负责人姓名   -->
+                t1.create_id,<!--  创建人ID   -->
+                t1.create_name,<!--  创建人姓名   -->
+                t1.create_time,<!--  创建时间   -->
+                t1.update_time,<!--  更新时间   -->
+                t1.handler_id,<!--  操作人ID   -->
+                t1.handler_name
+             from t_contract_ext_park as t1
+             join t_park t2 ON t1.park_guid = t2.park_guid
+             where 1=1
+            <!--  附加合同主键   -->
+                <if test="contractextId != null ">
+                    and t1.contractext_id=#{contractextId}
+                </if>
+            <!--  合同编号   -->
+                <if test="contractNo != null  and contractNo != ''">
+                    and t1.contract_no=#{contractNo}
+                    <!-- and t1.contract_no like '%${contractNo}%'-->
+                </if>
+            <!--  关联合同编号   -->
+                <if test="contractNoExt != null  and contractNoExt != ''">
+                    and t1.contract_no_ext=#{contractNoExt}
+                    <!-- and t1.contract_no_ext like '%${contractNoExt}%'-->
+                </if>
+            <!--  车场guid   -->
+                <if test="parkGuid != null  and parkGuid != ''">
+                    and t1.park_guid=#{parkGuid}
+                    <!-- and t1.park_guid like '%${parkGuid}%'-->
+                </if>
+            <!--  签约日期   -->
+                <if test="startsignDate != null and startsignDate != ''">
+                    and t1.sign_date >= #{startsignDate }
+                </if>
+                <if test="endsignDate != null and endsignDate != ''">
+                    and <![CDATA[ t1.sign_date < #{endsignDate }]]>
+                </if>
+            <!--  主合同金额(分)   -->
+                <if test="contractAmountExt != null ">
+                    and t1.contract_amount_ext=#{contractAmountExt}
+                </if>
+            <!--  已回款总金额(分)   -->
+                <if test="receivableAmount != null ">
+                    and t1.receivable_amount=#{receivableAmount}
+                </if>
+            <!--  合同金额 (分),这个是调整之后的合同金额   -->
+                <if test="contractAmount != null ">
+                    and t1.contract_amount=#{contractAmount}
+                </if>
+            <!--  合同剩余年限 (单位 月)   -->
+                <if test="contractPeriod != null ">
+                    and t1.contract_period=#{contractPeriod}
+                </if>
+            <!--  周期类型 0:自定义, 1：1个月, 2:3个月,3:6个月,4:12个月   -->
+                <if test="periodsType != null ">
+                    and t1.periods_type=#{periodsType}
+                </if>
+            <!--  每月服务费(分)   -->
+                <if test="singlePhaseAmount != null ">
+                    and t1.single_phase_amount=#{singlePhaseAmount}
+                </if>
+            <!--  试用方式：0 试用天数 1 试用笔数 2 设置时间   -->
+                <if test="tryWay != null ">
+                    and t1.try_way=#{tryWay}
+                </if>
+            <!--  根据试用方式传入相关的参数   -->
+                <if test="tryNumber != null  and tryNumber != ''">
+                    and t1.try_number=#{tryNumber}
+                    <!-- and t1.try_number like '%${tryNumber}%'-->
+                </if>
+            <!--  扣款方式,0 全部优先回款 1 按百分比回款   -->
+                <if test="deductMoneyType != null ">
+                    and t1.deduct_money_type=#{deductMoneyType}
+                </if>
+            <!--  扣款百分比   -->
+                <if test="deductMoneyPercent != null  and deductMoneyPercent != ''">
+                    and t1.deduct_money_percent=#{deductMoneyPercent}
+                    <!-- and t1.deduct_money_percent like '%${deductMoneyPercent}%'-->
+                </if>
+            <!--  是否终止原计划   -->
+            <!--  备注   -->
+                <if test="remark != null  and remark != ''">
+                    and t1.remark=#{remark}
+                    <!-- and t1.remark like '%${remark}%'-->
+                </if>
+            <!--  0、审批中  1、审批通过，2、审批失败   -->
+                <if test="approveStatus != null ">
+                    and t1.approve_status=#{approveStatus}
+                </if>
+            <!--  审批拒绝原因   -->
+                <if test="processFailedRemark != null  and processFailedRemark != ''">
+                    and t1.process_failed_remark=#{processFailedRemark}
+                    <!-- and t1.process_failed_remark like '%${processFailedRemark}%'-->
+                </if>
+            <!--  销售负责人账号id   -->
+                <if test="saleUserId != null ">
+                    and t1.sale_user_id=#{saleUserId}
+                </if>
+            <!--  销售负责人姓名   -->
+                <if test="salePerson != null  and salePerson != ''">
+                    and t1.sale_person=#{salePerson}
+                    <!-- and t1.sale_person like '%${salePerson}%'-->
+                </if>
+            <!--  创建人ID   -->
+                <if test="createId != null ">
+                    and t1.create_id=#{createId}
+                </if>
+            <!--  创建人姓名   -->
+                <if test="createName != null  and createName != ''">
+                    and t1.create_name=#{createName}
+                    <!-- and t1.create_name like '%${createName}%'-->
+                </if>
+            <!--  创建时间   -->
+                <if test="startcreateTime != null and startcreateTime != ''">
+                    and t1.create_time >= #{startcreateTime }
+                </if>
+                <if test="endcreateTime != null and endcreateTime != ''">
+                    and <![CDATA[ t1.create_time < #{endcreateTime }]]>
+                </if>
+            <!--  更新时间   -->
+                <if test="startupdateTime != null and startupdateTime != ''">
+                    and t1.update_time >= #{startupdateTime }
+                </if>
+                <if test="endupdateTime != null and endupdateTime != ''">
+                    and <![CDATA[ t1.update_time < #{endupdateTime }]]>
+                </if>
+            <!--  操作人ID   -->
+                <if test="handlerId != null ">
+                    and t1.handler_id=#{handlerId}
+                </if>
+            <!--  操作人姓名   -->
+                <if test="handlerName != null  and handlerName != ''">
+                    and t1.handler_name=#{handlerName}
+                    <!-- and t1.handler_name like '%${handlerName}%'-->
+                </if>
+                <if test="operatorId != null  and operatorId != ''">
+                    and t2.operator_id = FreeMarker template error (DEBUG mode; use RETHROW in production!):
+The following has evaluated to null or missing:
+==> operatorId  [in template "T${entityName}Mapper-xml.ftl" at line 57, column 44]
+
+----
+Tip: If the failing expression is known to legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
+----
+
+----
+FTL stack trace ("~" means nesting-related):
+	- Failed at: #{operatorId}  [in template "T${entityName}Mapper-xml.ftl" at line 57, column 42]
+----
+
+Java stack trace (for programmers):
+----
+freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
+	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:134)
+	at freemarker.core.UnexpectedTypeException.newDescriptionBuilder(UnexpectedTypeException.java:85)
+	at freemarker.core.UnexpectedTypeException.<init>(UnexpectedTypeException.java:48)
+	at freemarker.core.NonNumericalException.<init>(NonNumericalException.java:47)
+	at freemarker.core.Expression.modelToNumber(Expression.java:158)
+	at freemarker.core.Expression.evalToNumber(Expression.java:151)
+	at freemarker.core.NumericalOutput.calculateInterpolatedStringOrMarkup(NumericalOutput.java:78)
+	at freemarker.core.NumericalOutput.accept(NumericalOutput.java:66)
+	at freemarker.core.Environment.visit(Environment.java:334)
+	at freemarker.core.Environment.visit(Environment.java:340)
+	at freemarker.core.Environment.visit(Environment.java:340)
+	at freemarker.core.Environment.process(Environment.java:313)
+	at freemarker.template.Template.process(Template.java:383)
+	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.writetem(FreeMarkbydirExcuter.java:146)
+	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.readTable(FreeMarkbydirExcuter.java:119)
+	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirMain.main(FreeMarkbydirMain.java:25)

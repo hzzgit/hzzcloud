@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--车场合同附加协议mapper -->
+<mapper namespace="t_contract_ext_parkmapper">
+
+    <!--查询车场合同附加协议列表 -->
+    <select id="selectlist" parameterType="java.util.HashMap"
+            resultType="java.util.HashMap">
+        select
+                <!--  附加合同主键   -->
+                a.contractextid,
+                <!--  合同编号   -->
+                a.contractno,
+                <!--  关联合同编号   -->
+                a.contractnoext,
+                <!--  车场guid   -->
+                a.parkguid,
+                <!--  签约日期   -->
+                a.signdate,
+                <!--  主合同金额(分)   -->
+                a.contractamountext,
+                <!--  已回款总金额(分)   -->
+                a.receivableamount,
+                <!--  合同金额 (分),这个是调整之后的合同金额   -->
+                a.contractamount,
+                <!--  合同剩余年限 (单位 月)   -->
+                a.contractperiod,
+                <!--  周期类型 0:自定义, 1：1个月, 2:3个月,3:6个月,4:12个月   -->
+                a.periodstype,
+                <!--  每月服务费(分)   -->
+                a.singlephaseamount,
+                <!--  试用方式：0 试用天数 1 试用笔数 2 设置时间   -->
+                a.tryway,
+                <!--  根据试用方式传入相关的参数   -->
+                a.trynumber,
+                <!--  扣款方式,0 全部优先回款 1 按百分比回款   -->
+                a.deductmoneytype,
+                <!--  扣款百分比   -->
+                a.deductmoneypercent,
+                <!--  是否终止原计划   -->
+                a.stopcontract,
+                <!--  备注   -->
+                a.remark,
+                <!--  0、审批中  1、审批通过，2、审批失败   -->
+                a.approvestatus,
+                <!--  审批拒绝原因   -->
+                a.processfailedremark,
+                <!--  销售负责人账号id   -->
+                a.saleuserid,
+                <!--  销售负责人姓名   -->
+                a.saleperson,
+                <!--  创建人ID   -->
+                a.createid,
+                <!--  创建人姓名   -->
+                a.createname,
+                <!--  创建时间   -->
+                a.createtime,
+                <!--  更新时间   -->
+                a.updatetime,
+                <!--  操作人ID   -->
+                a.handlerid,
+                <!--  操作人姓名   -->
+                a.handlername
+        from
+        sync.t_contract_ext_park as a
+
+        where 1=1
+                <if test="contractno != null ">
+                    and a.contractno=#{contractno}
+                    <!-- and a.contractno like '%${contractno}%'-->
+                </if>
+                <if test="contractnoext != null ">
+                    and a.contractnoext=#{contractnoext}
+                    <!-- and a.contractnoext like '%${contractnoext}%'-->
+                </if>
+                <if test="contractamountext != null ">
+                    and a.contractamountext=#{contractamountext}
+                </if>
+                <if test="receivableamount != null ">
+                    and a.receivableamount=#{receivableamount}
+                </if>
+                <if test="contractamount != null ">
+                    and a.contractamount=#{contractamount}
+                </if>
+                <if test="contractperiod != null ">
+                    and a.contractperiod=#{contractperiod}
+                </if>
+                <if test="periodstype != null ">
+                    and a.periodstype=#{periodstype}
+                </if>
+                <if test="singlephaseamount != null ">
+                    and a.singlephaseamount=#{singlephaseamount}
+                </if>
+                <if test="tryway != null ">
+                    and a.tryway=#{tryway}
+                </if>
+                <if test="trynumber != null ">
+                    and a.trynumber=#{trynumber}
+                    <!-- and a.trynumber like '%${trynumber}%'-->
+                </if>
+                <if test="deductmoneytype != null ">
+                    and a.deductmoneytype=#{deductmoneytype}
+                </if>
+                <if test="deductmoneypercent != null ">
+                    and a.deductmoneypercent=#{deductmoneypercent}
+                    <!-- and a.deductmoneypercent like '%${deductmoneypercent}%'-->
+                </if>
+                <if test="remark != null ">
+                    and a.remark=#{remark}
+                    <!-- and a.remark like '%${remark}%'-->
+                </if>
+                <if test="approvestatus != null ">
+                    and a.approvestatus=#{approvestatus}
+                </if>
+                <if test="processfailedremark != null ">
+                    and a.processfailedremark=#{processfailedremark}
+                    <!-- and a.processfailedremark like '%${processfailedremark}%'-->
+                </if>
+                <if test="saleperson != null ">
+                    and a.saleperson=#{saleperson}
+                    <!-- and a.saleperson like '%${saleperson}%'-->
+                </if>
+                <if test="createname != null ">
+                    and a.createname=#{createname}
+                    <!-- and a.createname like '%${createname}%'-->
+                </if>
+                <if test="startcreatetime != null ">
+                    and a.createtime >= #{startcreatetime }
+                </if>
+                <if test="endcreatetime != null ">
+                    and <![CDATA[ a.createtime < #
+                    {endcreatetime }]]>
+                </if>
+                <if test="startupdatetime != null ">
+                    and a.updatetime >= #{startupdatetime }
+                </if>
+                <if test="endupdatetime != null ">
+                    and <![CDATA[ a.updatetime < #
+                    {endupdatetime }]]>
+                </if>
+                <if test="handlername != null ">
+                    and a.handlername=#{handlername}
+                    <!-- and a.handlername like '%${handlername}%'-->
+                </if>
+
+
+
+        union
+        select
+                <!--  附加合同主键   -->
+                a.contractextid,
+                <!--  合同编号   -->
+                a.contractno,
+                <!--  关联合同编号   -->
+                a.contractnoext,
+                <!--  车场guid   -->
+                a.parkguid,
+                <!--  签约日期   -->
+                a.signdate,
+                <!--  主合同金额(分)   -->
+                a.contractamountext,
+                <!--  已回款总金额(分)   -->
+                a.receivableamount,
+                <!--  合同金额 (分),这个是调整之后的合同金额   -->
+                a.contractamount,
+                <!--  合同剩余年限 (单位 月)   -->
+                a.contractperiod,
+                <!--  周期类型 0:自定义, 1：1个月, 2:3个月,3:6个月,4:12个月   -->
+                a.periodstype,
+                <!--  每月服务费(分)   -->
+                a.singlephaseamount,
+                <!--  试用方式：0 试用天数 1 试用笔数 2 设置时间   -->
+                a.tryway,
+                <!--  根据试用方式传入相关的参数   -->
+                a.trynumber,
+                <!--  扣款方式,0 全部优先回款 1 按百分比回款   -->
+                a.deductmoneytype,
+                <!--  扣款百分比   -->
+                a.deductmoneypercent,
+                <!--  是否终止原计划   -->
+                a.stopcontract,
+                <!--  备注   -->
+                a.remark,
+                <!--  0、审批中  1、审批通过，2、审批失败   -->
+                a.approvestatus,
+                <!--  审批拒绝原因   -->
+                a.processfailedremark,
+                <!--  销售负责人账号id   -->
+                a.saleuserid,
+                <!--  销售负责人姓名   -->
+                a.saleperson,
+                <!--  创建人ID   -->
+                a.createid,
+                <!--  创建人姓名   -->
+                a.createname,
+                <!--  创建时间   -->
+                a.createtime,
+                <!--  更新时间   -->
+                a.updatetime,
+                <!--  操作人ID   -->
+                a.handlerid,
+                <!--  操作人姓名   -->
+                a.handlername
+        from
+        sync.t_contract_ext_park as a,
+        sync.t_contract_ext_parkuserlim as u
+
+
+        where 1=1
+        and a.contractextId =u.mainid
+
+            <if test="userid !=null ">
+                and u.userId = #{userid}
+            </if>
+                <if test="contractno != null ">
+                    and a.contractno=#{contractno}
+                    <!-- and a.contractno like '%${contractno}%'-->
+                </if>
+                <if test="contractnoext != null ">
+                    and a.contractnoext=#{contractnoext}
+                    <!-- and a.contractnoext like '%${contractnoext}%'-->
+                </if>
+                <if test="contractamountext != null ">
+                    and a.contractamountext=#{contractamountext}
+                </if>
+                <if test="receivableamount != null ">
+                    and a.receivableamount=#{receivableamount}
+                </if>
+                <if test="contractamount != null ">
+                    and a.contractamount=#{contractamount}
+                </if>
+                <if test="contractperiod != null ">
+                    and a.contractperiod=#{contractperiod}
+                </if>
+                <if test="periodstype != null ">
+                    and a.periodstype=#{periodstype}
+                </if>
+                <if test="singlephaseamount != null ">
+                    and a.singlephaseamount=#{singlephaseamount}
+                </if>
+                <if test="tryway != null ">
+                    and a.tryway=#{tryway}
+                </if>
+                <if test="trynumber != null ">
+                    and a.trynumber=#{trynumber}
+                    <!-- and a.trynumber like '%${trynumber}%'-->
+                </if>
+                <if test="deductmoneytype != null ">
+                    and a.deductmoneytype=#{deductmoneytype}
+                </if>
+                <if test="deductmoneypercent != null ">
+                    and a.deductmoneypercent=#{deductmoneypercent}
+                    <!-- and a.deductmoneypercent like '%${deductmoneypercent}%'-->
+                </if>
+                <if test="remark != null ">
+                    and a.remark=#{remark}
+                    <!-- and a.remark like '%${remark}%'-->
+                </if>
+                <if test="approvestatus != null ">
+                    and a.approvestatus=#{approvestatus}
+                </if>
+                <if test="processfailedremark != null ">
+                    and a.processfailedremark=#{processfailedremark}
+                    <!-- and a.processfailedremark like '%${processfailedremark}%'-->
+                </if>
+                <if test="saleperson != null ">
+                    and a.saleperson=#{saleperson}
+                    <!-- and a.saleperson like '%${saleperson}%'-->
+                </if>
+                <if test="createname != null ">
+                    and a.createname=#{createname}
+                    <!-- and a.createname like '%${createname}%'-->
+                </if>
+                <if test="startcreatetime != null ">
+                    and a.createtime >= #{startcreatetime }
+                </if>
+                <if test="endcreatetime != null ">
+                    and <![CDATA[ a.createtime < #
+                    {endcreatetime }]]>
+                </if>
+                <if test="startupdatetime != null ">
+                    and a.updatetime >= #{startupdatetime }
+                </if>
+                <if test="endupdatetime != null ">
+                    and <![CDATA[ a.updatetime < #
+                    {endupdatetime }]]>
+                </if>
+                <if test="handlername != null ">
+                    and a.handlername=#{handlername}
+                    <!-- and a.handlername like '%${handlername}%'-->
+                </if>
+
+
+
+
+
+    </select>
+
+</mapper>

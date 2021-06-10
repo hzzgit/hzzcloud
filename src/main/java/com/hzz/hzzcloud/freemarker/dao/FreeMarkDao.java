@@ -23,14 +23,16 @@ public class FreeMarkDao {
         tableVo.setTableschema(table_schema);
         tableVo.setTablename(table_name);
         String sql = "select table_schema tableschema,table_name tablename,\n" +
-                "column_name columnname,column_key columnkey,data_type datatype,column_comment columncomment  from\n" +
+                "column_name columnname,column_key columnkey,data_type datatype," +
+                "column_comment columncomment,   is_nullable isnull from\n" +
                 "information_schema.COLUMNS where table_schema =? and table_name=? ";
         List<TableColumn> query = mysqlDao.getMysqlUtil().query(sql, TableColumn.class, table_schema, table_name);
         String  pricolname =null;//主键名称
         String ordervbyname=null;
         for (TableColumn tableColumn : query) {
-            tableColumn.setColumnname(LineToHumpUtil.lineToHumpbyCol(tableColumn.getColumnname()));
             tableColumn.setColumnnameold(tableColumn.getColumnname());
+            tableColumn.setColumnname(LineToHumpUtil.lineToHumpbyCol(tableColumn.getColumnname()));
+            tableColumn.setColumncomment(tableColumn.getColumncomment()!=null?tableColumn.getColumncomment().trim().replaceAll("\n"," "):"");
         }
         for (TableColumn tableColumn : query) {
             if("PRI".equalsIgnoreCase(tableColumn.getColumnkey())){

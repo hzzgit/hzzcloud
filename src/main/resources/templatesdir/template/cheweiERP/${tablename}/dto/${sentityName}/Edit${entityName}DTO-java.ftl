@@ -14,10 +14,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Create${entityName}DTO  {
+public class Edit${entityName}DTO  {
 
 <#list tableColumnList as tablecolumn>
-    <#if tablecolumn.columnkey  !="PRI" && tablecolumn.columnname !="createId"
+<#if  tablecolumn.columnname !="createId"
     && tablecolumn.columnname !="createName" && tablecolumn.columnname !="createTime"
     && tablecolumn.columnname !="updateTime" && tablecolumn.columnname !="handlerId"
     && tablecolumn.columnname !="handlerName" >
@@ -26,8 +26,7 @@ public class Create${entityName}DTO  {
     </#if>
     @ApiModelProperty("${tablecolumn.columncomment}")
     private <#if  tablecolumn.datatype=="varchar">String<#elseif  tablecolumn.datatype=="int"  >Integer<#elseif   tablecolumn.datatype=="bigint" >Long<#elseif  tablecolumn.datatype=="bit"  || tablecolumn.datatype=="tinyint" >Boolean<#elseif  tablecolumn.datatype=="decimal">Double<#elseif (tablecolumn.datatype=="date" || tablecolumn.datatype=="datetime" )>Date<#else >String</#if>  ${tablecolumn.columnname};
-
-    </#if>
+</#if>
 </#list>
 
 }
