@@ -169,35 +169,14 @@
                     <!-- and t1.handler_name like '%${handlerName}%'-->
                 </if>
                 <if test="operatorId != null  and operatorId != ''">
-                    and t2.operator_id = FreeMarker template error (DEBUG mode; use RETHROW in production!):
-The following has evaluated to null or missing:
-==> operatorId  [in template "T${entityName}Mapper-xml.ftl" at line 57, column 44]
+                    and t2.operator_id = #{operatorId}
+                </if>
+                <include refid="com.cwgj.service.data.mapper.TParkMapper.ParkGuidsWHERE">
+                    <property name="alias" value="t2."/>
+                </include>
+            order by t1.contractextId desc
 
-----
-Tip: If the failing expression is known to legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
-----
+    </select>
 
-----
-FTL stack trace ("~" means nesting-related):
-	- Failed at: #{operatorId}  [in template "T${entityName}Mapper-xml.ftl" at line 57, column 42]
-----
 
-Java stack trace (for programmers):
-----
-freemarker.core.InvalidReferenceException: [... Exception message was already printed; see it above ...]
-	at freemarker.core.InvalidReferenceException.getInstance(InvalidReferenceException.java:134)
-	at freemarker.core.UnexpectedTypeException.newDescriptionBuilder(UnexpectedTypeException.java:85)
-	at freemarker.core.UnexpectedTypeException.<init>(UnexpectedTypeException.java:48)
-	at freemarker.core.NonNumericalException.<init>(NonNumericalException.java:47)
-	at freemarker.core.Expression.modelToNumber(Expression.java:158)
-	at freemarker.core.Expression.evalToNumber(Expression.java:151)
-	at freemarker.core.NumericalOutput.calculateInterpolatedStringOrMarkup(NumericalOutput.java:78)
-	at freemarker.core.NumericalOutput.accept(NumericalOutput.java:66)
-	at freemarker.core.Environment.visit(Environment.java:334)
-	at freemarker.core.Environment.visit(Environment.java:340)
-	at freemarker.core.Environment.visit(Environment.java:340)
-	at freemarker.core.Environment.process(Environment.java:313)
-	at freemarker.template.Template.process(Template.java:383)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.writetem(FreeMarkbydirExcuter.java:146)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirExcuter.readTable(FreeMarkbydirExcuter.java:119)
-	at com.hzz.hzzcloud.freemarkerbydir.FreeMarkbydirMain.main(FreeMarkbydirMain.java:25)
+</mapper>

@@ -41,15 +41,8 @@ public class FreeMarkDao {
             }
         }
 
-        for (TableColumn tableColumn : query) {
-            if("createdate".equalsIgnoreCase(tableColumn.getColumnname().toLowerCase())){
-                ordervbyname=tableColumn.getColumnname();
-            }
-            if("updatedate".equalsIgnoreCase(tableColumn.getColumnname().toLowerCase())){
-                ordervbyname=tableColumn.getColumnname();
-                break;
-            }
-        }
+        ordervbyname=pricolname;
+
 
         tableVo.setOrdercol(ordervbyname);//排序字段
         tableVo.setPricolname(pricolname);

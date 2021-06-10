@@ -54,7 +54,7 @@
         </#list>
         <#if parkquanxian?? && parkquanxian=true>
                 <if test="operatorId != null  and operatorId != ''">
-                    and t2.operator_id = #{operatorId}
+                    and t2.operator_id = ${r"#"}{operatorId}
                 </if>
                 <include refid="${packageName}.mapper.TParkMapper.ParkGuidsWHERE">
                     <property name="alias" value="t2."/>
