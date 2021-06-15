@@ -37,11 +37,11 @@ public class FreeMarkDao {
         for (TableColumn tableColumn : query) {
             if("PRI".equalsIgnoreCase(tableColumn.getColumnkey())){
                 pricolname=tableColumn.getColumnname();
+                ordervbyname=tableColumn.getColumnnameold();
                 break;
             }
         }
 
-        ordervbyname=pricolname;
 
 
         tableVo.setOrdercol(ordervbyname);//排序字段

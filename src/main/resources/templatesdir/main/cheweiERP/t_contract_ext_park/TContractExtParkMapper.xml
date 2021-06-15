@@ -174,7 +174,7 @@
                 <include refid="com.cwgj.service.data.mapper.TParkMapper.ParkGuidsWHERE">
                     <property name="alias" value="t2."/>
                 </include>
-            order by t1.contractextId desc
+            order by t1.contractext_id desc
 
     </select>
 
