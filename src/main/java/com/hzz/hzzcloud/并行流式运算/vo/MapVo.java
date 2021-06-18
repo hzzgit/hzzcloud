@@ -10,6 +10,15 @@ public class MapVo {
 
     private String name;
 
+    private Boolean validFlag;
+
+    public Boolean getValidFlag() {
+        return validFlag;
+    }
+
+    public void setValidFlag(Boolean validFlag) {
+        this.validFlag = validFlag;
+    }
 
     public String getName() {
         return name;

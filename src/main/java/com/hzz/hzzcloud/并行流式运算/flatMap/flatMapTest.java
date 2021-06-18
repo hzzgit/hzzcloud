@@ -24,6 +24,14 @@ public class flatMapTest {
         }
     }
 
+    private static Klass[] getKlassList(Integer... id){
+        Klass[] klasses=new Klass[id.length];
+        for (int i = 0; i < id.length; i++) {
+            klasses[i]=new Klass(id[i]);
+        }
+        return klasses;
+    }
+
     private static class KlassGroup {
         private List<Klass> group = new ArrayList<>();
 
@@ -46,6 +54,22 @@ public class flatMapTest {
                 new KlassGroup(new Klass(10))
         );
 
+        List<Klass[]> klasses=new ArrayList<>();
+        klasses.add(getKlassList(1,2,3));
+        klasses.add(getKlassList(4,5,6));
+        klasses.add(getKlassList(7,8,9,10));
+
+        List<KlassGroup> collect3 = klasses
+                .parallelStream()
+                .map(KlassGroup::new)
+                .distinct()
+                .filter(p->p.getKlassList().size()>1)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+
+
+
         //用map会导致出现这种
         List<List<Klass>> collect = groupList.parallelStream()
                 .map(KlassGroup::getKlassList)
@@ -65,7 +89,7 @@ public class flatMapTest {
 
 
         //使用flatMap，就可以快速将
-        List<Object> collect1 = groupList.parallelStream()
+        List<Klass> collect1 = groupList.parallelStream()
                 .flatMap(klassGroup -> {
                  return    klassGroup.getKlassList().stream();
                 })

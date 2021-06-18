@@ -14,7 +14,11 @@ public class FuntionTest {
 
         System.out.println(new FuntionTest().get("2", p -> Integer.parseInt(p)));
 
+        //这种语法相当于让 "3" 执行 Integer.parseInt
         System.out.println(new FuntionTest().get("3", Integer::parseInt));
+
+        //有加 {} 括号的话，就要自己写return ，如果没有就自动return
+        System.out.println(new FuntionTest().get("4", p->{ return  Integer.parseInt(p);}));
     }
 
     public Integer get(String name,Function<String,Integer> te){
