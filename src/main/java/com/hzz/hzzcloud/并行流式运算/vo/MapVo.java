@@ -1,10 +1,19 @@
 package com.hzz.hzzcloud.并行流式运算.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author ：hzz
  * @description：TODO
  * @date ：2021/6/11 14:14
  */
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class MapVo {
     private Integer id;
 
