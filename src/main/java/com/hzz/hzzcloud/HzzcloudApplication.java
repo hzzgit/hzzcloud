@@ -24,17 +24,8 @@ public class HzzcloudApplication {
         SpringUtil.invokeAfterStartedRunner(run);
      //   ConfigurableApplicationContext ctx =  SpringApplication.run(HzzcloudApplication.class, args);
 
-        System.out.println("分支2操作了");
-        System.out.println("分支2操作了2");
-        System.out.println("主分支的操作");
+        System.out.println("操作1");
 
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1 的我加了一句话");
-        System.out.println("分支1再操作");
     }
 
     @LoadBalanced
