@@ -29,6 +29,7 @@ public class HzzcloudApplication {
         System.out.println("分支1 的我加了一句话");
         System.out.println("分支1 的我加了一句话");
         System.out.println("分支1 的我加了一句话");
+        System.out.println("分支1再操作");
     }
 
     @LoadBalanced
