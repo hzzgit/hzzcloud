@@ -28,9 +28,6 @@ public class HzzcloudApplication {
         System.out.println("操作22");
         System.out.println("操作33");
         System.out.println("操作44");
-        System.out.println("操作55");
-        System.out.println("操作66");
-        System.out.println("操作77");
 
     }
 
