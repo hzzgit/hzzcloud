@@ -19,10 +19,12 @@ public class flatMapTest2 {
                 .collect(Collectors.toList());
 
         List<String> collect1 = collect.parallelStream().flatMap(p -> p.stream())
-                .distinct()
+
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
+        int sum = collect1.stream().mapToInt(Integer::parseInt).sum();
+        Integer collect2 = collect1.stream().collect(Collectors.summingInt(Integer::parseInt));
 
         System.out.println(1);
 

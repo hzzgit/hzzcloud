@@ -17,9 +17,19 @@ import lombok.NoArgsConstructor;
 public class MapVo {
     private Integer id;
 
+    private Integer sort;
+
     private String name;
 
     private Boolean validFlag;
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
     public Boolean getValidFlag() {
         return validFlag;
@@ -49,7 +59,9 @@ public class MapVo {
     public String toString() {
         return "MapVo{" +
                 "id=" + id +
+                ", sort=" + sort +
                 ", name='" + name + '\'' +
+                ", validFlag=" + validFlag +
                 '}';
     }
 }
