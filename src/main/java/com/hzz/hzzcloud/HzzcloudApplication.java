@@ -25,7 +25,7 @@ public class HzzcloudApplication {
      //   ConfigurableApplicationContext ctx =  SpringApplication.run(HzzcloudApplication.class, args);
 
 
-
+        System.out.println("分支1 的我加了一句话");
     }
 
     @LoadBalanced
