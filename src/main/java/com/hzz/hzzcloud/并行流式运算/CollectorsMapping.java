@@ -21,8 +21,6 @@ public class CollectorsMapping {
                 ));
         System.out.println();
 
-        System.out.println(1/0);
-
     }
 
     public static MapVo get(Integer a){
