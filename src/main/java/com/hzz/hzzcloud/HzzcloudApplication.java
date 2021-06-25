@@ -25,6 +25,7 @@ public class HzzcloudApplication {
      //   ConfigurableApplicationContext ctx =  SpringApplication.run(HzzcloudApplication.class, args);
 
         System.out.println("分支2操作了");
+        System.out.println("分支2操作了2");
 
 
     }
